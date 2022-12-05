@@ -10,7 +10,8 @@ const express = require('express');
 const app = express();
 
 // routes dependencies
-const userRoutes = require('./Routes/authRoute');
+const authRoutes = require('./Routes/authRoute');
+const userRoutes = require('./Routes/userRoute');
 // middleware dependencies
 const errorHandler = require('./Middleware/errorHandler');
 
@@ -19,11 +20,11 @@ app.use(express.json());
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
 //routes
+app.use('/api/v1/auth/', authRoutes);
 app.use('/api/v1/user/', userRoutes);
 
 // create a default route
 app.get('/', (req, res) => {
-    console.log(req.signedCookies);
     res.json({ msg: 'Default Route' });
 });
 // not found

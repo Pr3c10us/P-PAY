@@ -1,2 +1,0 @@
-const { UnauthorizedError } = require('../Errors')
-

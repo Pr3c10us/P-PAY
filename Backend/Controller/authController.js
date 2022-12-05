@@ -5,15 +5,23 @@ const { UnauthorizedError, BadRequestError } = require('../Errors');
 require('dotenv').config();
 
 const signup = async (req, res) => {
+    let { Password, Pin, Balance } = req.body;
+    if (Balance) {
+        throw new BadRequestError("Can't include Balance");
+    }
+    if (Pin.length !== 4) {
+        throw new BadRequestError('Pin length must be 4');
+    }
+    if (!Password || !Pin) {
+        throw new BadRequestError('Pin or Password has not been filled');
+    }
     // Hash password and pin
     let salt = bcrypt.genSaltSync(10);
-    req.body.Password = bcrypt.hashSync(req.body.Password, salt);
-    req.body.Pin = bcrypt.hashSync(req.body.Pin, salt);
+    req.body.Password = bcrypt.hashSync(Password, salt);
+    req.body.Pin = bcrypt.hashSync(Pin, salt);
 
     // Create Account
     const user = await User.create(req.body);
-
-    console.log('pass');
 
     // Create Payload
     const payload = {
@@ -35,18 +43,23 @@ const signup = async (req, res) => {
 };
 
 const login = async (req, res) => {
-    let { Username, Password } = req.body;
+    let { username, password } = req.body;
+
+    if (!username || !password) {
+        throw new BadRequestError('Please provide email and password');
+    }
     // Check if user exist
     const user = await User.findOne({
-        $or: [{ Username: Username }, { Email: Username }],
+        $or: [{ Username: username }, { Email: username }],
     });
     if (!user) {
         throw new BadRequestError('User does not exist');
     }
 
     // check if password is correct
-    const isPasswordCorrect = bcrypt.compareSync(Password, user.Password);
+    const isPasswordCorrect = bcrypt.compareSync(password, user.Password);
     if (!isPasswordCorrect) {
+        res.cookie('token', '', { expires: new Date(Date.now() + 1000) });
         throw new UnauthorizedError('Wrong Password');
     }
     // Create Payload

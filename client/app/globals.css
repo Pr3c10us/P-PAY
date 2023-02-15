@@ -1,0 +1,15 @@
+@import url('https://use.typekit.net/udn1uxz.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input:autofill {
+    box-shadow: 0 0 0px 1000px white inset;
+    background-color: transparent;
+}
+input:autofill:focus {
+    box-shadow: 0 0 0px 1000px white inset;
+    background-color: transparent;
+}
+/* make input of auto fill have text size of 1.25rem */

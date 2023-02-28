@@ -37,7 +37,7 @@ const verificationMail = (code, email, authenticationRoute) => {
         margin-bottom: 20px;
       }
       .action-button {
-        background-color: #00baf7;
+        background-color: #54428E;
         color: #fff;
         padding: 10px 20px;
         border-radius: 5px;
@@ -94,7 +94,7 @@ const verificationMail = (code, email, authenticationRoute) => {
         margin-bottom: 20px;
       }
       .action-button {
-        background-color: #00baf7;
+        background-color: #54428E;
         color: #fff;
         padding: 10px 20px;
         border-radius: 5px;

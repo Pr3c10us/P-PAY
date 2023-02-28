@@ -4,9 +4,10 @@ const bcrypt = require('bcryptjs');
 const emailClient = require('../azure/emailClient');
 const verificationMail = require('../utils/verificationMail');
 const jwt = require('jsonwebtoken');
+const sendEmail = require('../utils/sendEmail');
 
 const checkDuplicate = async (req, res) => {
-    const { email, phone } = req.query;
+    const { email, username } = req.query;
 
     if (email) {
         // check if email exist in db
@@ -15,20 +16,21 @@ const checkDuplicate = async (req, res) => {
         });
 
         if (exist) {
-            throw new BadRequestError('!!! Email already exists, Try another.');
+            throw new BadRequestError('Email already exists, Try another.');
         }
         return res.status(200).json({ msg: 'clear' });
     }
 
-    if (phone) {
-        // check if phone exist in db
+    if (username) {
+        // check if username exist in db
         const exist = await User.findOne({
-            phone,
+            username,
         });
+        console.log(username);
 
         if (exist) {
             throw new BadRequestError(
-                '!!! The phone number is already in use, try another.'
+                'The username is already taken, try another.'
             );
         }
         return res.status(200).json({ msg: 'clear' });
@@ -45,7 +47,6 @@ const signup = async (req, res) => {
 
     // hash password and pin
     req.body.password = await bcrypt.hash(req.body.password, 10);
-    req.body.pin = await bcrypt.hash(req.body.pin, 10);
 
     // Generate a random 6-digit verification code and add too body
     let code = Math.floor(Math.random() * 900000) + 100000;
@@ -76,19 +77,7 @@ const signup = async (req, res) => {
     };
 
     // send email
-    const response = await emailClient.send(emailMessage);
-    const messageId = response.messageId;
-    if (messageId === null) {
-        throw new Error();
-    }
-
-    const emailStatus = await emailClient.getSendStatus(messageId);
-
-    if (emailStatus.status !== 'Queued') {
-        throw new BadRequestError(
-            'verification code failed to send. Check email and Try again.'
-        );
-    }
+    await sendEmail(emailMessage);
 
     // create user
     await User.create(req.body);
@@ -147,18 +136,7 @@ const sendCode = async (req, res) => {
     };
 
     // send email
-    const response = await emailClient.send(emailMessage);
-    const messageId = response.messageId;
-    if (messageId === null) {
-        throw new Error();
-    }
-
-    const emailStatus = await emailClient.getSendStatus(messageId);
-    if (emailStatus.status !== 'Queued') {
-        throw new BadRequestError(
-            'otp send failed. Check email or provide a new one.'
-        );
-    }
+    await sendEmail(emailMessage);
 
     res.json({ msg: 'sent' });
 };
@@ -244,10 +222,17 @@ const login = async (req, res) => {
     });
 };
 
+const logout = async (req, res) => {
+    res.cookie('token', '', {
+        expires: new Date(Date.now() + 1000),
+    }).json({ msg: 'Successfully Logged Out!!!' });
+};
+
 module.exports = {
     checkDuplicate,
     signup,
     sendCode,
     verifyCode,
     login,
+    logout,
 };

@@ -15,7 +15,13 @@ module.exports = {
             },
             screens: {
                 xsm: '510px',
+                smd: '700px',
                 '2xsm': '300px',
+            },
+            colors: {
+                secondary: '#54428E',
+                primary: '#000000',
+                neutral: '#FDFFFC',
             },
         },
     },

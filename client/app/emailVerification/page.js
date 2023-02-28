@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Image from 'next/image';
@@ -10,6 +10,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { BsFillExclamationTriangleFill } from 'react-icons/bs';
 
 const EmailVerification = () => {
+    const ref = useRef();
     const [timeLeft, setTimeLeft] = useState(10);
 
     const router = useRouter();
@@ -27,7 +28,7 @@ const EmailVerification = () => {
                     `${process.env.NEXT_PUBLIC_API_URL}auth/verifyCode?email=${email}&code=${values.code}`
                 )
                 .then((response) => {
-                    return router.push('/dashboard');
+                    return router.push('/login');
                 })
                 .catch((error) => {
                     setTimeout(() => {
@@ -85,6 +86,7 @@ const EmailVerification = () => {
             setTimeLeft((prevTime) => prevTime - 1);
         }, 1000);
         handleEffect();
+        ref.current.focus();
         return () => clearInterval(interval);
     }, []);
 
@@ -101,20 +103,20 @@ const EmailVerification = () => {
     };
 
     return (
-        <main className="relative grid h-full grid-cols-1 gap-4 overflow-auto bg-gradient-to-r from-white to-blue-100 py-8 px-4 2xsm:px-8">
+        <main className="relative grid h-full grid-cols-1 gap-4 overflow-auto   py-8 px-4 2xsm:px-8">
             <form
                 onSubmit={formik.handleSubmit}
-                className="flex h-min w-full flex-col items-center justify-center place-self-center rounded-3xl
+                className="flex h-min w-full flex-col items-center justify-center place-self-center rounded-3xl border
             bg-white p-8 shadow-lg xsm:w-auto"
             >
-                <div className="mb-2 space-y-2">
+                <div className="mb-6 space-y-2">
                     <Link href="/" className="">
                         <Image
                             width="65"
                             height={28}
                             alt="ppay"
-                            src="./ppay.svg"
-                            className="inline-block h-min w-32 xsm:w-28"
+                            src="/ppay-icon.svg"
+                            className="inline-block h-min w-12 xsm:w-14"
                             priority
                         />
                     </Link>
@@ -131,17 +133,18 @@ const EmailVerification = () => {
                 <div className="h-full w-full">
                     <div className="relative flex items-center justify-center">
                         <input
+                            ref={ref}
                             className={`h-14 w-[80%] max-w-[243px] rounded-lg border bg-inherit px-2 py-2 text-center text-3xl tracking-widest transition duration-300 focus:border-2 xsm:text-4xl ${
                                 formik.errors.code
                                     ? 'border-red-500 focus:border-red-500 focus:outline-none'
-                                    : 'border-gray-300  focus:border-[#00b9f7] focus:outline-none'
+                                    : 'focus:border-secondary border-gray-300 focus:outline-none'
                             } `}
                             type="text"
                             onChange={formik.handleChange}
                             value={formik.values.code}
                             onBlur={formik.handleBlur}
                             name="code"
-                            autoComplete="one-time-code"
+                            autoComplete="off"
                             maxLength="6"
                         />
                     </div>
@@ -160,7 +163,7 @@ const EmailVerification = () => {
                     <button
                         disabled={formik.isSubmitting}
                         type="submit"
-                        className="flex h-14 w-full items-center justify-center rounded-lg bg-[#00BAF7] text-base text-white focus:outline-none"
+                        className="flex h-14 w-full items-center justify-center rounded-lg bg-secondary text-base text-white focus:outline-none"
                     >
                         {formik.isSubmitting ? (
                             <PulseLoader color="white" loading={true} />
@@ -172,14 +175,14 @@ const EmailVerification = () => {
                         <p>
                             Didn't receive code?{' '}
                             {timeLeft > 0 ? (
-                                <span className="text-[#00baf7]">
+                                <span className="text-secondary">
                                     {'wait ' + timeLeft + 's to resend'}
                                 </span>
                             ) : (
                                 <button
                                     disabled={formik.isSubmitting}
                                     onClick={handleResend}
-                                    className="text-[#00baf7]"
+                                    className="text-secondary"
                                 >
                                     Resend
                                 </button>

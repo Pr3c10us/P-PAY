@@ -9,13 +9,13 @@ export default function Home() {
     const [openMenu, setOpenMenu] = useState(false);
 
     return (
-        <main className="flex h-screen w-auto flex-col bg-gradient-to-r from-white to-blue-100 pb-4">
+        <main className="flex h-screen w-auto flex-col pb-4">
             <nav className="flex items-center justify-between py-4  px-6 sm:py-6  sm:px-8">
                 <div>
                     <Image
                         width="65"
                         height="28"
-                        src="./ppay.svg"
+                        src="/ppay.svg"
                         className="w-24"
                         alt="ppay"
                         priority
@@ -24,13 +24,13 @@ export default function Home() {
                 <div className="hidden w-full flex-1 items-center justify-center gap-6 sm:flex">
                     <Link
                         href="/support"
-                        className="pb-1 hover:pb-2 transition-all duration-300 hover:border-b-2 hover:text-[#00BAF7]"
+                        className="relative border-opacity-0 text-lg transition-all duration-300 after:absolute after:left-0 after:bottom-0 after:h-[1px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:border-opacity-100 hover:after:w-full"
                     >
                         Support me
                     </Link>
                     <Link
                         href="/technologies"
-                        className="pb-1 hover:pb-2 transition-all duration-300 hover:border-b-2 hover:text-[#00BAF7]"
+                        className="relative border-opacity-0 text-lg transition-all duration-300 after:absolute after:left-0 after:bottom-0 after:h-[1px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:border-opacity-100 hover:after:w-full"
                     >
                         Technologies
                     </Link>
@@ -38,15 +38,9 @@ export default function Home() {
                 <div className="hidden items-center justify-center gap-3 sm:flex">
                     <button
                         onClick={() => router.push('/login')}
-                        className="rounded-lg border-2 border-black bg-white  py-1.5 px-4 transition-all duration-300  hover:-translate-y-1 hover:scale-110"
+                        className="rounded-lg bg-secondary py-2 px-6 text-neutral transition-all duration-300"
                     >
                         Login
-                    </button>
-                    <button
-                        onClick={() => router.push('/signup')}
-                        className="rounded-lg bg-[#00BAF7] py-2 px-4 text-white transition-all duration-300 hover:-translate-y-1 hover:scale-110"
-                    >
-                        Signup
                     </button>
                 </div>
                 <button
@@ -86,13 +80,13 @@ export default function Home() {
                 <div className="flex w-full flex-col gap-2 text-xl">
                     <Link
                         href="/support"
-                        className="w-full rounded-lg py-2 px-2 transition-all duration-200 hover:bg-[#00b9f712]"
+                        className="w-full rounded-lg py-2 px-2 transition-all duration-200 hover:bg-secondary hover:bg-opacity-10"
                     >
                         Support me
                     </Link>
                     <Link
                         href="/technologies"
-                        className="w-full rounded-lg py-2 px-2 transition-all duration-200 hover:bg-[#00b9f712]"
+                        className="w-full rounded-lg py-2 px-2 transition-all duration-200 hover:bg-secondary hover:bg-opacity-10"
                     >
                         Technologies
                     </Link>
@@ -101,38 +95,41 @@ export default function Home() {
                 <div className="flex w-full items-center justify-center gap-4 text-xl">
                     <button
                         onClick={() => router.push('/login')}
-                        className="w-full rounded-lg bg-black py-2.5 px-3 text-white shadow-lg transition-all duration-300 "
+                        className="w-[80%] rounded-lg bg-secondary py-2.5 px-3 text-white transition-all duration-300 "
                     >
                         Login
                     </button>
-                    <button
-                        onClick={() => router.push('/signup')}
-                        className="w-full rounded-lg bg-[#00BAF7] py-2.5 px-3 text-white shadow-lg transition-all duration-300"
-                    >
-                        Signup
-                    </button>
                 </div>
             </section>
-            <section className="flex flex-1 flex-col items-center justify-center space-y-4 px-8 text-left sm:px-20 sm:text-center ">
-                <div>
-                    <h2 className="flex w-full flex-col text-4xl font-bold sm:text-5xl">
-                        <span>
-                            A <span className="text-[#00BAF7]">Simple</span>{' '}
-                            E-wallet
-                        </span>
-                        <span>for everyday transaction</span>
-                    </h2>
-                    <p className="text-lg sm:text-2xl">
-                        P-pay helps to send and receive money without
-                        unnecessary features and fees, cause am lazy.
-                    </p>
+            <section className="flex h-full flex-1 items-center px-8 text-left md:px-20 lg:pr-0 ">
+                <div className="flex flex-col space-y-4 text-center lg:text-left">
+                    <div>
+                        <h2 className="flex w-full flex-col text-4xl font-bold text-secondary sm:text-5xl">
+                            <span>A Simple E-wallet</span>
+                            <span>for everyday transaction</span>
+                        </h2>
+                        <p className="text-lg sm:text-2xl">
+                            P-pay helps to send and receive money without
+                            unnecessary features and fees
+                        </p>
+                    </div>
+                    <div className="w-full">
+                        <Link href="/signup">
+                            <button className="rounded-lg bg-secondary px-8 py-2 text-lg text-white shadow-xl transition-all duration-300 hover:-translate-y-1 hover:scale-110">
+                                Signup
+                            </button>
+                        </Link>
+                    </div>
                 </div>
-                <div className="w-full">
-                    <Link href="/signup">
-                        <button className="rounded-lg bg-[#00BAF7] px-8 py-2 text-lg text-white shadow-xl transition-all duration-300 hover:-translate-y-1 hover:scale-110">
-                            Get Started
-                        </button>
-                    </Link>
+                <div className="hidden h-full w-full items-center justify-center lg:flex">
+                    {/* <Image
+                        src="/wallet.jpg"
+                        width={5152}
+                        height={5152}
+                        alt="wallet"
+                        className="object-cover h-[500px]"
+                        priority
+                    ></Image> */}
                 </div>
             </section>
         </main>

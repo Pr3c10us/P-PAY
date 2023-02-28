@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
     },
-    phone: {
+    username: {
         type: String,
         unique: true,
     },
@@ -38,6 +38,14 @@ const userSchema = new mongoose.Schema({
     twoFactorVerified: {
         type: Boolean,
         default: false,
+    },
+    totalSpent: {
+        type: Number,
+        default: 0,
+    },
+    totalReceived: {
+        type: Number,
+        default: 0,
     },
 });
 

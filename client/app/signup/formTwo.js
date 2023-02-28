@@ -8,6 +8,7 @@ import { RxCross2 } from 'react-icons/rx';
 import { useRouter } from 'next/navigation';
 import { PulseLoader } from 'react-spinners';
 import { IoMdArrowRoundBack } from 'react-icons/io';
+import { BsFillExclamationTriangleFill } from 'react-icons/bs';
 
 const FormTwo = ({ setForm, setUser, user, form }) => {
     const [apiError, setApiError] = useState('');
@@ -25,7 +26,7 @@ const FormTwo = ({ setForm, setUser, user, form }) => {
 
     const formik = useFormik({
         initialValues: {
-            phone: user.phone || '',
+            username: user.username || '',
             day: day || '',
             month: month || '',
             year: year || '',
@@ -35,12 +36,12 @@ const FormTwo = ({ setForm, setUser, user, form }) => {
             try {
                 setIsSubmitting(true);
                 const dob = `${values.year}-${values.month}-${values.day}`;
-                const phone = values.phone;
-                setUser({ ...user, phone, dob });
+                const username = values.username.toLowerCase();
+                setUser({ ...user, username, dob });
                 await axios.get(
-                    `${process.env.NEXT_PUBLIC_API_URL}auth/check?phone=${phone}`
+                    `${process.env.NEXT_PUBLIC_API_URL}auth/check?username=${username}`
                 );
-                const userInfo = { ...user, phone, dob };
+                const userInfo = { ...user, username, dob };
                 const res = await axios.post(
                     `${process.env.NEXT_PUBLIC_API_URL}auth/signup`,
                     userInfo
@@ -53,10 +54,10 @@ const FormTwo = ({ setForm, setUser, user, form }) => {
                 if (error.response) {
                     const errorMsg = error.response.data.msg;
                     if (
-                        errorMsg.includes('Phone') ||
-                        errorMsg.includes('phone')
+                        errorMsg.includes('username') ||
+                        errorMsg.includes('username')
                     ) {
-                        setFieldError('phone', errorMsg);
+                        setFieldError('username', errorMsg);
                         setIsSubmitting(false);
                         return;
                     }
@@ -81,12 +82,8 @@ const FormTwo = ({ setForm, setUser, user, form }) => {
                 .matches(/^\d+$/, ' ')
                 .matches(/^19[0-9][0-9]$|^20[0-9][0-9]$/, ' ')
                 .required(' '),
-            phone: Yup.string(' ')
-                .matches(/^\d+$/, ' ')
-                .matches(
-                    /^0[7-9][0-1][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$/,
-                    ' '
-                )
+            username: Yup.string(' ')
+                .max(12, 'username gats be less than 12 characters')
                 .required(' '),
         }),
     });
@@ -101,15 +98,15 @@ const FormTwo = ({ setForm, setUser, user, form }) => {
                                   ? 'border-red-400  text-red-700'
                                   : 'border-black text-black'
                           } top-6 left-2 right-2 m-auto flex max-w-xl  items-center justify-between gap-4 rounded-xl border-2 px-4  py-3 transition-all  duration-500 sm:w-auto`
-                        : `fixed bg-white ${
+                        : `fixed z-50 bg-white ${
                               danger
                                   ? 'border-red-400  text-red-700'
                                   : 'border-black text-black'
-                          } top-6 left-2 right-2 m-auto flex max-w-xl -translate-y-[200px] items-center justify-between gap-4 rounded-xl border-2 px-4  py-3 transition-all  duration-500 sm:w-auto`
+                          } top-6 left-2 right-2 m-auto flex max-w-xl scale-0 items-center justify-between gap-4 rounded-xl border-2 px-4 py-3  opacity-0 transition-all  duration-500 sm:w-auto`
                 }
                 role="alert"
             >
-                <div className="flex items-center space-x-1 text-center text-sm xsm:text-base">
+                <div className="flex items-center space-x-1 text-left text-sm xsm:text-base">
                     {danger ? (
                         <strong className="text-lg font-bold xsm:text-xl">
                             Error!
@@ -119,7 +116,7 @@ const FormTwo = ({ setForm, setUser, user, form }) => {
                     )}
                     <span
                         className={`inline capitalize ${
-                            danger ? '' : 'text-lg'
+                            danger ? '' : 'text-base'
                         } `}
                     >
                         {apiError}
@@ -127,19 +124,21 @@ const FormTwo = ({ setForm, setUser, user, form }) => {
                 </div>
                 <RxCross2
                     onClick={() => setShowError(false)}
-                    className="cursor-pointer text-4xl text-black xsm:text-3xl"
+                    className={` aspect-square p-1 ${
+                        danger ? 'border-red-400' : 'border-black'
+                    }  cursor-pointer rounded-full border-2 bg-white text-4xl text-black xsm:text-3xl`}
                 />
             </div>
             <form
                 onSubmit={formik.handleSubmit}
-                className="relative flex h-min w-full flex-col place-self-center rounded-3xl
+                className="relative flex h-min w-full flex-col place-self-center rounded-3xl border
             bg-white py-16 px-8 shadow-md xsm:w-auto"
             >
                 <button
                     disabled={isSubmitting}
                     type="button"
                     onClick={() => setForm(1)}
-                    className="absolute top-4 left-4 flex rounded-full border border-gray-50 p-2 text-[#00BAF7] shadow-lg"
+                    className="absolute top-4 left-4 flex rounded-full border border-gray-50 p-2 text-secondary shadow-lg hover:scale-110"
                 >
                     <IoMdArrowRoundBack className="text-xl" />
                 </button>
@@ -149,7 +148,7 @@ const FormTwo = ({ setForm, setUser, user, form }) => {
                             width="65"
                             height={28}
                             alt="ppay"
-                            src="./ppay.svg"
+                            src="/ppay.svg"
                             className="inline-block h-min w-20 xsm:w-28"
                             priority
                         />
@@ -170,7 +169,7 @@ const FormTwo = ({ setForm, setUser, user, form }) => {
                                     className={`peer block h-10 w-full appearance-none rounded-lg border bg-transparent py-1 px-2  text-lg text-gray-900 transition duration-300 focus:border-2 focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white xsm:max-w-[150px] ${
                                         formik.touched.day && formik.errors.day
                                             ? 'border-red-500 focus:border-red-600  '
-                                            : 'focus:border-[#00baf7] '
+                                            : 'focus:border-secondary '
                                     } `}
                                     placeholder=" "
                                     autoComplete="off"
@@ -198,7 +197,7 @@ const FormTwo = ({ setForm, setUser, user, form }) => {
                                         formik.touched.month &&
                                         formik.errors.month
                                             ? 'border-red-500 focus:border-red-600  '
-                                            : 'focus:border-[#00baf7] '
+                                            : 'focus:border-secondary '
                                     } `}
                                     placeholder=" "
                                     autoComplete="off"
@@ -225,7 +224,7 @@ const FormTwo = ({ setForm, setUser, user, form }) => {
                                         formik.touched.year &&
                                         formik.errors.year
                                             ? 'border-red-500 focus:border-red-600  '
-                                            : 'focus:border-[#00baf7] '
+                                            : 'focus:border-secondary '
                                     } `}
                                     placeholder=" "
                                     autoComplete="off"
@@ -252,34 +251,45 @@ const FormTwo = ({ setForm, setUser, user, form }) => {
                         </p>
                     </div>
                     <div className="h-full w-full">
-                        <label htmlFor="phone" className={`block text-black `}>
-                            Phone number{' '}
-                            <span className="text-[12px] text-gray-400">
-                                ( +234 )
+                        <label
+                            htmlFor="username"
+                            className={`block text-black `}
+                        >
+                            Username
+                            <span className="ml-1 text-[12px] text-gray-400">
+                                (@)
                             </span>
                         </label>
                         <input
                             className={`h-10 w-full rounded-lg border px-2 py-1 focus:border-2 ${
-                                formik.touched.phone && formik.errors.phone
+                                formik.touched.username &&
+                                formik.errors.username
                                     ? 'border-red-500'
                                     : ''
-                            } bg-inherit text-xl transition duration-200 ${
-                                formik.touched.phone && formik.errors.phone
+                            } bg-inherit text-xl lowercase transition duration-200 ${
+                                formik.touched.username &&
+                                formik.errors.username
                                     ? 'focus:border-red-500'
-                                    : 'focus:border-[#00b9f7]'
+                                    : 'focus:border-secondary'
                             } transition duration-300 focus:outline-none`}
                             type="text"
                             onChange={formik.handleChange}
-                            value={formik.values.phone}
+                            value={formik.values.username}
                             onBlur={formik.handleBlur}
-                            name="phone"
-                            placeholder="0XXXXXXXXX"
-                            maxLength="11"
+                            name="username"
+                            maxLength="12"
                         />
-                        <p className="ml-1 mt-1 text-sm text-red-500">
-                            {formik.touched.phone && formik.errors.phone
-                                ? formik.errors.phone
-                                : ''}
+                        <p className="col-span-2 mt-1 ml-1 min-h-[2.2rem] w-full text-[0.7rem] font-semibold text-red-500 xsm:text-sm">
+                            {formik.touched.username &&
+                            formik.errors.username &&
+                            formik.errors.username !== ' ' ? (
+                                <span className="flex items-center justify-center gap-1">
+                                    <BsFillExclamationTriangleFill className="text-base 2xsm:text-sm" />
+                                    {`${formik.errors.username}`}
+                                </span>
+                            ) : (
+                                ''
+                            )}
                         </p>
                     </div>
                 </div>
@@ -287,7 +297,7 @@ const FormTwo = ({ setForm, setUser, user, form }) => {
                     <button
                         disabled={isSubmitting}
                         type="submit"
-                        className="ml-2 flex h-12 w-full max-w-sm items-center justify-center rounded-lg bg-[#00BAF7] px-4 py-1 text-sm text-white focus:outline-none xsm:px-6 xsm:py-2 xsm:text-lg"
+                        className="ml-2 flex h-12 w-full max-w-sm items-center justify-center rounded-lg bg-secondary px-4 py-1 text-sm text-white focus:outline-none xsm:px-6 xsm:py-2 xsm:text-lg"
                     >
                         {isSubmitting ? (
                             <PulseLoader color="white" />
@@ -297,23 +307,6 @@ const FormTwo = ({ setForm, setUser, user, form }) => {
                     </button>
                 </div>
             </form>
-            <div className="bottom-4 flex w-full items-center justify-center gap-2">
-                <button
-                    disabled={isSubmitting}
-                    type="button"
-                    onClick={() => setForm(1)}
-                    className={`h-4 w-4 rounded-full transition-colors duration-300  ${
-                        form === 1 ? 'bg-gray-300' : 'bg-white'
-                    }`}
-                ></button>
-                <button
-                    disabled={isSubmitting}
-                    type="button"
-                    className={`h-4 w-4 rounded-full transition-colors duration-300  ${
-                        form === 2 ? 'bg-gray-300' : 'bg-white'
-                    }`}
-                ></button>
-            </div>
         </>
     );
 };

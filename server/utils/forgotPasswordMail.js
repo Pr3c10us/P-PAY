@@ -36,7 +36,7 @@ const forgotPasswordMail = (token, name) => {
         margin-bottom: 20px;
       }
       .action-button {
-        background-color: #00baf7;
+        background-color: #54428E;
         color: #fff;
         padding: 10px 20px;
         border-radius: 5px;
@@ -46,7 +46,7 @@ const forgotPasswordMail = (token, name) => {
       }
       span {
        font-size: 24px;
-        color: #00baf7; 
+        color: #54428E; 
       }
     </style>
   </head>

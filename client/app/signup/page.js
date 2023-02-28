@@ -10,20 +10,29 @@ const page = () => {
         lastname: '',
         email: '',
         password: '',
-        phone: '',
+        username: '',
         dob: '',
         pin: '',
     });
 
     return (
-        <main className="relative grid gap-4 h-full grid-cols-1 overflow-auto bg-gradient-to-r from-white to-blue-100 py-8 px-4 2xsm:px-8">
+        <main className="relative grid h-full grid-cols-1 gap-4 overflow-auto   py-8 px-4 2xsm:px-8">
             {form === 1 && (
-                <FormOne setForm={setForm} setUser={setUser} user={user} form={form} />
+                <FormOne
+                    setForm={setForm}
+                    setUser={setUser}
+                    user={user}
+                    form={form}
+                />
             )}
             {form === 2 && (
-                <FormTwo setForm={setForm} setUser={setUser} user={user} form={form} />
+                <FormTwo
+                    setForm={setForm}
+                    setUser={setUser}
+                    user={user}
+                    form={form}
+                />
             )}
-           
         </main>
     );
 };

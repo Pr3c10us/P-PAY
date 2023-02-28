@@ -5,7 +5,7 @@ import { IoMdArrowRoundBack } from 'react-icons/io';
 import { GrMail } from 'react-icons/gr';
 import axios from 'axios';
 
-const FormTwo = ({ email, setForm }) => {
+const FormThree = ({ email, setForm }) => {
     const [timeLeft, setTimeLeft] = useState(60);
 
     useEffect(() => {
@@ -32,11 +32,11 @@ const FormTwo = ({ email, setForm }) => {
     };
     return (
         <div
-            className="flex h-min w-full flex-col items-center justify-center place-self-center rounded-3xl
+            className="flex h-min w-full flex-col items-center justify-center place-self-center rounded-3xl border
             bg-white p-8 shadow-lg xsm:w-auto"
         >
             <div className="mb-2 space-y-2">
-                <GrMail className="inline-block h-min w-12 text-[#00baf7]" />
+                <GrMail className="inline-block h-min w-12 text-secondary" />
             </div>
             <div className="mb-6 flex flex-col items-center justify-center space-y-2 text-center">
                 <div className="text-3xl">
@@ -50,13 +50,13 @@ const FormTwo = ({ email, setForm }) => {
                 <p>
                     Didn't receive Link?{' '}
                     {timeLeft > 0 ? (
-                        <span className="text-[#00baf7]">
+                        <span className="text-secondary">
                             {'wait ' + timeLeft + 's to resend'}
                         </span>
                     ) : (
                         <button
                             onClick={handleResend}
-                            className="text-[#00baf7]"
+                            className="text-secondary"
                         >
                             Resend
                         </button>
@@ -78,4 +78,4 @@ const FormTwo = ({ email, setForm }) => {
     );
 };
 
-export default FormTwo;
+export default FormThree;

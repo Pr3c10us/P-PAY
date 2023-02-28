@@ -123,6 +123,7 @@ const resetPassword = async (req, res) => {
             );
         }
 
+        // save user password
         user.password = password;
         await user.save();
 
@@ -138,9 +139,45 @@ const resetPassword = async (req, res) => {
     }
 };
 
+const pin = async (req, res) => {
+    let { pin, isNew } = req.query;
+
+    const { id } = req.user;
+
+    if (!pin) {
+        throw new BadRequestError('Provide pin.');
+    }
+
+    const user = await User.findById(id);
+    if (isNew === 'yes') {
+        if (user.pin) {
+            throw new BadRequestError('You Already have a pin.');
+        }
+    }
+
+    pin = await bcrypt.hash(pin, 10);
+
+    user.pin = pin;
+    await user.save();
+
+    res.json({ msg: 'Pin saved' });
+};
+
+const userDetails = async (req, res) => {
+    const { id } = req.user;
+
+    // get user info
+    const user = await User.findById(id, '-otp -password -_id -__v -dob');
+
+    // return user details
+    res.json({ user });
+};
+
 module.exports = {
     emailVerified,
     twoFactorVerified,
     forgotPassword,
     resetPassword,
+    pin,
+    userDetails,
 };

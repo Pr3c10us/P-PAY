@@ -8,7 +8,7 @@ import Image from 'next/image';
 const FormTwo = () => {
     return (
         <div
-            className="flex h-min w-full flex-col items-center justify-center place-self-center rounded-3xl
+            className="flex h-min w-full flex-col items-center justify-center place-self-center rounded-3xl border
             bg-white p-8 shadow-lg xsm:w-auto"
         >
             <div className="mb-2 space-y-2">
@@ -17,17 +17,17 @@ const FormTwo = () => {
                         width="65"
                         height={28}
                         alt="ppay"
-                        src="./ppay.svg"
-                        className="inline-block h-min w-28 xsm:w-32"
+                        src="/ppay-icon.svg"
+                        className="inline-block h-min w-8 xsm:w-10"
                         priority
                     />
-                </Link>{' '}
+                </Link>
             </div>
             <div className="mb-6 flex flex-col items-center justify-center space-y-2 text-center">
                 <div className="text-3xl">
                     <p>Password Reset Complete</p>
                 </div>
-                <div className="flex flex-col max-w-lg text-sm font-medium text-gray-400 2xsm:text-sm">
+                <div className="flex max-w-lg flex-col text-sm font-medium text-gray-400 2xsm:text-sm">
                     <p>
                         Your password has been successfully reset. You can now
                         log in to your account using your new password.{' '}
@@ -39,7 +39,7 @@ const FormTwo = () => {
                 <div className="flex gap-1 text-center text-base">
                     <Link
                         href="/login"
-                        className="flex items-center justify-center gap-1 text-white p-3 rounded-xl bg-[#00baf7] hover:-translate-y-1 transition-all duration-200 shadow-xl"
+                        className="flex items-center justify-center gap-1 rounded-xl bg-secondary p-3 text-white shadow-xl transition-all duration-200 hover:-translate-y-1"
                     >
                         <IoMdArrowRoundBack className="text-base" />
                         Go to Login

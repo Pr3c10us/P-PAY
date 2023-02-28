@@ -56,10 +56,10 @@ const Login = () => {
     });
 
     return (
-        <main className="relative grid h-full grid-cols-1 gap-4 overflow-auto bg-gradient-to-r from-white to-blue-100 px-4 py-8 2xsm:px-8">
+        <main className="relative grid h-full grid-cols-1 gap-4 overflow-auto   px-4 py-8 2xsm:px-8">
             <form
                 onSubmit={formik.handleSubmit}
-                className="flex h-min w-full flex-col place-self-center rounded-3xl
+                className="flex h-min w-full flex-col place-self-center rounded-3xl border
             bg-white p-10  shadow-lg xsm:w-auto xsm:px-20"
             >
                 <div className="fa-solid fa-user flex w-full items-center justify-center">
@@ -68,8 +68,8 @@ const Login = () => {
                             width="65"
                             height={28}
                             alt="ppay"
-                            src="./ppay.svg"
-                            className="inline-block h-min w-28 xsm:w-32"
+                            src="/ppay-icon.svg"
+                            className="inline-block h-min w-12 xsm:w-14"
                             priority
                         />
                     </Link>
@@ -90,7 +90,7 @@ const Login = () => {
                             className={`peer block h-12 w-full appearance-none rounded-lg border bg-transparent py-1 px-2 text-xl  text-gray-900 transition duration-300 focus:border-2 focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white xsm:w-80 ${
                                 formik.touched.email && formik.errors.email
                                     ? 'border-red-500 focus:border-red-600  '
-                                    : 'focus:border-[#00baf7] '
+                                    : 'focus:border-secondary '
                             } `}
                             placeholder=" "
                             autoComplete="email"
@@ -113,7 +113,7 @@ const Login = () => {
                                 formik.touched.password &&
                                 formik.errors.password
                                     ? 'border-red-500 focus:border-red-600  '
-                                    : 'focus:border-[#00baf7] '
+                                    : 'focus:border-secondary '
                             } `}
                             placeholder=" "
                             autoComplete="current-password"
@@ -153,7 +153,7 @@ const Login = () => {
                     <button
                         disabled={formik.isSubmitting}
                         type="submit"
-                        className="h-12 w-full max-w-sm  rounded-lg bg-[#00BAF7] px-4 py-1 text-lg text-white focus:outline-none"
+                        className="h-12 w-full  max-w-sm rounded-lg bg-secondary px-4 py-1 text-lg text-white focus:outline-none"
                     >
                         {formik.isSubmitting ? (
                             <PulseLoader color="white" loading={true} />
@@ -171,7 +171,7 @@ const Login = () => {
                         <span>Don't have an account ?</span>
                         <Link
                             href="/signup"
-                            className="ml-1 inline-block h-min text-[#00BAF7]"
+                            className="ml-1 inline-block h-min text-secondary"
                         >
                             Sign up
                         </Link>

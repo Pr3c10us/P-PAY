@@ -12,4 +12,12 @@ input:autofill:focus {
     box-shadow: 0 0 0px 1000px white inset;
     background-color: transparent;
 }
+
+canvas {
+    border-left: none;
+}
+
+.wallet {
+    clip-path: polygon(100% 0%, 30% 0%, 0% 100%, 100% 100%);
+}
 /* make input of auto fill have text size of 1.25rem */

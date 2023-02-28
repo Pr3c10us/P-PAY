@@ -8,7 +8,7 @@ export default function RootLayout({ children }) {
         head.js. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
             <head />
-            <body className="h-full font-bai">{children}</body>
+            <body className="h-full bg-neutral font-bai">{children}</body>
         </html>
     );
 }

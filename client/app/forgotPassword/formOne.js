@@ -44,7 +44,7 @@ const FormOne = ({ setEmail, setForm }) => {
     return (
         <form
             onSubmit={formik.handleSubmit}
-            className="flex h-min w-full flex-col items-center justify-center place-self-center rounded-3xl
+            className="flex h-min w-full flex-col items-center justify-center place-self-center rounded-3xl border
             bg-white p-8 shadow-lg xsm:w-auto"
         >
             <div className="mb-2 space-y-2">
@@ -53,14 +53,14 @@ const FormOne = ({ setEmail, setForm }) => {
                         width="65"
                         height={28}
                         alt="ppay"
-                        src="./ppay.svg"
-                        className="inline-block h-min w-32 xsm:w-28"
+                        src="/ppay-icon.svg"
+                        className="inline-block h-min w-10 xsm:w-12"
                         priority
                     />
                 </Link>
             </div>
             <div className="mb-6 flex flex-col items-center justify-center space-y-2 text-center">
-                <div className="text-3xl mb-4">
+                <div className="mb-4 text-3xl">
                     <p>Reset Password</p>
                 </div>
                 <div className="flex max-w-[400px] flex-col text-[0.75rem] font-medium text-gray-400 2xsm:text-sm">
@@ -76,7 +76,7 @@ const FormOne = ({ setEmail, setForm }) => {
                         className={`h-12 w-[90%] max-w-[350px] rounded-lg border bg-inherit px-2 py-2 text-xl transition duration-300 focus:border-2 ${
                             formik.errors.email
                                 ? 'border-red-500 focus:border-red-500 focus:outline-none'
-                                : 'border-gray-300  focus:border-[#00b9f7] focus:outline-none'
+                                : 'border-gray-300 focus:border-secondary focus:outline-none'
                         } `}
                         type="text"
                         onChange={formik.handleChange}
@@ -102,7 +102,7 @@ const FormOne = ({ setEmail, setForm }) => {
                 <button
                     disabled={formik.isSubmitting}
                     type="submit"
-                    className="flex h-12 w-full items-center justify-center rounded-lg bg-[#00BAF7] text-base text-white focus:outline-none"
+                    className="flex h-12 w-full items-center justify-center rounded-lg bg-secondary text-base text-white focus:outline-none"
                 >
                     {formik.isSubmitting ? (
                         <PulseLoader color="white" loading={true} />

@@ -20,7 +20,8 @@ app.use(express.json());
 
 // home route
 app.get('/', (req, res) => {
-    res.json({ msg: 'Home route' });
+    console.log(req.cookies);
+    res.json('hi');
 });
 
 // authentication routes
@@ -28,8 +29,12 @@ const authentication = require('./routers/authentication');
 app.use('/api/auth', authentication);
 
 // user routes
-const userRoute = require('./routers/user');
-app.use('/api/user', userRoute);
+const user = require('./routers/user');
+app.use('/api/user', user);
+
+// transfer routes
+const transfer = require('./routers/transfer');
+app.use('/api/transfer', transfer);
 
 // Route not found
 app.use((req, res) => {

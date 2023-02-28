@@ -1,13 +1,20 @@
 'use client';
 import { DotLoader } from 'react-spinners';
+import Image from 'next/image';
 
 export default function App() {
     return (
-        <main className="relative grid h-full grid-cols-1 gap-4 overflow-auto bg-gradient-to-r from-white to-blue-100 py-8 px-4 2xsm:px-8">
-            <form
-                className="flex w-auto animate-bounce flex-col items-center justify-center place-self-center rounded-full
-            bg-white p-8 shadow-lg"
-            ></form>
+        <main className="relative grid h-full grid-cols-1 gap-4 overflow-auto   py-8 px-4 2xsm:px-8">
+            <div className="flex h-full w-full items-center justify-center">
+                <Image
+                    priority
+                    src="/ppay-icon-loading.svg"
+                    width={100}
+                    height={100}
+                    alt="p-pay"
+                    className="animate-pulse"
+                ></Image>
+            </div>
         </main>
     );
 }

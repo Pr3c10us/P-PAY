@@ -46,12 +46,12 @@ const FormOne = ({ token, setForm, router }) => {
             password: Yup.string()
                 .matches(
                     /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1}).*$/,
-                    'use 8+ chars, mix of letters, numbers & symbols.'
+                    'use 8+ chars, mix of letters, numbers & symbols'
                 )
-                .required('Fill all field.'),
+                .required('Fill all field'),
             confirmPassword: Yup.string()
-                .oneOf([Yup.ref('password'), null], 'Passwords do not match.')
-                .required('Fill all field.'),
+                .oneOf([Yup.ref('password'), null], 'Passwords do not match')
+                .required('Fill all field'),
         }),
     });
 

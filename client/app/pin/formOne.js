@@ -11,7 +11,7 @@ const FormOne = ({ setForm, pin, setPin }) => {
 
     const handleContinue = () => {
         if (!pin) {
-            return setError('Provide 4 digits pin.');
+            return setError('Provide 4 digits pin');
         }
         setForm(2);
         setError('');

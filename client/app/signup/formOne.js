@@ -56,11 +56,11 @@ const FormOne = ({ setForm, setUser, user, form }) => {
             password: Yup.string()
                 .matches(
                     /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1}).*$/,
-                    'use 8+ chars, mix of letters, numbers & symbols.'
+                    'use 8+ chars, mix of letters, numbers & symbols'
                 )
                 .required(' '),
             confirmPassword: Yup.string()
-                .oneOf([Yup.ref('password'), null], 'Passwords do not match.')
+                .oneOf([Yup.ref('password'), null], 'Passwords do not match')
                 .required(' '),
         }),
     });

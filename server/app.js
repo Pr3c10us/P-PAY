@@ -44,6 +44,22 @@ app.use((req, res) => {
 const errorHandler = require('./middleware/errorHandler');
 app.use(errorHandler);
 
+const rabbitChannel = require('./rabbitMq/channel');
+const completeTransfer = require('./transfer/transfer');
+const transferQueue = async () => {
+    const { channel, connection } = await rabbitChannel();
+    channel.prefetch(1);
+    channel.consume(
+        'Transfer',
+        async (msg) => {
+            const data = JSON.parse(msg.content);
+            await completeTransfer(data, channel, msg);
+        },
+        { noAck: false }
+    );
+};
+transferQueue();
+
 // Server and connect to database
 const port = process.env.PORT || 5000;
 const serve = async () => {

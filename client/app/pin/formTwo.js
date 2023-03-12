@@ -25,7 +25,7 @@ const FormTwo = ({ pin, form, setForm, setPin }) => {
         setConfirmError('');
         setIsSubmitting(true);
         if (confirmPin !== pin) {
-            setConfirmError('Pin does not match.');
+            setConfirmError('Pin does not match');
             setIsSubmitting(false);
             return;
         }

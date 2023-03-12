@@ -45,13 +45,13 @@ const EmailVerification = () => {
             code: Yup.string('Please enter a valid 6 digits verification code')
                 .matches(
                     /^\d+$/,
-                    'Please enter a valid 6 digits verification code.'
+                    'Please enter a valid 6 digits verification code'
                 )
                 .matches(
                     /^[0-9][0-9][0-9][0-9][0-9][0-9]$/,
-                    'Please enter a valid 6 digits verification code.'
+                    'Please enter a valid 6 digits verification code'
                 )
-                .required('Please provide the verification code.'),
+                .required('Please provide the verification code'),
         }),
     });
 
@@ -135,9 +135,9 @@ const EmailVerification = () => {
                         <input
                             ref={ref}
                             className={`h-14 w-[80%] max-w-[243px] rounded-lg border bg-inherit px-2 py-2 text-center text-3xl tracking-widest transition duration-300 focus:border-2 xsm:text-4xl ${
-                                formik.errors.code
+                                formik.errors.code && formik.touched.code
                                     ? 'border-red-500 focus:border-red-500 focus:outline-none'
-                                    : 'focus:border-secondary border-gray-300 focus:outline-none'
+                                    : 'border-gray-300 focus:border-secondary focus:outline-none'
                             } `}
                             type="text"
                             onChange={formik.handleChange}
@@ -149,7 +149,7 @@ const EmailVerification = () => {
                         />
                     </div>
                     <p className="flex min-h-[2rem] items-center justify-center text-center text-sm text-red-500">
-                        {formik.errors.code ? (
+                        {formik.errors.code && formik.touched.code ? (
                             <span className="flex items-center gap-1">
                                 <BsFillExclamationTriangleFill />{' '}
                                 {formik.errors.code}

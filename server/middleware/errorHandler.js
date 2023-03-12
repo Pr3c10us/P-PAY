@@ -18,7 +18,7 @@ const errHandler = async (error, req, res, next) => {
     }
     if (error.code === 'MessageNotFound' && error.name === 'RestError') {
         return res.status(404).json({
-            msg: 'Failed to send otp. Recheck email provided and try again.',
+            msg: 'Failed to send otp. Recheck email provided and try again',
         });
     }
     return res.status(500).json({ msg: 'Internal Server Error' });

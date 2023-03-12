@@ -37,8 +37,8 @@ const FormOne = ({ setEmail, setForm }) => {
 
         validationSchema: Yup.object({
             email: Yup.string()
-                .email('Provide a valid email address.')
-                .required('Provide a valid email address.'),
+                .email('Provide a valid email address')
+                .required('Provide a valid email address'),
         }),
     });
     return (
@@ -74,7 +74,7 @@ const FormOne = ({ setEmail, setForm }) => {
                 <div className="relative flex items-center justify-center">
                     <input
                         className={`h-12 w-[90%] max-w-[350px] rounded-lg border bg-inherit px-2 py-2 text-xl transition duration-300 focus:border-2 ${
-                            formik.errors.email
+                            formik.errors.email && formik.touched.email
                                 ? 'border-red-500 focus:border-red-500 focus:outline-none'
                                 : 'border-gray-300 focus:border-secondary focus:outline-none'
                         } `}
@@ -88,7 +88,7 @@ const FormOne = ({ setEmail, setForm }) => {
                     />
                 </div>
                 <p className="flex min-h-[2rem] items-center justify-center text-center text-[0.75rem] text-red-500 2xsm:text-sm">
-                    {formik.errors.email ? (
+                    {formik.errors.email && formik.touched.email ? (
                         <span className="flex items-center gap-1">
                             <BsFillExclamationTriangleFill />{' '}
                             {formik.errors.email}

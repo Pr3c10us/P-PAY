@@ -46,7 +46,7 @@ const forgotPassword = async (req, res) => {
 
     // check if email is provided
     if (!email) {
-        throw new BadRequestError('Provide Email address.');
+        throw new BadRequestError('Provide Email address');
     }
 
     // get user info
@@ -91,12 +91,12 @@ const forgotPassword = async (req, res) => {
 
     if (emailStatus.status !== 'Queued') {
         throw new BadRequestError(
-            'verification code failed to send. Check email and Try again.'
+            'verification code failed to send. Check email and Try again'
         );
     }
 
     res.json({
-        msg: 'An email containing a link to reset your password has been sent to your mail.',
+        msg: 'An email containing a link to reset your password has been sent to your mail',
     });
 };
 
@@ -127,13 +127,13 @@ const resetPassword = async (req, res) => {
         user.password = password;
         await user.save();
 
-        res.json({ msg: 'Password reset Successful.' });
+        res.json({ msg: 'Password reset Successful' });
     } catch (error) {
         if (error.name === 'TokenExpiredError') {
-            throw new UnAuthorizedError('This link has expired try again.');
+            throw new UnAuthorizedError('This link has expired try again');
         }
         if (error.name === 'JsonWebTokenError') {
-            throw new UnAuthorizedError('Unauthorized to perform action.');
+            throw new UnAuthorizedError('Unauthorized to perform action');
         }
         throw new Error();
     }
@@ -145,13 +145,13 @@ const pin = async (req, res) => {
     const { id } = req.user;
 
     if (!pin) {
-        throw new BadRequestError('Provide pin.');
+        throw new BadRequestError('Provide pin');
     }
 
     const user = await User.findById(id);
     if (isNew === 'yes') {
         if (user.pin) {
-            throw new BadRequestError('You Already have a pin.');
+            throw new BadRequestError('You Already have a pin');
         }
     }
 
@@ -173,6 +173,40 @@ const userDetails = async (req, res) => {
     res.json({ user });
 };
 
+const getUser = async (req, res) => {
+    const { username } = req.params;
+
+    // get user info
+    const user = await User.findOne(
+        { username },
+        'firstname lastname username -_id'
+    );
+
+    // check if user exist
+    if (!user) {
+        throw new NotFoundError('Account with this username does not exist');
+    }
+
+    // return user details
+    res.json({ user });
+};
+
+const checkPin = async (req, res) => {
+    const { pin } = req.query;
+
+    const { id } = req.user;
+
+    const user = await User.findById(id);
+
+    const isMatch = await bcrypt.compareSync(pin, user.pin);
+
+    if (!isMatch) {
+        throw new BadRequestError('You have entered a wrong pin');
+    }
+
+    res.json({ msg: 'Pin is correct' });
+};
+
 module.exports = {
     emailVerified,
     twoFactorVerified,
@@ -180,4 +214,6 @@ module.exports = {
     resetPassword,
     pin,
     userDetails,
+    getUser,
+    checkPin,
 };

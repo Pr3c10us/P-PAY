@@ -4,15 +4,15 @@ const transactionSchema = new mongoose.Schema(
     {
         sender: {
             type: String,
-            required: [true, 'Provide sender username.'],
+            required: [true, 'Provide sender username'],
         },
         receiver: {
             type: String,
-            required: [true, 'Provide receiver username.'],
+            required: [true, 'Provide receiver username'],
         },
         amount: {
             type: Number,
-            required: [true, 'Provide amount sent.'],
+            required: [true, 'Provide amount sent'],
         },
         status: {
             type: String,
@@ -24,7 +24,7 @@ const transactionSchema = new mongoose.Schema(
         receiverNewBalance: {
             type: Number,
         },
-        description: {
+        fullName: {
             type: String,
         },
     },

@@ -5,6 +5,8 @@ const {
     resetPassword,
     pin,
     userDetails,
+    getUser,
+    checkPin,
 } = require('../controller/user');
 const authorize = require('../middleware/authorization');
 
@@ -16,5 +18,7 @@ router.route('/twoFactorVerified').get(twoFactorVerified);
 router.route('/forgotPassword').get(forgotPassword);
 router.route('/resetPassword').post(resetPassword);
 router.route('/pin').put(authorize, pin);
+router.route('/checkPin').get(authorize, checkPin);
+router.route('/:username').get(getUser);
 
 module.exports = router;

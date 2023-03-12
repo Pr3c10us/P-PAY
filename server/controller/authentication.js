@@ -16,7 +16,7 @@ const checkDuplicate = async (req, res) => {
         });
 
         if (exist) {
-            throw new BadRequestError('Email already exists, Try another.');
+            throw new BadRequestError('Email already exists, Try another');
         }
         return res.status(200).json({ msg: 'clear' });
     }
@@ -30,7 +30,7 @@ const checkDuplicate = async (req, res) => {
 
         if (exist) {
             throw new BadRequestError(
-                'The username is already taken, try another.'
+                'The username is already taken, try another'
             );
         }
         return res.status(200).json({ msg: 'clear' });
@@ -83,7 +83,7 @@ const signup = async (req, res) => {
     await User.create(req.body);
 
     res.status(200).json({
-        msg: 'Created.',
+        msg: 'Created',
     });
 };
 
@@ -92,10 +92,10 @@ const sendCode = async (req, res) => {
     const { email, resend, authRoute } = req.query;
     // check if email is provided
     if (!email) {
-        throw new BadRequestError('Please provide a valid email address.');
+        throw new BadRequestError('Please provide a valid email address');
     }
     if (!authRoute) {
-        throw new BadRequestError('Please provide a valid authRoute.');
+        throw new BadRequestError('Please provide a valid authRoute');
     }
 
     // check if user exist
@@ -104,7 +104,7 @@ const sendCode = async (req, res) => {
         throw new NotFoundError(`User with this email address does not exist.`);
     }
     if (user.otp[0] && (resend == 'no' || !resend)) {
-        return res.json({ msg: 'Sent already.' });
+        return res.json({ msg: 'Sent already' });
     }
 
     // Generate a random 6-digit verification code and add too body
@@ -147,7 +147,7 @@ const verifyCode = async (req, res) => {
     // check if they provided all values
     if (!email || !code) {
         throw new BadRequestError(
-            'Please provide a valid email address and otp code.'
+            'Please provide a valid email address and otp code'
         );
     }
 
@@ -160,11 +160,11 @@ const verifyCode = async (req, res) => {
 
     // Check if the code is correct
     if (code !== user.otp[0]) {
-        throw new BadRequestError('The code provided is incorrect.');
+        throw new BadRequestError('The code provided is incorrect');
     }
     // Check if the code has expired
     if (Date.now() > user.otp[1]) {
-        throw new BadRequestError('Code has expired, Request a new one.');
+        throw new BadRequestError('Code has expired, Request a new one');
     }
 
     // if email is unverified change to verified
@@ -179,7 +179,7 @@ const verifyCode = async (req, res) => {
     await user.save();
 
     res.json({
-        msg: 'The code you entered is correct.',
+        msg: 'The code you entered is correct',
     });
 };
 
@@ -187,7 +187,7 @@ const login = async (req, res) => {
     const { email, password } = req.body;
     // Check if email and password are provided
     if (!email || !password) {
-        throw new BadRequestError('Please provide your email and password.');
+        throw new BadRequestError('Please provide your email and password');
     }
 
     // get user info of provided email
@@ -195,13 +195,13 @@ const login = async (req, res) => {
 
     // check if user exist
     if (!user) {
-        throw new NotFoundError('User with email address does not exist.');
+        throw new NotFoundError('User with email address does not exist');
     }
 
     // check if password match
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-        throw new BadRequestError('The password you entered is incorrect.');
+        throw new BadRequestError('The password you entered is incorrect');
     }
 
     // Make twoFactorVerified false
@@ -218,7 +218,7 @@ const login = async (req, res) => {
         maxAge: 1000 * 60 * 60 * 24,
         httpOnly: false,
     }).json({
-        msg: 'Login Successful.',
+        msg: 'Login Successful',
     });
 };
 

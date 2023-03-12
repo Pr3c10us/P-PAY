@@ -16,12 +16,21 @@ module.exports = {
             screens: {
                 xsm: '510px',
                 smd: '700px',
-                '2xsm': '300px',
+                '2xsm': '365px',
             },
             colors: {
                 secondary: '#54428E',
                 primary: '#000000',
                 neutral: '#FDFFFC',
+            },
+            keyframes: {
+                wiggle: {
+                    '0%, 100%': { transform: 'scale(100%)' },
+                    '50%': { transform: 'scale(0%)' },
+                },
+            },
+            animation: {
+                wiggle: 'wiggle 2s ease-in-out infinite',
             },
         },
     },

@@ -6,6 +6,8 @@ import TotalBalanceBarChart from './utils/totalBalanceChart';
 import MidTotal from './midTotal';
 import Image from 'next/image';
 import Transactions from './utils/transactions';
+import Link from 'next/link';
+import { BsArrowRightShort } from 'react-icons/bs';
 
 const Dashboard = () => {
     const [user, setUser] = useState({});
@@ -57,7 +59,18 @@ const Dashboard = () => {
                     <TotalBalanceBarChart />
                 </article>
                 <article className="flex h-full w-full flex-col space-y-2 px-2 xsm:px-12 xl:hidden">
-                    <h1 className="text-lg underline">Recent Activities</h1>
+                    <div className="flex items-center justify-between">
+                        <h1 className="text-lg underline">Recent Activities</h1>
+                        {transactions.length >= 5 && (
+                            <Link
+                                href="/dashboard/transactions"
+                                className="relative flex w-28 items-center justify-center gap-1 border-opacity-0 text-sm font-semibold text-secondary transition-all duration-300 hover:border-opacity-100"
+                            >
+                                {' '}
+                                See more
+                            </Link>
+                        )}
+                    </div>
                     <Transactions
                         transactions={transactions}
                         user={user}
@@ -66,9 +79,9 @@ const Dashboard = () => {
                 </article>
             </section>
             <section className={`hidden flex-col py-4 xl:flex`}>
-                <div className={`flex h-full w-full px-4`}>
+                <div className={`flex w-full`}>
                     <Image
-                        src="/undraw-card1.svg"
+                        src="/undraw-card4.svg"
                         width={807}
                         height={677}
                         alt="card"
@@ -78,7 +91,20 @@ const Dashboard = () => {
                 </div>
                 <div className={`h-full w-full`}>
                     <article className="flex h-full w-full flex-col space-y-2 px-2">
-                        <h1 className="text-lg underline">Recent Activities</h1>
+                        <div className="flex items-center justify-between">
+                            <h1 className="text-lg underline">
+                                Recent Activities
+                            </h1>
+                            {transactions.length >= 5 && (
+                                <Link
+                                    href="/dashboard/transactions"
+                                    className="relative flex w-28 items-center justify-center gap-1 border-opacity-0 text-sm font-semibold text-secondary transition-all duration-300 hover:border-opacity-100"
+                                >
+                                    {' '}
+                                    See more
+                                </Link>
+                            )}
+                        </div>
                         <Transactions
                             transactions={transactions}
                             user={user}

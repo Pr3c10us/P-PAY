@@ -147,6 +147,7 @@ const TotalBalanceBarChart = () => {
                 reverse: true,
             },
             y: {
+                min: 50,
                 border: { dash: [10, 4] },
 
                 ticks: {

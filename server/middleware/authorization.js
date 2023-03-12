@@ -7,20 +7,20 @@ const authorize = async (req, res, next) => {
     const { token } = req.signedCookies;
 
     if (!token) {
-        throw new UnAuthorizedError('Log in.');
+        throw new UnAuthorizedError('Log in');
     }
 
     try {
         const { id } = await jwt.verify(token, process.env.JWT_TOKEN);
         const user = await User.findById(id);
         if (!user) {
-            throw new NotFoundError('user does not exist.');
+            throw new NotFoundError('user does not exist');
         }
 
         req.user = { id };
         next();
     } catch (error) {
-        throw new UnAuthorizedError('Authorization failed Log back in.');
+        throw new UnAuthorizedError('Authorization failed Log back in');
     }
 };
 

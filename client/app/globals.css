@@ -1,23 +1,38 @@
-@import url('https://use.typekit.net/udn1uxz.css');
+  @import url("https://use.typekit.net/mqo8fim.css");
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
 
-input:autofill {
-    box-shadow: 0 0 0px 1000px white inset;
-    background-color: transparent;
-}
-input:autofill:focus {
-    box-shadow: 0 0 0px 1000px white inset;
-    background-color: transparent;
-}
 
-canvas {
-    border-left: none;
-}
+  input:autofill {
+      box-shadow: 0 0 0px 1000px white inset;
+      background-color: transparent;
+  }
 
-.wallet {
-    clip-path: polygon(100% 0%, 30% 0%, 0% 100%, 100% 100%);
-}
-/* make input of auto fill have text size of 1.25rem */
+  input:autofill:focus {
+      box-shadow: 0 0 0px 1000px white inset;
+      background-color: transparent;
+  }
+
+  canvas {
+      border-left: none;
+  }
+
+  .blobOne {
+      border-radius: 30% 70% 58% 42% / 30% 30% 70% 70%;
+  }
+
+  .blobTwo {
+      border-radius: 30% 70% 21% 79% / 59% 43% 57% 41%;
+  }
+
+  .blobThree {
+      border-radius: 77% 23% 45% 55% / 33% 56% 44% 67%;
+  }
+
+  .wallet {
+      clip-path: polygon(100% 0%, 30% 0%, 0% 100%, 100% 100%);
+  }
+
+  /* make input of auto fill have text size of 1.25rem */

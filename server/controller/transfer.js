@@ -1,25 +1,22 @@
 const bcrypt = require('bcryptjs');
 const { User } = require('../models/userDetails');
 const { NotFoundError, BadRequestError, ForbiddenError } = require('../errors');
-const emailClient = require('../azure/emailClient');
 const Transaction = require('../models/transaction');
 const midnightConverter = require('../utils/midnightConverter');
-const creditMail = require('../utils/creditMail');
-const sendEmail = require('../utils/sendEmail');
-const debitMail = require('../utils/debitMail');
+const rabbitChannel = require('../rabbitMq/channel');
 
 const transfer = async (req, res) => {
-    const { pin, receiver, amount, description } = req.body;
+    const { pin, receiver, amount } = req.body;
 
     // check if all values are provided
     if (amount <= 0 || !amount) {
-        throw new BadRequestError('Provide a valid amount.');
+        throw new BadRequestError('Provide a valid amount');
     }
     if (!pin) {
-        throw new BadRequestError('Provide your pin.');
+        throw new BadRequestError('Provide your pin');
     }
     if (!receiver) {
-        throw new BadRequestError('Provide username to send money.');
+        throw new BadRequestError('Provide username to send money');
     }
 
     // get sender id
@@ -35,91 +32,51 @@ const transfer = async (req, res) => {
     // check if pin is correct
     const isMatch = await bcrypt.compare(pin, senderDetails.pin);
     if (!isMatch) {
-        throw new BadRequestError('The pin you entered is incorrect.');
+        throw new BadRequestError('The pin you entered is incorrect');
     }
 
     // check if receiver exist
     const receiverDetails = await User.findOne({ username: receiver });
     if (!receiverDetails) {
-        throw new NotFoundError('user does not exist.');
+        throw new NotFoundError('user does not exist');
     }
 
     // check if sender has enough in balance
     if (amount > senderDetails.balance) {
-        throw new ForbiddenError('Insufficient Balance.');
+        throw new ForbiddenError('Insufficient Balance');
     }
 
     // remove amount from sender and add to receiver
-    senderDetails.balance -= amount;
-    senderDetails.totalSpent += amount;
-    receiverDetails.balance += amount;
-    receiverDetails.totalReceived += amount;
+    // senderDetails.balance -= amount;
+    // senderDetails.totalSpent += amount;
+    // receiverDetails.balance += amount;
+    // receiverDetails.totalReceived += amount;
 
     // create a new transaction for the transfer
     const transactionParams = {
         sender: senderDetails.username,
         receiver,
         amount,
-        status: 'successful',
-        senderNewBalance: senderDetails.balance,
-        receiverNewBalance: receiverDetails.balance,
-        description,
+        status: 'Pending',
+        fullName: `${receiverDetails.firstname} ${receiverDetails.lastname}`,
     };
 
-    // send mail after each transfer
-    // Send the verification code to the user's email address with html
-    const creditEmailMessage = {
-        sender: 'P-PAY@4aee61a6-4270-459f-8b6e-febd4e48344d.azurecomm.net',
-        content: {
-            subject: 'P-PAY Alert',
-            html: creditMail(
-                senderDetails.username,
-                receiverDetails.username,
-                amount.toLocaleString()
-            ),
-        },
-        recipients: {
-            to: [
-                {
-                    email: receiverDetails.email,
-                },
-            ],
-        },
-    };
+    const transaction = await Transaction.create(transactionParams);
+    const { channel } = await rabbitChannel();
+    channel.sendToQueue(
+        'Transfer',
+        Buffer.from(
+            JSON.stringify({
+                senderId: senderDetails._id,
+                receiverId: receiverDetails._id,
+                transactionId: transaction._id,
+                amount,
+            })
+        ),
+        { persistent: true }
+    );
 
-    const date = new Date();
-
-    const debitEmailMessage = {
-        sender: 'P-PAY@4aee61a6-4270-459f-8b6e-febd4e48344d.azurecomm.net',
-        content: {
-            subject: 'P-PAY Alert',
-            html: debitMail(
-                senderDetails.username,
-                receiverDetails.username,
-                amount.toLocaleString(),
-                date.toDateString()
-                // transaction._id
-            ),
-        },
-        recipients: {
-            to: [
-                {
-                    email: senderDetails.email,
-                },
-            ],
-        },
-    };
-
-    // send email
-    await sendEmail(creditEmailMessage);
-    await sendEmail(debitEmailMessage);
-
-    // store new balance
-    await senderDetails.save();
-    await receiverDetails.save();
-    await Transaction.create(transactionParams);
-
-    res.json({ msg: 'Transfer Successfully' });
+    res.json({ msg: 'Transaction Pending' });
 };
 
 const balances = async (req, res) => {
@@ -134,6 +91,7 @@ const balances = async (req, res) => {
     // get all transactions associated with user and sort in descending order
     const results = await Transaction.find({
         $or: [{ sender: user.username }, { receiver: user.username }],
+        status: 'Successful',
     })
         .sort({
             createdAt: -1,
@@ -226,13 +184,13 @@ const transactions = async (req, res) => {
     const user = await User.findById(id);
 
     // Get query parameters
-    const { transactionType, period, limit } = req.query;
+    const { transactionType, period, limit, group } = req.query;
 
     // Set filter to an object with createdAt set
     let filter = { createdAt: {} };
 
     // Set filter for both transaction types if transactionType is not provided
-    if (!transactionType) {
+    if (!transactionType || transactionType === 'both') {
         filter.$or = [{ sender: user.username }, { receiver: user.username }];
     }
     // Set filter for either credit or debit transactions
@@ -243,11 +201,11 @@ const transactions = async (req, res) => {
         filter.receiver = user.username;
     }
 
-    // run some logic if period is provided
+    // run some logic if period is month for last 30 days transaction, seven for last 7 days transaction, yesterday and today and else all time
     if (period) {
         let date = new Date();
 
-        if (period === 'month') {
+        if (period === 'past month') {
             let oneMonthAgo = new Date(
                 date.getTime() - 30 * 24 * 60 * 60 * 1000
             );
@@ -256,7 +214,7 @@ const transactions = async (req, res) => {
             filter.createdAt.$gte = oneMonthAgo;
             filter.createdAt.$lte = date;
         }
-        if (period === 'seven') {
+        if (period === 'past week') {
             let sevenDaysAgo = new Date(
                 date.getTime() - 7 * 24 * 60 * 60 * 1000
             );
@@ -281,12 +239,16 @@ const transactions = async (req, res) => {
             filter.createdAt.$gte = today;
             filter.createdAt.$lte = date;
         }
+        if (period === 'all time') {
+            delete filter.createdAt;
+        }
     } else {
+        // delete createdAt key if no period is provided
         delete filter.createdAt;
     }
 
     //Get all Transactions associated to user based on filter
-    const transactions = await Transaction.find(filter)
+    let transactions = await Transaction.find(filter)
         .sort({
             createdAt: -1,
         })
@@ -299,6 +261,40 @@ const transactions = async (req, res) => {
             transaction.amount = -1 * transaction.amount;
         }
     });
+
+    // if group is yes the group transactions by date
+    if (group === 'yes') {
+        transactions = transactions.reduce((acc, transaction) => {
+            const date = transaction.createdAt.toDateString();
+            if (!acc[date]) {
+                acc[date] = [transaction];
+            } else {
+                acc[date].push(transaction);
+            }
+            return acc;
+        }, {});
+
+        // we now convert transaction from object gotten from reduce function to array
+        transactions = Object.entries(transactions).map(
+            ([date, transactions]) => ({
+                date,
+                transactions: transactions.map((result) => {
+                    const localizedCreatedAt =
+                        result.createdAt.toLocaleString();
+                    return {
+                        ...result.toObject(),
+                        createdAt: localizedCreatedAt,
+                    };
+                }),
+            })
+        );
+        // Respond with all transactions
+        return res.json({
+            transactions,
+        });
+    }
+
+    //
     const newTransactions = transactions.map((result) => {
         const localizedCreatedAt = result.createdAt.toLocaleString();
         return { ...result.toObject(), createdAt: localizedCreatedAt };
@@ -306,7 +302,6 @@ const transactions = async (req, res) => {
 
     // Respond with all transactions
     res.json({
-        nbHits: transactions.length,
         transactions: newTransactions,
     });
 };

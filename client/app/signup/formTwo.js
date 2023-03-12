@@ -84,6 +84,12 @@ const FormTwo = ({ setForm, setUser, user, form }) => {
                 .required(' '),
             username: Yup.string(' ')
                 .max(12, 'username gats be less than 12 characters')
+                .min(3, 'username gats be more than 3 characters')
+                .matches(
+                    /^.*((?=.*[a-z]){1}).*$/,
+                    'At least 1 letter must be in your username'
+                )
+                .matches(/^[^@]*$/, 'Do not include "@" symbol in your username')
                 .required(' '),
         }),
     });

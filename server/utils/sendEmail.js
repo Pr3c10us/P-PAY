@@ -13,7 +13,7 @@ const sendEmail = async (emailMessage) => {
 
     if (emailStatus.status !== 'Queued') {
         throw new BadRequestError(
-            'verification code failed to send. Check email and Try again.'
+            'verification code failed to send. Check email and Try again'
         );
     }
 };

@@ -56,7 +56,25 @@ const Dashboard = () => {
                     totalSpent={totalSpent}
                 />
                 <article className="hidden h-full w-full justify-center px-2 xsm:px-12 xl:flex">
-                    <TotalBalanceBarChart />
+                    {transactions.length <= 0 ? (
+                        <div className=" flex h-full w-full justify-center bg-no-transaction bg-contain bg-center bg-no-repeat  py-8">
+                            <h1 className="text-center text-3xl">
+                                No Recent Activity
+                            </h1>
+                            {/* <div className="flex w-full items-center justify-center">
+                                <Image
+                                    src="/noTransaction.svg"
+                                    width={500}
+                                    height={300}
+                                    alt="p-pay"
+                                    className=""
+                                    priority
+                                />
+                            </div> */}
+                        </div>
+                    ) : (
+                        <TotalBalanceBarChart />
+                    )}
                 </article>
                 <article className="flex h-full w-full flex-col space-y-2 px-2 xsm:px-12 xl:hidden">
                     <div className="flex items-center justify-between">
@@ -71,11 +89,29 @@ const Dashboard = () => {
                             </Link>
                         )}
                     </div>
-                    <Transactions
-                        transactions={transactions}
-                        user={user}
-                        border={true}
-                    />
+                    {transactions.length <= 0 ? (
+                        <div className=" flex h-full w-full justify-center bg-no-transaction bg-contain bg-center bg-no-repeat py-8">
+                            <h1 className="text-center text-3xl">
+                                No Recent Activity
+                            </h1>
+                            {/* <div className="flex w-full items-center justify-center">
+                                <Image
+                                    src="/noTransaction.svg"
+                                    width={500}
+                                    height={300}
+                                    alt="p-pay"
+                                    className=""
+                                    priority
+                                />
+                            </div> */}
+                        </div>
+                    ) : (
+                        <Transactions
+                            transactions={transactions}
+                            user={user}
+                            border={true}
+                        />
+                    )}
                 </article>
             </section>
             <section className={`hidden flex-col py-4 xl:flex`}>
@@ -91,25 +127,31 @@ const Dashboard = () => {
                 </div>
                 <div className={`h-full w-full`}>
                     <article className="flex h-full w-full flex-col space-y-2 px-2">
-                        <div className="flex items-center justify-between">
-                            <h1 className="text-lg underline">
-                                Recent Activities
-                            </h1>
-                            {transactions.length >= 5 && (
-                                <Link
-                                    href="/dashboard/transactions"
-                                    className="relative flex w-28 items-center justify-center gap-1 border-opacity-0 text-sm font-semibold text-secondary transition-all duration-300 hover:border-opacity-100"
-                                >
-                                    {' '}
-                                    See more
-                                </Link>
-                            )}
-                        </div>
-                        <Transactions
-                            transactions={transactions}
-                            user={user}
-                            border={false}
-                        />
+                        {transactions.length <= 0 ? (
+                            <></>
+                        ) : (
+                            <>
+                                <div className="flex items-center justify-between">
+                                    <h1 className="text-lg underline">
+                                        Recent Activities
+                                    </h1>
+                                    {transactions.length >= 5 && (
+                                        <Link
+                                            href="/dashboard/transactions"
+                                            className="relative flex w-28 items-center justify-center gap-1 border-opacity-0 text-sm font-semibold text-secondary transition-all duration-300 hover:border-opacity-100"
+                                        >
+                                            {' '}
+                                            See more
+                                        </Link>
+                                    )}
+                                </div>
+                                <Transactions
+                                    transactions={transactions}
+                                    user={user}
+                                    border={false}
+                                />
+                            </>
+                        )}
                     </article>
                 </div>
             </section>

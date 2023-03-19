@@ -5,42 +5,54 @@ import Link from 'next/link';
 import PinInput from 'react-pin-input';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { BsFillExclamationTriangleFill } from 'react-icons/bs';
+import { BsFillArrowLeftCircleFill } from 'react-icons/bs';
 
-const FormOne = ({ setForm, pin, setPin }) => {
+const FormTwo = ({
+    setForm,
+    accountName,
+    bankName,
+    accountNumber,
+    amount,
+    bankCode,
+}) => {
+    const [pin, setPin] = useState('');
     const [error, setError] = useState('');
 
-    const handleContinue = () => {
+    const handleContinue = async () => {
         if (!pin) {
             return setError('Provide 4 digits pin');
         }
-        setForm(2);
-        setError('');
+        alert(pin);
     };
 
     return (
         <div
-            className={`absolute flex h-min w-auto flex-col place-self-center rounded-xl border
+            className={`relative flex h-min w-auto flex-col place-self-center rounded-xl border
             bg-white py-8 px-3 shadow-lg  transition-all duration-75 2xsm:p-12 `}
         >
-            <div className="mb-2">
+            <BsFillArrowLeftCircleFill
+                onClick={() => setForm(2)}
+                className="absolute right-4 top-4 h-7 w-7 cursor-pointer text-secondary transition-all duration-200 hover:scale-110"
+            />
+            <div className="mb-4">
                 <Link href="/" className="">
                     <Image
-                        width="65"
-                        height={28}
-                        alt="ppay"
                         src="/ppay.svg"
-                        className="inline-block h-min w-32 xsm:w-28"
+                        width={50}
+                        height={50}
+                        alt="p-pay"
+                        className="w-28"
                         priority
                     />
                 </Link>
             </div>
             <div className="mb-12 text-2xl xsm:mb-6">
-                <p>Create Pin</p>
+                <p>Enter Pin</p>
             </div>
             <div className="flex h-full w-full items-center justify-center">
                 <PinInput
                     length={4}
-                    // secret
+                    secret
                     focus
                     initialValue=""
                     onChange={(value, index) => {
@@ -89,18 +101,18 @@ const FormOne = ({ setForm, pin, setPin }) => {
                     onClick={handleContinue}
                     className="flex h-12 w-full items-center justify-center rounded-lg bg-secondary text-base text-white focus:outline-none"
                 >
-                    Continue
+                    Withdraw
                 </button>
             </div>
-            <Link
+            {/* <Link
                 href="/dashboard"
                 className="mt-4 flex w-full items-center justify-center gap-1 text-center text-base text-gray-400"
             >
                 <IoMdArrowRoundBack className="text-base" />
                 Back to Dashboard
-            </Link>
+            </Link> */}
         </div>
     );
 };
 
-export default FormOne;
+export default FormTwo;

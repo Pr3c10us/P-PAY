@@ -43,15 +43,15 @@ const FormThree = ({
         setDate(date.toDateString());
     }, []);
     return (
-        <div className="relative flex w-full max-w-md flex-col space-y-8 place-self-center rounded-xl border px-4 py-6 font-medium shadow-md sm:justify-center sm:space-y-8 sm:py-10 sm:px-8">
+        <div className="relative flex w-full max-w-md flex-col space-y-8 place-self-center rounded-xl border border-t-4 border-t-secondary bg-neutral px-4 py-6 font-medium shadow-md sm:justify-center sm:space-y-8 sm:py-10 sm:px-8">
             <BsFillArrowLeftCircleFill
                 onClick={() => setForm(2)}
                 className="absolute right-4 top-4 h-7 w-7 cursor-pointer text-secondary transition-all duration-200 hover:scale-110"
             />
             <RiBankLine className="h-9 w-8" />
-            <h1 className="text-lg sm:text-xl">
+            <h1 className="text-lg text-zinc-500 sm:text-xl">
                 Confirm your <br />
-                <span className="text-xl font-semibold sm:text-2xl">
+                <span className="text-xl font-semibold text-primary sm:text-2xl">
                     {Intl.NumberFormat('en-NG', {
                         style: 'currency',
                         currency: 'NGN',
@@ -69,7 +69,7 @@ const FormThree = ({
                 <p className="text-sm text-gray-500 sm:text-base">To</p>
                 <h2 className="col-span-3 w-full text-lg xsm:text-xl">
                     @{username}{' '}
-                    <span className="text-[0.75rem] font-light text-slate-500 sm:text-sm">
+                    <span className="text-[0.75rem] text-slate-500 sm:text-sm">
                         ({name}){' '}
                     </span>
                 </h2>
@@ -80,7 +80,7 @@ const FormThree = ({
                     {date}
                 </h2>
             </div>
-            <p className="text-center text-[0.75rem] font-light text-gray-400 sm:text-sm">
+            <p className="text-center text-[0.75rem] text-gray-400 sm:text-sm">
                 By selecting "Confirm", you authorize P-PAY to make this
                 transfer.
             </p>

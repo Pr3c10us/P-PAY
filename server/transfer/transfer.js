@@ -17,7 +17,7 @@ const completeTransfer = async (
     receiverDetails.totalReceived += +amount;
 
     // update transaction status
-    transaction.status = 'Successful';
+    transaction.status = 'success';
     transaction.senderNewBalance = senderDetails.balance;
     transaction.receiverNewBalance = receiverDetails.balance;
 

@@ -42,7 +42,7 @@ const FormTwo = ({ setForm, setUser, user, form }) => {
                     `${process.env.NEXT_PUBLIC_API_URL}auth/check?username=${username}`
                 );
                 const userInfo = { ...user, username, dob };
-                const res = await axios.post(
+                await axios.post(
                     `${process.env.NEXT_PUBLIC_API_URL}auth/signup`,
                     userInfo
                 );
@@ -89,7 +89,10 @@ const FormTwo = ({ setForm, setUser, user, form }) => {
                     /^.*((?=.*[a-z]){1}).*$/,
                     'At least 1 letter must be in your username'
                 )
-                .matches(/^[^@]*$/, 'Do not include "@" symbol in your username')
+                .matches(
+                    /^[^@]*$/,
+                    'Do not include "@" symbol in your username'
+                )
                 .required(' '),
         }),
     });

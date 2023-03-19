@@ -26,7 +26,6 @@ const checkDuplicate = async (req, res) => {
         const exist = await User.findOne({
             username,
         });
-        console.log(username);
 
         if (exist) {
             throw new BadRequestError(

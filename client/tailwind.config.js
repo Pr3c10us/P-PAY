@@ -10,6 +10,15 @@ module.exports = {
     ],
     theme: {
         extend: {
+            backgroundSize: {
+                // auto: 'auto',
+                // cover: 'cover',
+                // contain: 'contain',
+                // '50%': '50%',
+                big: '30rem',
+                xl:'40rem',
+                small: '20rem',
+            },
             fontFamily: {
                 bai: ['bai-jamjuree', 'sans-serif'],
             },
@@ -31,6 +40,10 @@ module.exports = {
             },
             animation: {
                 wiggle: 'wiggle 2s ease-in-out infinite',
+            },
+            backgroundImage: {
+                'vector-pattern': "url('../public/vector-shape-1.svg')",
+                'no-transaction': "url('../public/noTransaction.svg')",
             },
         },
     },

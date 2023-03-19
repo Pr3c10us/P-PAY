@@ -11,6 +11,11 @@ const errHandler = async (error, req, res, next) => {
             msg: Object.values(error.errors).map((val) => val.message),
         });
     }
+    if (error.code === 'ERR_BAD_REQUEST') {
+        return res.status(400).json({
+            msg: error.response.data.message,
+        });
+    }
     if (error.code === 11000) {
         return res.status(400).json({
             msg: ` ${Object.keys(error.keyValue)} Already Exists`,

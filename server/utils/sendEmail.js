@@ -9,13 +9,13 @@ const sendEmail = async (emailMessage) => {
         throw new Error();
     }
 
-    const emailStatus = await emailClient.getSendStatus(messageId);
+    // const emailStatus = await emailClient.getSendStatus(messageId);
 
-    if (emailStatus.status !== 'Queued') {
-        throw new BadRequestError(
-            'verification code failed to send. Check email and Try again'
-        );
-    }
+    // if (emailStatus.status !== 'Queued') {
+    //     throw new BadRequestError(
+    //         'verification code failed to send. Check email and Try again'
+    //     );
+    // }
 };
 
 module.exports = sendEmail;

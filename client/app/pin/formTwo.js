@@ -54,7 +54,7 @@ const FormTwo = ({ pin, form, setForm, setPin }) => {
 
     return (
         <div
-            className={`absolute flex h-min w-auto flex-col place-self-center rounded-3xl border
+            className={`absolute flex h-min w-auto flex-col place-self-center rounded-xl border
             bg-white py-12 px-3 shadow-lg  transition-all duration-75 2xsm:p-12 `}
         >
             <div

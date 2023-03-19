@@ -4,10 +4,13 @@ const {
     UnAuthorizedError,
 } = require('../errors');
 const { User } = require('../models/userDetails');
+const Transaction = require('../models/transaction');
 const forgotPasswordMail = require('../utils/forgotPasswordMail');
 const jwt = require('jsonwebtoken');
 const emailClient = require('../azure/emailClient');
 const bcrypt = require('bcryptjs');
+const sendEmail = require('../utils/sendEmail');
+const verificationMail = require('../utils/verificationMail');
 
 const emailVerified = async (req, res) => {
     const { email } = req.query;
@@ -167,7 +170,7 @@ const userDetails = async (req, res) => {
     const { id } = req.user;
 
     // get user info
-    const user = await User.findById(id, '-otp -password -_id -__v -dob');
+    const user = await User.findById(id, '-otp -password -__v -dob');
 
     // return user details
     res.json({ user });
@@ -207,6 +210,136 @@ const checkPin = async (req, res) => {
     res.json({ msg: 'Pin is correct' });
 };
 
+const editProfile = async (req, res) => {
+    // get user username
+    const { id } = req.user;
+
+    // get info needed to be changed
+    let { firstname, lastname, username } = req.body;
+    // if (!firstname || !lastname || !username) {
+    //     throw new BadRequestError('Provide all details');
+    // }
+
+    // get user info
+    const user = await User.findById(id);
+
+    if (username) {
+        // check if username is taken
+        const exist = await User.findOne({
+            username,
+        });
+
+        if (exist) {
+            throw new BadRequestError(
+                'The username is already taken, try another'
+            );
+        }
+        user.username = username;
+    }
+    if (firstname) {
+        user.firstname = firstname;
+    }
+
+    if (lastname) {
+        user.lastname = lastname;
+    }
+
+    // save changes
+    await user.save();
+
+    // update all transactions where user is involved
+    await Transaction.updateMany(
+        { sender: user.id },
+        {
+            senderUsername: username,
+            senderFullName: `${firstname} ${lastname}`,
+        }
+    );
+    await Transaction.updateMany(
+        { receiver: user.id },
+        {
+            receiverUsername: username,
+            receiverFullName: `${firstname} ${lastname}`,
+        }
+    );
+
+    res.json({ msg: 'Done' });
+};
+const changePassword = async (req, res) => {
+    // get user id
+    const { id } = req.user;
+
+    const { oldPassword, newPassword } = req.body;
+    if (!oldPassword || !newPassword) {
+        throw new BadRequestError('oldPassword and newPassword are required');
+    }
+
+    // get user info
+    const user = await User.findById(id);
+
+    // decrypt with bcrypt and check if old password is correct
+    const isMatch = await bcrypt.compare(oldPassword, user.password);
+    if (!isMatch) {
+        throw new BadRequestError('Old password is incorrect');
+    }
+
+    // hash new password
+    const salt = await bcrypt.genSalt(10);
+    const password = await bcrypt.hash(newPassword, salt);
+
+    // update password in the database
+    user.password = password;
+    await user.save();
+
+    res.status(200).json({
+        msg: 'Password successfully changed',
+    });
+};
+
+const changePin = async (req, res) => {
+    // get user id
+    const { id } = req.user;
+
+    const { oldPin, newPin } = req.body;
+    if (!oldPin || !newPin) {
+        throw new BadRequestError('oldPin and newPin are required');
+    }
+
+    // get user info
+    const user = await User.findById(id);
+
+    // decrypt with bcrypt and check if old password is correct
+    const isMatch = await bcrypt.compare(oldPin, user.pin);
+    if (!isMatch) {
+        throw new BadRequestError('Old pin is incorrect');
+    }
+
+    // hash new password
+    const salt = await bcrypt.genSalt(10);
+    const pin = await bcrypt.hash(newPin, salt);
+
+    // update password in the database
+    user.pin = pin;
+    await user.save();
+
+    res.status(200).json({
+        msg: 'Pin successfully changed',
+    });
+};
+const isPinSet = async (req, res) => {
+    // get user id
+    const { id } = req.user;
+
+    // get user info
+    const user = await User.findById(id);
+
+    if (user.pin) {
+        return res.json({ pinSet: true });
+    }
+
+    res.json({ pinSet: false });
+};
+
 module.exports = {
     emailVerified,
     twoFactorVerified,
@@ -216,4 +349,8 @@ module.exports = {
     userDetails,
     getUser,
     checkPin,
+    editProfile,
+    changePassword,
+    changePin,
+    isPinSet
 };

@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,21 +8,55 @@ import { IoMdArrowRoundBack } from 'react-icons/io';
 import { BsFillExclamationTriangleFill } from 'react-icons/bs';
 import FormOne from './formOne';
 import FormTwo from './formTwo';
+import axios from 'axios';
 
 const setPin = () => {
+    const router = useRouter();
     const [form, setForm] = useState(1);
     const [pin, setPin] = useState('');
     const [confirmPin, setConfirmPin] = useState('');
     const [error, setError] = useState('');
     const [confirmError, setConfirmError] = useState('');
+    const [loading, setLoading] = useState(true);
 
-    const handleContinue = () => {
-        if (!pin) {
-            return setError('Provide 4 digits pin');
+    // const handleContinue = () => {
+    //     if (!pin) {
+    //         return setError('Provide 4 digits pin');
+    //     }
+    //     setForm(2);
+    //     setError('');
+    // };
+    const handleEffect = async () => {
+        axios.defaults.withCredentials = true;
+        const response = await axios.get(
+            `${process.env.NEXT_PUBLIC_API_URL}user/isPinSet`
+        );
+        const pinSet = response.data.pinSet;
+        if (pinSet) {
+            return router.push('/dashboard');
         }
-        setForm(2);
-        setError('');
+        setLoading(false);
     };
+    useEffect(() => {
+        handleEffect();
+    }, []);
+
+    if (loading) {
+        return (
+            <main className="relative grid h-full grid-cols-1 gap-4 overflow-auto   py-8 px-4 2xsm:px-8">
+                <div className="flex h-full w-full items-center justify-center">
+                    <Image
+                        priority
+                        src="/ppay-icon-loading.svg"
+                        width={100}
+                        height={100}
+                        alt="p-pay"
+                        className="animate-pulse"
+                    ></Image>
+                </div>
+            </main>
+        );
+    }
 
     return (
         <main className="relative grid h-full grid-cols-1 gap-0 overflow-hidden   py-8 px-4 2xsm:px-8">

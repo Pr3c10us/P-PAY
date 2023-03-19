@@ -7,7 +7,7 @@ import { AiFillSetting, AiFillDollarCircle } from 'react-icons/ai';
 import { FaUserCircle } from 'react-icons/fa';
 import { BsBarChartLineFill } from 'react-icons/bs';
 import { TbArrowsUpDown } from 'react-icons/tb';
-import { IoLogOut } from 'react-icons/io5';
+import { IoLogOut, IoReceipt } from 'react-icons/io5';
 import { usePathname, useRouter } from 'next/navigation';
 import axios from 'axios';
 
@@ -52,7 +52,7 @@ export default function RootLayout({ children }) {
     return (
         <main className="flex h-full">
             <nav
-                className={` flex h-full flex-col xsm:w-20 md:w-64 ${
+                className={` flex h-full flex-col border-r-2 shadow-xl xsm:w-20 md:w-64 ${
                     loading ? '' : ''
                 }`}
             >
@@ -63,36 +63,36 @@ export default function RootLayout({ children }) {
                         >
                             <div className="h-12 w-12 animate-pulse rounded-lg bg-gray-200"></div>
                         </div>
-                        <ul className={`mt-4 flex w-full  flex-1 flex-col`}>
+                        <ul className={`mt-4 flex w-full flex-1 flex-col`}>
                             <li
-                                className={`flex cursor-pointer items-center justify-center gap-x-2 py-4 px-2 text-base hover:bg-secondary hover:bg-opacity-5  md:justify-start md:px-8 `}
+                                className={`flex cursor-pointer items-center justify-center gap-x-2 py-4 px-2 text-base md:justify-start md:px-8`}
                             >
-                                <div className="h-7 w-7 animate-pulse rounded-lg bg-gray-200 text-3xl" />
+                                <div className="h-8 w-8 animate-pulse rounded-lg bg-gray-200 text-3xl" />
                                 <p className="hidden h-7 w-24 animate-pulse rounded-xl bg-gray-200 md:block"></p>
                             </li>
                             <li
-                                className={`flex cursor-pointer items-center justify-center gap-x-2 py-4 px-2 text-base hover:bg-secondary hover:bg-opacity-5  md:justify-start md:px-8 `}
+                                className={`flex cursor-pointer items-center justify-center gap-x-2 py-4 px-2 text-base md:justify-start md:px-8`}
                             >
-                                <div className="h-7 w-7 animate-pulse rounded-lg bg-gray-200 text-3xl" />
+                                <div className="h-8 w-8 animate-pulse rounded-lg bg-gray-200 text-3xl" />
                                 <p className="hidden h-7 w-20 animate-pulse rounded-xl bg-gray-200 md:block"></p>
                             </li>
                             <li
-                                className={`flex cursor-pointer items-center justify-center gap-x-2 py-4 px-2 text-base hover:bg-secondary hover:bg-opacity-5  md:justify-start md:px-8 `}
+                                className={`flex cursor-pointer items-center justify-center gap-x-2 py-4 px-2 text-base md:justify-start md:px-8`}
                             >
-                                <div className="h-7 w-7 animate-pulse rounded-lg bg-gray-200 text-3xl" />
+                                <div className="h-8 w-8 animate-pulse rounded-lg bg-gray-200 text-3xl" />
                                 <p className="hidden h-7 w-28 animate-pulse rounded-xl bg-gray-200 md:block"></p>
                             </li>
                             <li
-                                className={`flex cursor-pointer items-center justify-center gap-x-2 py-4 px-2 text-base hover:bg-secondary hover:bg-opacity-5  md:justify-start md:px-8 `}
+                                className={`flex cursor-pointer items-center justify-center gap-x-2 py-4 px-2 text-base md:justify-start md:px-8`}
                             >
-                                <div className="h-7 w-7 animate-pulse rounded-lg bg-gray-200 text-3xl" />
+                                <div className="h-8 w-8 animate-pulse rounded-lg bg-gray-200 text-3xl" />
                                 <p className="hidden h-7 w-20 animate-pulse rounded-xl bg-gray-200 md:block"></p>
                             </li>
                         </ul>
                         <li
-                            className={`flex cursor-pointer items-center justify-center gap-x-2 py-4 px-2 text-base hover:bg-secondary hover:bg-opacity-5  md:justify-start md:px-8 `}
+                            className={`flex cursor-pointer items-center justify-center gap-x-2 py-4 px-2 text-base md:justify-start md:px-8`}
                         >
-                            <div className="h-7 w-7 animate-pulse rounded-lg bg-gray-200 text-3xl" />
+                            <div className="h-8 w-8 animate-pulse rounded-lg bg-gray-200 text-3xl" />
                             <p className="hidden h-7 w-24 animate-pulse rounded-xl bg-gray-200 md:block"></p>
                         </li>
                     </>
@@ -112,17 +112,19 @@ export default function RootLayout({ children }) {
                                 ></Image>
                             </Link>
                         </div>
-                        <ul className={`mt-4 flex w-full  flex-1 flex-col`}>
+                        <ul className={`mt-4 flex w-full flex-1 flex-col`}>
                             <li
                                 onClick={() => {
                                     router.push('/dashboard/');
                                 }}
                                 className={`flex cursor-pointer items-center justify-center gap-x-2 py-4 px-2 text-base hover:bg-secondary hover:bg-opacity-5  md:justify-start md:px-8 ${
-                                    pathname == '/dashboard' &&
+                                    (pathname == '/dashboard' ||
+                                        pathname == '/dashboard/addMoney' ||
+                                        pathname == '/dashboard/withdraw') &&
                                     'bg-secondary bg-opacity-20 hover:bg-secondary hover:bg-opacity-20'
                                 }`}
                             >
-                                <CgHomeAlt className="text-2xl xsm:text-3xl" />
+                                <CgHomeAlt className="text-3xl xsm:text-4xl" />
                                 <p className="hidden md:block">Dashboard</p>
                             </li>
                             <li
@@ -134,7 +136,7 @@ export default function RootLayout({ children }) {
                                     'bg-secondary bg-opacity-20 hover:bg-secondary hover:bg-opacity-20'
                                 }`}
                             >
-                                <AiFillDollarCircle className="text-2xl xsm:text-3xl" />
+                                <AiFillDollarCircle className="text-3xl xsm:text-4xl" />
                                 <p className="hidden md:block">Transfer</p>
                             </li>
                             <li
@@ -148,8 +150,9 @@ export default function RootLayout({ children }) {
                                     'bg-secondary bg-opacity-20 hover:bg-secondary hover:bg-opacity-20'
                                 }`}
                             >
-                                <TbArrowsUpDown className="text-2xl xsm:text-3xl" />
+                                <IoReceipt className="text-3xl xsm:text-4xl" />
                                 <p className="hidden md:block">Transactions</p>
+                                {/* IoReceipt */}
                             </li>
                             <li
                                 onClick={() => {
@@ -160,7 +163,7 @@ export default function RootLayout({ children }) {
                                     'bg-secondary bg-opacity-20 hover:bg-secondary hover:bg-opacity-20'
                                 }`}
                             >
-                                <FaUserCircle className="text-2xl xsm:text-3xl" />
+                                <FaUserCircle className="text-3xl xsm:text-4xl" />
                                 <p className="hidden md:block">Profile</p>
                             </li>
                         </ul>
@@ -168,7 +171,7 @@ export default function RootLayout({ children }) {
                             onClick={handleLogout}
                             className={`text-md my-8 mx-2 flex w-full cursor-pointer items-center justify-center gap-x-2 md:mx-8  md:justify-start`}
                         >
-                            <IoLogOut className="text-2xl xsm:text-3xl" />
+                            <IoLogOut className="text-3xl xsm:text-4xl" />
                             <p className="hidden md:block">Logout</p>
                         </div>
                     </>

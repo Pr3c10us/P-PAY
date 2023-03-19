@@ -15,13 +15,13 @@ const TransactionsList = ({ transactions, period }) => {
         setUser(user);
 
         if (period === 'today' || period === 'yesterday') {
-            setNoTransaction(`No transaction.`);
+            setNoTransaction(`No Transactions`);
         }
         if (period === 'past week' || period === 'past month') {
-            setNoTransaction(`No transaction.`);
+            setNoTransaction(`No Transactions`);
         }
         if (period === 'all time') {
-            setNoTransaction(`No transaction yet.`);
+            setNoTransaction(`No Transactions yet`);
         }
     };
     useEffect(() => {
@@ -31,7 +31,7 @@ const TransactionsList = ({ transactions, period }) => {
         <>
             {transactions.length <= 0 ? (
                 <div
-                    className={`m-4 flex w-full max-w-2xl flex-col items-center justify-center self-center text-xl md:text-2xl`}
+                    className={`m-4 h-full flex-1 flex bg-no-transaction bg-contain bg-no-repeat w-full max-w-2xl flex-col items-center py-8 justify-start self-center text-3xl`}
                 >
                     <h1>{noTransaction}</h1>
                 </div>

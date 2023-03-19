@@ -1,9 +1,16 @@
 const bcrypt = require('bcryptjs');
+require('dotenv').config;
 const { User } = require('../models/userDetails');
-const { NotFoundError, BadRequestError, ForbiddenError } = require('../errors');
+const {
+    NotFoundError,
+    BadRequestError,
+    ForbiddenError,
+    UnAuthorizedError,
+} = require('../errors');
 const Transaction = require('../models/transaction');
 const midnightConverter = require('../utils/midnightConverter');
 const rabbitChannel = require('../rabbitMq/channel');
+const axios = require('axios');
 
 const transfer = async (req, res) => {
     const { pin, receiver, amount } = req.body;
@@ -54,11 +61,15 @@ const transfer = async (req, res) => {
 
     // create a new transaction for the transfer
     const transactionParams = {
-        sender: senderDetails.username,
-        receiver,
+        sender: senderDetails.id,
+        receiver: receiverDetails.id,
+        senderUsername: senderDetails.username,
+        receiverUsername: receiver,
         amount,
+        transactionType: 'transfer',
         status: 'Pending',
-        fullName: `${receiverDetails.firstname} ${receiverDetails.lastname}`,
+        receiverFullName: `${receiverDetails.firstname} ${receiverDetails.lastname}`,
+        senderFullName: `${senderDetails.firstname} ${senderDetails.lastname}`,
     };
 
     const transaction = await Transaction.create(transactionParams);
@@ -79,6 +90,53 @@ const transfer = async (req, res) => {
     res.json({ msg: 'Transaction Pending' });
 };
 
+const fundWallet = async (req, res) => {
+    // get user id
+    const { id } = req.user;
+
+    // get reference key
+    const { reference } = req.params;
+
+    // set url and header variable
+    const url = `https://api.paystack.co/transaction/verify/${reference}`;
+    const config = {
+        headers: {
+            Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+        },
+    };
+
+    // get user info
+    const user = await User.findById(id);
+
+    // verify and get transaction from paystack
+    const paystackTransaction = await axios.get(url, config);
+    let transactionData = paystackTransaction.data.data;
+    transactionData.amount = transactionData.amount / 100;
+
+    // Add amount to user balance
+    user.balance += +transactionData.amount;
+    user.totalReceived += +transactionData.amount;
+
+    await user.save();
+
+    // create transaction parameter to be stored
+    const transactionParams = {
+        sender: transactionData.reference,
+        receiver: user.id,
+        senderUsername: 'fund',
+        receiverUsername: user.username,
+        amount: transactionData.amount,
+        transactionType: 'fund',
+        status: transactionData.status,
+        receiverFullName: `${user.firstname} ${user.lastname}`,
+        senderFullName: `Fund Wallet`,
+        receiverNewBalance: user.balance,
+    };
+    await Transaction.create(transactionParams);
+
+    res.send('complete');
+};
+
 const balances = async (req, res) => {
     // get if type is month
     const { type, limit } = req.query;
@@ -90,8 +148,8 @@ const balances = async (req, res) => {
 
     // get all transactions associated with user and sort in descending order
     const results = await Transaction.find({
-        $or: [{ sender: user.username }, { receiver: user.username }],
-        status: 'Successful',
+        $or: [{ sender: user.id }, { receiver: user.id }],
+        status: 'success',
     })
         .sort({
             createdAt: -1,
@@ -113,7 +171,7 @@ const balances = async (req, res) => {
             // for each transaction check if the month doesn't exist in our balances var else if it does skip and move to next transaction
             if (!balances[monthDate]) {
                 // if user is receiving check store the receiver balance
-                if (user.username === result.receiver) {
+                if (user.id === result.receiver) {
                     // store in them as obj of 'date' & 'balance' so we can later convert balance to array of objects
                     balances[monthDate] = {
                         date: monthDate,
@@ -122,7 +180,7 @@ const balances = async (req, res) => {
                 }
 
                 // if user is sending check store the sender balance
-                if (user.username === result.sender) {
+                if (user.id === result.sender) {
                     // store in them as obj of 'date' & 'balance' so we can later convert balance to array of objects
                     balances[monthDate] = {
                         date: monthDate,
@@ -150,12 +208,12 @@ const balances = async (req, res) => {
         // for each transaction check if the date doesn't exist in our balances var else if it does skip and move to next transaction
         if (!balances[date]) {
             // if user is receiving check store the receiver balance
-            if (user.username === result.receiver) {
+            if (user.id === result.receiver) {
                 // store in them as obj of 'date' & 'balance' so we can later convert balance to array of objects
                 balances[date] = { date, balance: result.receiverNewBalance };
             }
             // if user is sending check store the sender balance
-            if (user.username === result.sender) {
+            if (user.id === result.sender) {
                 // store in them as obj of 'date' & 'balance' so we can later convert balance to array of objects
                 balances[date] = { date, balance: result.senderNewBalance };
             }
@@ -191,14 +249,14 @@ const transactions = async (req, res) => {
 
     // Set filter for both transaction types if transactionType is not provided
     if (!transactionType || transactionType === 'both') {
-        filter.$or = [{ sender: user.username }, { receiver: user.username }];
+        filter.$or = [{ sender: user.id }, { receiver: user.id }];
     }
     // Set filter for either credit or debit transactions
     if (transactionType === 'debit') {
-        filter.sender = user.username;
+        filter.sender = user.id;
     }
     if (transactionType === 'credit') {
-        filter.receiver = user.username;
+        filter.receiver = user.id;
     }
 
     // run some logic if period is month for last 30 days transaction, seven for last 7 days transaction, yesterday and today and else all time
@@ -257,7 +315,7 @@ const transactions = async (req, res) => {
 
     // if transaction is a debit transaction,display the amount as negative in response
     transactions.forEach((transaction) => {
-        if (transaction.sender === user.username) {
+        if (transaction.sender === user.id) {
             transaction.amount = -1 * transaction.amount;
         }
     });
@@ -306,4 +364,79 @@ const transactions = async (req, res) => {
     });
 };
 
-module.exports = { transfer, balances, transactions };
+const getBanks = async (req, res) => {
+    const url = 'https://api.paystack.co/bank';
+    const config = {
+        headers: {
+            Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+        },
+    };
+
+    const response = await axios.get(url, config);
+    let data = response.data.data;
+
+    let banks = data.map((bank) => {
+        return { name: bank.name, code: bank.code };
+    });
+
+    res.json({ banks });
+};
+const verifyAccount = async (req, res) => {
+    // get account number and bank code
+    const { account_number, bank_code } = req.query;
+
+    const url = `https://api.paystack.co/bank/resolve?account_number=${account_number}&bank_code=${bank_code}`;
+    const config = {
+        headers: {
+            Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+        },
+    };
+
+    const response = await axios.get(url, config);
+    let data = response.data.data;
+
+    res.json(data);
+};
+
+const getTransaction = async (req, res) => {
+    //  get user id
+    const { id: userId } = req.user;
+
+    // get transaction id
+    const { id } = req.params;
+
+    // get user info
+    const user = await User.findById(userId);
+
+    let transaction = await Transaction.findOne({
+        _id: id,
+        $or: [{ sender: user.id }, { receiver: user.id }],
+    }).select(
+        ' receiverUsername sender receiver senderUsername amount status receiverFullName senderFullName transactionType createdAt sessionId'
+    );
+    // const transactionNew = {
+    //     amount: transaction.amount,
+    //     status: transaction.status,
+    //     id: transaction._id,
+    //     type: transaction.transactionType,
+    //     date: transaction.createdAt.toLocaleString,
+    // };
+
+    if (transaction.sender === user.id) {
+        transaction.amount = -transaction.amount;
+    }
+
+    res.json({ transaction, date: transaction.createdAt.toDateString() });
+
+    //
+};
+
+module.exports = {
+    transfer,
+    fundWallet,
+    balances,
+    transactions,
+    getBanks,
+    verifyAccount,
+    getTransaction,
+};

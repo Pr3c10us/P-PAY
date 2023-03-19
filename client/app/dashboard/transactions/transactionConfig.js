@@ -53,7 +53,7 @@ const TransactionConfig = ({
                     </h3>
                     <button
                         onClick={() => setShowType(!showType)}
-                        className={`flex w-full items-center justify-between rounded-md border-2 transition-all duration-300 ${
+                        className={`flex w-full items-center justify-between rounded-md border-2 bg-neutral transition-all duration-300 ${
                             showType && 'border-secondary'
                         } py-1 px-2 capitalize xsm:py-1.5 xsm:text-lg   md:text-xl`}
                     >
@@ -121,7 +121,7 @@ const TransactionConfig = ({
                     </h3>
                     <button
                         onClick={() => setShowPeriod(!showPeriod)}
-                        className={`flex w-full items-center justify-between rounded-md border-2 transition-all duration-300 ${
+                        className={`flex w-full items-center justify-between rounded-md border-2 bg-neutral transition-all duration-300 ${
                             showPeriod && 'border-secondary'
                         } py-1 px-2 capitalize xsm:py-1.5 xsm:text-lg   md:text-xl`}
                     >

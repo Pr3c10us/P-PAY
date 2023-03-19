@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { HiInformationCircle } from 'react-icons/hi';
 import axios from 'axios';
+import { BsArrowRightShort } from 'react-icons/bs';
 
 const FormTwo = ({ name, setAmount, amount, setForm, user, setPin }) => {
     const [formattedAmount, setFormattedAmount] = useState('');
@@ -54,7 +55,7 @@ const FormTwo = ({ name, setAmount, amount, setForm, user, setPin }) => {
 
         validationSchema: Yup.object({
             amount: Yup.string(' ')
-                .matches(/^\d+$/, 'Please enter a valid amount')
+                .matches(/^[0-9.]+$/, 'Please enter a valid amount')
                 .required('can not be empty'),
             pin: Yup.string('Please enter your 4 digits pin')
                 .matches(/^\d+$/, 'Please enter your 4 digits pin')
@@ -86,12 +87,12 @@ const FormTwo = ({ name, setAmount, amount, setForm, user, setPin }) => {
         >
             <div
                 autoComplete="off"
-                className="flex w-full max-w-lg flex-col space-y-6 rounded-xl border px-2 py-8 shadow-md sm:justify-center sm:space-y-8 sm:px-8"
+                className="flex bg-neutral w-full max-w-lg flex-col space-y-6 rounded-xl border border-t-4 border-t-secondary px-4 py-8 shadow-md sm:justify-center sm:space-y-8 sm:px-8"
                 // onSubmit={formik.handleSubmit}
             >
-                <h1 className="border-b font-medium sm:text-xl">
+                <h1 className="border-b text-sm font-medium sm:text-xl">
                     You are sending to{' '}
-                    <span className="text-lg font-semibold text-secondary sm:text-2xl">
+                    <span className="text-lg font-semibold capitalize text-secondary sm:text-2xl">
                         {name}
                     </span>
                 </h1>
@@ -107,7 +108,7 @@ const FormTwo = ({ name, setAmount, amount, setForm, user, setPin }) => {
                     <div className="flex flex-col items-end">
                         <input
                             ref={ref}
-                            className={`mb-1 flex w-36 border-b bg-inherit px-2 pt-2 text-right text-base transition duration-300 focus:outline-none sm:w-44 sm:text-xl ${
+                            className={`mb-1 flex w-28 border-b bg-inherit px-2 pt-2 text-right text-base transition duration-300 focus:outline-none xsm:w-36 sm:w-44 sm:text-xl ${
                                 formik.errors.amount && formik.touched.amount
                                     ? 'border-red-500 focus:border-red-500 '
                                     : 'border-gray-300 focus:border-secondary'
@@ -118,7 +119,7 @@ const FormTwo = ({ name, setAmount, amount, setForm, user, setPin }) => {
                             onBlur={formik.handleBlur}
                             name="amount"
                             autoComplete="off"
-                            maxLength={12}
+                            maxLength={10}
                         />
                         <p className="min-h-[1.5rem] w-full text-right text-[0.55rem]  font-medium text-red-500 2xsm:text-[0.6rem] sm:text-[0.75rem]">
                             {formik.errors.amount && formik.touched.amount
@@ -139,7 +140,9 @@ const FormTwo = ({ name, setAmount, amount, setForm, user, setPin }) => {
                 </p>
                 <p className="flex justify-between text-sm font-semibold">
                     You'll Pay{' '}
-                    <span className="sm:text-lg">{formattedAmount} NGN</span>
+                    <span className="text-sm xsm:text-base sm:text-lg">
+                        {formattedAmount} NGN
+                    </span>
                 </p>
                 <div className={`flex w-full flex-col`}>
                     <label
@@ -155,7 +158,7 @@ const FormTwo = ({ name, setAmount, amount, setForm, user, setPin }) => {
                                     ? 'border-red-500 focus:border-red-500 '
                                     : 'border-gray-300 focus:border-secondary'
                             }`}
-                            type="text"
+                            type="password"
                             onChange={formik.handleChange}
                             value={formik.values.pin}
                             onBlur={formik.handleBlur}
@@ -174,9 +177,10 @@ const FormTwo = ({ name, setAmount, amount, setForm, user, setPin }) => {
             <button
                 type="submit"
                 disabled={formik.isSubmitting}
-                className={`rounded-lg bg-secondary px-6 py-2 text-lg text-white`}
+                className={`group flex  w-52 items-center justify-center gap-2 rounded-lg bg-secondary py-2 text-lg text-white xsm:w-56`}
             >
                 Confirm Payment
+                <BsArrowRightShort className="text-xl transition-all duration-200 group-hover:translate-x-1.5" />
             </button>
             <button
                 className="font-semibold text-secondary"

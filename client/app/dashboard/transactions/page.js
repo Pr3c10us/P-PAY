@@ -26,7 +26,7 @@ const Transactions = () => {
     }, [period, transactionType]);
 
     return (
-        <main className="flex flex-col items-center scroll-smooth px-2 py-8 xl:flex-row xl:items-start xl:justify-center xl:gap-x-8">
+        <main className="flex h-full flex-col items-center scroll-smooth px-2 py-8 xl:flex-row xl:items-start xl:justify-center xl:gap-x-8">
             <div id="top" className="h-0 w-0"></div>
             <TransactionConfig
                 setPeriod={setPeriod}
@@ -41,7 +41,9 @@ const Transactions = () => {
             />
             <a
                 href="#top"
-                className="fixed bottom-4 right-4 rounded-full p-1 text-3xl text-secondary hover:text-secondary"
+                className={`fixed bottom-4 right-4 rounded-full p-1 text-3xl text-secondary hover:text-secondary ${
+                    transactions.length <= 0 ? 'hidden' : null
+                }`}
             >
                 <IoChevronUp />
             </a>

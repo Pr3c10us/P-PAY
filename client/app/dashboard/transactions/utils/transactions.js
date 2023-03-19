@@ -25,10 +25,28 @@ const Transactions = ({ transactions, user, border }) => {
                 }
 
                 let username;
-                if (user.username === transaction.sender) {
-                    username = '@' + transaction.receiver;
+                if (user._id === transaction.sender) {
+                    username = '@' + transaction.receiverUsername;
                 } else {
-                    username = '@' + transaction.sender;
+                    username = '@' + transaction.senderUsername;
+                }
+
+                let fullName;
+                if (user._id === transaction.sender) {
+                    fullName = transaction.receiverFullName;
+                } else {
+                    fullName = transaction.senderFullName;
+                }
+                let fullNameAbbr = `${fullName.split(' ')[0].split('')[0]}${
+                    fullName.split(' ')[1].split('')[0]
+                }`;
+
+                let receiveDesc = 'Received money';
+                let sendDesc = 'Sent money to user';
+                if (transaction.transactionType === 'fund') {
+                    username = 'Top-up';
+                    receiveDesc = 'Fund wallet';
+                    fullNameAbbr = 'T';
                 }
 
                 return (
@@ -39,27 +57,23 @@ const Transactions = ({ transactions, user, border }) => {
                             )
                         }
                         key={transaction._id}
-                        className="my-2 flex w-full cursor-pointer items-center gap-x-2 rounded-lg px-4 py-4 hover:bg-secondary hover:bg-opacity-10 xsm:gap-x-4"
+                        className="my-2 bg-neutral shadow-sm border flex w-full cursor-pointer items-center gap-x-2 rounded-lg px-4 py-4 hover:bg-secondary hover:bg-opacity-10 xsm:gap-x-4"
                     >
                         <div
                             className={` flex h-8 w-8 items-center justify-center rounded-full bg-primary text-[0.8rem] text-white xsm:h-9 xsm:w-9 sm:h-10 sm:w-10 sm:text-base`}
                         >
-                            {`${
-                                transaction.fullName.split(' ')[0].split('')[0]
-                            }${
-                                transaction.fullName.split(' ')[1].split('')[0]
-                            }`}
+                            {fullNameAbbr.toUpperCase()}
                         </div>
                         <div className="grid w-full flex-1 grid-cols-2 items-center">
                             <h2 className="flex flex-col text-sm font-semibold text-primary xsm:text-lg sm:text-xl lg:text-2xl">
                                 {username}
                                 {amount.split('')[0] === '-' ? (
                                     <span className="text-[0.6rem] leading-3 text-gray-400 sm:text-[0.7rem] md:text-sm">
-                                        Sent money to user
+                                        {sendDesc}
                                     </span>
                                 ) : (
                                     <span className="text-[0.6rem] leading-3 text-gray-400 sm:text-[0.7rem] md:text-sm">
-                                        Received money
+                                        {receiveDesc}
                                     </span>
                                 )}
                             </h2>
@@ -87,7 +101,7 @@ const Transactions = ({ transactions, user, border }) => {
                                     className={`${
                                         transaction.status === 'Pending'
                                             ? 'text-orange-500'
-                                            : 'text-blue-500'
+                                            : 'text-blue-700'
                                     }
                                         text-[0.6rem] font-medium leading-3
                                         text-gray-400 xsm:text-[0.7rem]

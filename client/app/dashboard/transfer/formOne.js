@@ -18,9 +18,12 @@ const FormOne = ({ setName, setForm, setUsername, user }) => {
                 );
             }
 
-            axios(`${process.env.NEXT_PUBLIC_API_URL}user/${username}`, {
-                method: 'GET',
-            })
+            axios(
+                `${process.env.NEXT_PUBLIC_API_URL}user/checkUser/${username}`,
+                {
+                    method: 'GET',
+                }
+            )
                 .then((response) => {
                     const user = response.data.user;
                     setName(`${user.firstname} ${user.lastname}`);
@@ -48,7 +51,7 @@ const FormOne = ({ setName, setForm, setUsername, user }) => {
     return (
         <form
             autoComplete="off"
-            className="flex w-full max-w-xl flex-col space-y-2 place-self-center rounded-b-md border border-t-4 border-t-secondary px-2 pt-4 pb-4 shadow-md sm:justify-center sm:space-y-4 sm:px-8 sm:pt-8"
+            className="flex w-full max-w-xl flex-col space-y-2 place-self-center rounded-xl border border-t-4 border-t-secondary bg-neutral px-2 pt-4 pb-4 shadow-md sm:justify-center sm:space-y-4 sm:px-8 sm:pt-8"
             onSubmit={formik.handleSubmit}
         >
             <h1 className="text-2xl font-medium sm:text-3xl">Send Money</h1>
@@ -82,7 +85,7 @@ const FormOne = ({ setName, setForm, setUsername, user }) => {
             <div className="flex w-full justify-center">
                 <button
                     type="submit"
-                    className="w-32 bg-secondary py-1.5 text-white sm:w-44 sm:py-2 sm:text-xl"
+                    className="w-32 rounded-lg bg-secondary py-1.5 text-white sm:w-44 sm:py-2 sm:text-xl"
                 >
                     Next
                 </button>

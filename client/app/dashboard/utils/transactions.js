@@ -44,6 +44,12 @@ const Transactions = ({ transactions, user, border }) => {
                     receiveDesc = 'Fund wallet';
                     fullNameAbbr = 'T';
                 }
+                if (transaction.transactionType === 'withdraw') {
+                    username = `${transaction.receiverFullName.split(' ')[0]} ${
+                        transaction.receiverFullName.split(' ')[1]
+                    }`;
+                    sendDesc = 'Withdraw funds';
+                }
 
                 return (
                     <div
@@ -56,7 +62,13 @@ const Transactions = ({ transactions, user, border }) => {
                             {fullNameAbbr.toUpperCase()}
                         </div>
                         <div className="grid w-full flex-1 grid-cols-2 items-center smd:grid-cols-3 xl:grid-cols-2">
-                            <h2 className="flex flex-col text-lg font-semibold text-primary sm:text-xl">
+                            <h2
+                                className={`flex flex-col text-lg font-semibold text-primary  ${
+                                    transaction.transactionType === 'withdraw'
+                                        ? 'text-base'
+                                        : 'sm:text-xl'
+                                }`}
+                            >
                                 {username}
                                 {amount.split('')[0] === '-' ? (
                                     <span className="text-[0.7rem] font-normal leading-3 text-gray-400">

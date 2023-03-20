@@ -8,7 +8,7 @@ const Top = ({ user, balance }) => {
     const router = useRouter();
     return (
         <article
-            className={` flex w-full flex-col items-center justify-center px-2 xsm:px-12 sm:flex-row sm:items-center sm:justify-around`}
+            className={`flex max-w-3xl w-full flex-col items-center justify-center px-2 xsm:px-12 sm:flex-row sm:items-center sm:justify-around`}
         >
             <div className="flex items-center gap-x-2 p-4 sm:flex-col sm:items-start sm:gap-y-4">
                 Welcome

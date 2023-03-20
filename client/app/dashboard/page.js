@@ -48,7 +48,9 @@ const Dashboard = () => {
     return (
         <main className={`grid h-full w-full grid-cols-3`}>
             <section
-                className={`col-span-3 flex flex-col space-y-8 py-4 xl:col-span-2`}
+                className={`col-span-3 flex flex-col items-center space-y-8 py-4 ${
+                    transactions.length <= 0 ? null : 'xl:col-span-2'
+                }`}
             >
                 <Top user={user} balance={balance} />
                 <MidTotal
@@ -78,7 +80,13 @@ const Dashboard = () => {
                 </article>
                 <article className="flex h-full w-full flex-col space-y-2 px-2 xsm:px-12 xl:hidden">
                     <div className="flex items-center justify-between">
-                        <h1 className="text-lg underline">Recent Activities</h1>
+                        <h1
+                            className={`text-lg underline ${
+                                transactions.length <= 0 ? 'hidden' : null
+                            }`}
+                        >
+                            Recent Activities
+                        </h1>
                         {transactions.length >= 5 && (
                             <Link
                                 href="/dashboard/transactions"
@@ -94,16 +102,6 @@ const Dashboard = () => {
                             <h1 className="text-center text-3xl">
                                 No Recent Activity
                             </h1>
-                            {/* <div className="flex w-full items-center justify-center">
-                                <Image
-                                    src="/noTransaction.svg"
-                                    width={500}
-                                    height={300}
-                                    alt="p-pay"
-                                    className=""
-                                    priority
-                                />
-                            </div> */}
                         </div>
                     ) : (
                         <Transactions
@@ -114,7 +112,11 @@ const Dashboard = () => {
                     )}
                 </article>
             </section>
-            <section className={`hidden flex-col py-4 xl:flex`}>
+            <section
+                className={`hidden flex-col border-l bg-white py-4 pl-4 shadow-xl ${
+                    transactions.length <= 0 ? null : 'xl:flex'
+                }`}
+            >
                 <div className={`flex w-full`}>
                     <Image
                         src="/undraw-card4.svg"

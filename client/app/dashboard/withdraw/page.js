@@ -7,6 +7,8 @@ import FormOne from './formOne';
 import FormTwo from './formTwo';
 import FormThree from './formThree';
 import Link from 'next/link';
+import Success from './success';
+import Fail from './fail';
 
 const Page = () => {
     const [form, setForm] = useState(1);
@@ -86,9 +88,13 @@ const Page = () => {
                     setForm={setForm}
                 />
             )}
+            {form === 4 && <Success />}
+            {form === 5 && <Fail setForm={setForm} />}
             <Link
                 href="/dashboard"
-                className="w-full text-center font-semibold text-secondary underline"
+                className={`w-full text-center font-semibold text-secondary underline ${
+                    form === 4 ? 'hidden' : null
+                }`}
             >
                 Go Home
             </Link>

@@ -36,6 +36,10 @@ app.use('/api/user', user);
 const transfer = require('./routers/transfer');
 app.use('/api/transfer', transfer);
 
+// webhook route
+const webhook = require('./routers/webhook');
+app.use('/api/webhook', webhook);
+
 // Route not found
 app.use((req, res) => {
     res.json({ msg: 'Route not Found' });

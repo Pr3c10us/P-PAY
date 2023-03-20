@@ -6,6 +6,7 @@ import PinInput from 'react-pin-input';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { BsFillExclamationTriangleFill } from 'react-icons/bs';
 import { BsFillArrowLeftCircleFill } from 'react-icons/bs';
+import axios from 'axios';
 
 const FormTwo = ({
     setForm,
@@ -22,7 +23,25 @@ const FormTwo = ({
         if (!pin) {
             return setError('Provide 4 digits pin');
         }
-        alert(pin);
+
+        const body = {
+            pin,
+            name: accountName,
+            account_number: accountNumber,
+            bank_code: bankCode,
+            amount,
+        };
+        try {
+            axios.defaults.withCredentials = true;
+            await axios.post(
+                `${process.env.NEXT_PUBLIC_API_URL}transfer/withdraw`,
+                body
+            );
+            setForm(4);
+        } catch (error) {
+            setForm(5);
+            return;
+        }
     };
 
     return (

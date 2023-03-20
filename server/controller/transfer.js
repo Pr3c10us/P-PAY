@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 require('dotenv').config;
+const { v4: uuidv4 } = require('uuid');
 const { User } = require('../models/userDetails');
 const {
     NotFoundError,
@@ -82,6 +83,7 @@ const transfer = async (req, res) => {
                 receiverId: receiverDetails._id,
                 transactionId: transaction._id,
                 amount,
+                transactionType: 'transfer',
             })
         ),
         { persistent: true }
@@ -113,13 +115,28 @@ const fundWallet = async (req, res) => {
     let transactionData = paystackTransaction.data.data;
     transactionData.amount = transactionData.amount / 100;
 
+    // // create transaction parameter to be stored
+    // const transactionParams = {
+    //     sender: transactionData.reference,
+    //     receiver: user.id,
+    //     senderUsername: 'fund',
+    //     receiverUsername: user.username,
+    //     amount: transactionData.amount,
+    //     transactionType: 'fund',
+    //     status: transactionData.status,
+    //     receiverFullName: `${user.firstname} ${user.lastname}`,
+    //     senderFullName: `Fund Wallet`,
+    //     receiverNewBalance: user.balance,
+    // };
+
+    // await Transaction.create(transactionParams);
     // Add amount to user balance
-    user.balance += +transactionData.amount;
-    user.totalReceived += +transactionData.amount;
+    // user.balance += +transactionData.amount;
+    // user.totalReceived += +transactionData.amount;
 
-    await user.save();
+    // await user.save();
 
-    // create transaction parameter to be stored
+    // create a new transaction for the transfer
     const transactionParams = {
         sender: transactionData.reference,
         receiver: user.id,
@@ -127,14 +144,144 @@ const fundWallet = async (req, res) => {
         receiverUsername: user.username,
         amount: transactionData.amount,
         transactionType: 'fund',
-        status: transactionData.status,
+        status: 'Pending',
         receiverFullName: `${user.firstname} ${user.lastname}`,
         senderFullName: `Fund Wallet`,
-        receiverNewBalance: user.balance,
     };
-    await Transaction.create(transactionParams);
+
+    const transaction = await Transaction.create(transactionParams);
+    const { channel } = await rabbitChannel();
+    channel.sendToQueue(
+        'Transfer',
+        Buffer.from(
+            JSON.stringify({
+                senderId: transactionData.reference,
+                receiverId: user._id,
+                transactionId: transaction._id,
+                amount: transactionData.amount,
+                transactionType: 'fund',
+            })
+        ),
+        { persistent: true }
+    );
 
     res.send('complete');
+};
+
+const withdraw = async (req, res) => {
+    const { pin, name, account_number, bank_code, amount } = req.body;
+
+    // check if all values are provided
+    if (amount <= 0 || !amount) {
+        throw new BadRequestError('Provide a valid amount');
+    }
+    if (!pin) {
+        throw new BadRequestError('Provide your pin');
+    }
+    if (!account_number || !bank_code || !name) {
+        throw new BadRequestError(
+            'Provide valid account number and bank code with account name'
+        );
+    }
+
+    // get sender id
+    const { id } = req.user;
+
+    // get user info
+    const user = await User.findById(id);
+
+    // throw error if amount is bigger than balance
+    if (amount > user.balance) {
+        throw new ForbiddenError('cant withdraw more than you have');
+    }
+
+    // check if pin is correct
+    const isMatch = await bcrypt.compare(pin, user.pin);
+    if (!isMatch) {
+        throw new BadRequestError('The pin you entered is incorrect');
+    }
+
+    // generate a v4 uuid
+    let reference = uuidv4();
+
+    const transactionParams = {
+        sender: user.id,
+        receiver: reference,
+        senderUsername: user.username,
+        receiverUsername: account_number,
+        amount,
+        transactionType: 'withdraw',
+        status: 'Pending',
+        receiverFullName: name,
+        senderFullName: `${user.firstname} ${user.lastname}`,
+    };
+
+    const transaction = await Transaction.create(transactionParams);
+    const { channel } = await rabbitChannel();
+    channel.sendToQueue(
+        'Transfer',
+        Buffer.from(
+            JSON.stringify({
+                senderId: user.id,
+                receiverId: reference,
+                transactionId: transaction._id,
+                amount,
+                transactionType: 'withdraw',
+            })
+        ),
+        { persistent: true }
+    );
+    res.send('complete');
+
+    // // set url headers and body to get recipient code
+    // const recipientUrl = `https://api.paystack.co/transferrecipient`;
+    // const recipientConfig = {
+    //     headers: {
+    //         Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+    //         'Content-Type': 'application/json',
+    //     },
+    // };
+    // const recipientBody = {
+    //     type: 'nuban',
+    //     name,
+    //     account_number,
+    //     bank_code,
+    //     currency: 'NGN',
+    // };
+
+    // // get recipient code for transfer
+    // const response = await axios.post(
+    //     recipientUrl,
+    //     recipientBody,
+    //     recipientConfig
+    // );
+    // const recipient = response.data.data.recipient_code;
+
+    // // set url headers and body to initiate transfer
+    // const transferUrl = `https://api.paystack.co/transfer`;
+    // const transferConfig = {
+    //     headers: {
+    //         Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+    //         'Content-Type': 'application/json',
+    //     },
+    // };
+    // const transferBody = {
+    //     source: 'balance',
+    //     amount: amount,
+    //     reference,
+    //     recipient,
+    //     reason: 'Withdrawal of funds',
+    // };
+    // try {
+    //     // initiate transfer
+    //     await axios.post(transferUrl, transferBody, transferConfig);
+
+    //     res.json({ msg: 'Transfer in progress' });
+    // } catch (error) {
+    //     console.log(error);
+    //     // if there is an error send transfer failed message
+    //     throw new BadRequestError('Transfer failed');
+    // }
 };
 
 const balances = async (req, res) => {
@@ -414,13 +561,6 @@ const getTransaction = async (req, res) => {
     }).select(
         ' receiverUsername sender receiver senderUsername amount status receiverFullName senderFullName transactionType createdAt sessionId'
     );
-    // const transactionNew = {
-    //     amount: transaction.amount,
-    //     status: transaction.status,
-    //     id: transaction._id,
-    //     type: transaction.transactionType,
-    //     date: transaction.createdAt.toLocaleString,
-    // };
 
     if (transaction.sender === user.id) {
         transaction.amount = -transaction.amount;
@@ -439,4 +579,5 @@ module.exports = {
     getBanks,
     verifyAccount,
     getTransaction,
+    withdraw,
 };

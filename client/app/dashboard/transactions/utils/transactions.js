@@ -48,6 +48,12 @@ const Transactions = ({ transactions, user, border }) => {
                     receiveDesc = 'Fund wallet';
                     fullNameAbbr = 'T';
                 }
+                if (transaction.transactionType === 'withdraw') {
+                    username = `${transaction.receiverFullName.split(' ')[0]} ${
+                        transaction.receiverFullName.split(' ')[1]
+                    }`;
+                    sendDesc = 'Withdraw funds';
+                }
 
                 return (
                     <div
@@ -57,7 +63,7 @@ const Transactions = ({ transactions, user, border }) => {
                             )
                         }
                         key={transaction._id}
-                        className="my-2 bg-neutral shadow-sm border flex w-full cursor-pointer items-center gap-x-2 rounded-lg px-4 py-4 hover:bg-secondary hover:bg-opacity-10 xsm:gap-x-4"
+                        className="my-2 flex w-full cursor-pointer items-center gap-x-2 rounded-lg border bg-neutral px-4 py-4 shadow-sm hover:bg-secondary hover:bg-opacity-10 xsm:gap-x-4"
                     >
                         <div
                             className={` flex h-8 w-8 items-center justify-center rounded-full bg-primary text-[0.8rem] text-white xsm:h-9 xsm:w-9 sm:h-10 sm:w-10 sm:text-base`}

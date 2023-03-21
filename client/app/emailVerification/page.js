@@ -58,13 +58,13 @@ const EmailVerification = () => {
     const handleEffect = async () => {
         try {
             if (!email) {
-                return router.push('dashboard');
+                return router.push('/dashboard/home');
             }
             const isVerified = await axios.get(
                 `${process.env.NEXT_PUBLIC_API_URL}user/emailVerified?email=${email}`
             );
             if (isVerified.data.msg) {
-                return router.push('dashboard');
+                return router.push('/dashboard/home');
             }
             await axios.get(
                 `${process.env.NEXT_PUBLIC_API_URL}auth/sendCode?email=${email}&authRoute=emailVerification`
@@ -103,7 +103,7 @@ const EmailVerification = () => {
     };
 
     return (
-        <main className="relative grid h-full grid-cols-1 gap-4 overflow-auto   py-8 px-4 2xsm:px-8">
+        <main className="relative bg-vector-pattern bg-small md:bg-big grid h-full grid-cols-1 gap-4 overflow-auto   py-8 px-4 2xsm:px-8">
             <form
                 onSubmit={formik.handleSubmit}
                 className="flex h-min w-full flex-col items-center justify-center place-self-center rounded-3xl border

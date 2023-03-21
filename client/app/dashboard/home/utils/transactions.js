@@ -1,7 +1,8 @@
+import { useRouter } from 'next/navigation';
 import React from 'react';
-import { GiPayMoney, GiReceiveMoney } from 'react-icons/gi';
 
 const Transactions = ({ transactions, user, border }) => {
+    const router = useRouter();
     return (
         <div
             className={`flex w-full flex-col items-center space-y-8 overflow-auto ${
@@ -53,8 +54,13 @@ const Transactions = ({ transactions, user, border }) => {
 
                 return (
                     <div
+                        onClick={() =>
+                            router.push(
+                                `/dashboard/transactions/${transaction._id}`
+                            )
+                        }
                         key={transaction._id}
-                        className={`flex w-full items-center gap-x-4 `}
+                        className={`flex w-full cursor-pointer items-center gap-x-4 `}
                     >
                         <div
                             className={` flex h-8 w-8 items-center justify-center rounded-full bg-primary text-[0.8rem] text-white xsm:h-9 xsm:w-9 sm:h-10 sm:w-10 sm:text-base`}

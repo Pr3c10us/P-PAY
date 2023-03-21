@@ -26,7 +26,7 @@ const EmailVerification = () => {
                 `${process.env.NEXT_PUBLIC_API_URL}user/twoFactorVerified?email=${email}`
             );
             if (isVerified.data.msg) {
-                return router.push('dashboard');
+                return router.push('/dashboard/home');
             }
             await axios.get(
                 `${process.env.NEXT_PUBLIC_API_URL}auth/sendCode?email=${email}&resend=yes&authRoute=twoFactor`
@@ -63,7 +63,7 @@ const EmailVerification = () => {
                     `${process.env.NEXT_PUBLIC_API_URL}auth/verifyCode?email=${email}&code=${values.code}`
                 )
                 .then((response) => {
-                    return router.push('/dashboard');
+                    return router.push('/dashboard/home');
                 })
                 .catch((error) => {
                     setTimeout(() => {
@@ -103,7 +103,7 @@ const EmailVerification = () => {
     };
 
     return (
-        <main className="relative grid h-full grid-cols-1 gap-4 overflow-auto   py-8 px-4 2xsm:px-8">
+        <main className="relative grid h-full grid-cols-1 gap-4 overflow-auto bg-vector-pattern bg-small py-8  px-4 2xsm:px-8 md:bg-big">
             <form
                 onSubmit={formik.handleSubmit}
                 className="flex h-min w-full flex-col items-center justify-center place-self-center rounded-3xl border

@@ -61,38 +61,38 @@ export default function RootLayout({ children }) {
                         <div
                             className={`flex w-full justify-center py-8 px-2 md:justify-start md:px-8 `}
                         >
-                            <div className="h-12 w-12 animate-pulse rounded-lg bg-gray-200"></div>
+                            <div className="h-12 w-12 animate-pulse rounded-lg bg-gray-300"></div>
                         </div>
                         <ul className={`mt-4 flex w-full flex-1 flex-col`}>
                             <li
-                                className={`flex cursor-pointer items-center justify-center gap-x-2 py-4 px-2 text-base md:justify-start md:px-8`}
+                                className={`flex items-center justify-center gap-x-2 py-4 px-2 text-base md:justify-start md:px-8`}
                             >
-                                <div className="h-8 w-8 animate-pulse rounded-lg bg-gray-200 text-3xl" />
+                                <div className="h-8 w-8 animate-pulse rounded-lg bg-gray-300 text-3xl" />
                                 <p className="hidden h-7 w-24 animate-pulse rounded-xl bg-gray-200 md:block"></p>
                             </li>
                             <li
-                                className={`flex cursor-pointer items-center justify-center gap-x-2 py-4 px-2 text-base md:justify-start md:px-8`}
+                                className={`flex items-center justify-center gap-x-2 py-4 px-2 text-base md:justify-start md:px-8`}
                             >
-                                <div className="h-8 w-8 animate-pulse rounded-lg bg-gray-200 text-3xl" />
+                                <div className="h-8 w-8 animate-pulse rounded-lg bg-gray-300 text-3xl" />
                                 <p className="hidden h-7 w-20 animate-pulse rounded-xl bg-gray-200 md:block"></p>
                             </li>
                             <li
-                                className={`flex cursor-pointer items-center justify-center gap-x-2 py-4 px-2 text-base md:justify-start md:px-8`}
+                                className={`flex items-center justify-center gap-x-2 py-4 px-2 text-base md:justify-start md:px-8`}
                             >
-                                <div className="h-8 w-8 animate-pulse rounded-lg bg-gray-200 text-3xl" />
+                                <div className="h-8 w-8 animate-pulse rounded-lg bg-gray-300 text-3xl" />
                                 <p className="hidden h-7 w-28 animate-pulse rounded-xl bg-gray-200 md:block"></p>
                             </li>
                             <li
-                                className={`flex cursor-pointer items-center justify-center gap-x-2 py-4 px-2 text-base md:justify-start md:px-8`}
+                                className={`flex items-center justify-center gap-x-2 py-4 px-2 text-base md:justify-start md:px-8`}
                             >
-                                <div className="h-8 w-8 animate-pulse rounded-lg bg-gray-200 text-3xl" />
+                                <div className="h-8 w-8 animate-pulse rounded-lg bg-gray-300 text-3xl" />
                                 <p className="hidden h-7 w-20 animate-pulse rounded-xl bg-gray-200 md:block"></p>
                             </li>
                         </ul>
                         <li
-                            className={`flex cursor-pointer items-center justify-center gap-x-2 py-4 px-2 text-base md:justify-start md:px-8`}
+                            className={`flex items-center justify-center gap-x-2 py-4 px-2 text-base md:justify-start md:px-8`}
                         >
-                            <div className="h-8 w-8 animate-pulse rounded-lg bg-gray-200 text-3xl" />
+                            <div className="h-8 w-8 animate-pulse rounded-lg bg-gray-300 text-3xl" />
                             <p className="hidden h-7 w-24 animate-pulse rounded-xl bg-gray-200 md:block"></p>
                         </li>
                     </>
@@ -115,10 +115,10 @@ export default function RootLayout({ children }) {
                         <ul className={`mt-4 flex w-full flex-1 flex-col`}>
                             <li
                                 onClick={() => {
-                                    router.push('/dashboard/');
+                                    router.push('/dashboard/home');
                                 }}
                                 className={`flex cursor-pointer items-center justify-center gap-x-2 py-4 px-2 text-base hover:bg-secondary hover:bg-opacity-5  md:justify-start md:px-8 ${
-                                    (pathname == '/dashboard' ||
+                                    (pathname == '/dashboard/home' ||
                                         pathname == '/dashboard/addMoney' ||
                                         pathname == '/dashboard/withdraw') &&
                                     'bg-secondary bg-opacity-20 hover:bg-secondary hover:bg-opacity-20'
@@ -178,20 +178,7 @@ export default function RootLayout({ children }) {
                 )}
             </nav>
             <main className="min-h-full w-full overflow-auto scroll-smooth">
-                {loading ? (
-                    <div className="flex h-full w-full items-center justify-center">
-                        <Image
-                            src="/ppay-icon-loading.svg"
-                            width={100}
-                            height={100}
-                            alt="p-pay"
-                            className="animate-pulse"
-                            priority
-                        ></Image>
-                    </div>
-                ) : (
-                    children
-                )}
+                {loading ? null : children}
             </main>
         </main>
     );

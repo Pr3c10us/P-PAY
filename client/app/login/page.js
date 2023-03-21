@@ -56,7 +56,7 @@ const Login = () => {
     });
 
     return (
-        <main className="relative grid h-full grid-cols-1 gap-4 overflow-auto   px-4 py-8 2xsm:px-8">
+        <main className="relative grid h-full grid-cols-1 gap-4 overflow-auto bg-vector-pattern bg-small px-4   py-8 2xsm:px-8 md:bg-big">
             <form
                 onSubmit={formik.handleSubmit}
                 className="flex h-min w-full flex-col place-self-center rounded-3xl border

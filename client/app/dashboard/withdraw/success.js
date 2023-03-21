@@ -17,7 +17,7 @@ const Success = () => {
                 <p className="text-gray-400">Withdrawal Successful</p>
             </div>
             <button
-                onClick={() => router.push('/dashboard')}
+                onClick={() => router.push('/dashboard/home')}
                 className=" rounded-lg bg-secondary py-2 px-8 text-lg text-white focus:outline-none xsm:text-xl"
             >
                 Continue

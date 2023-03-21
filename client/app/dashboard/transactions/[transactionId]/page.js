@@ -38,31 +38,31 @@ const SingleTransaction = () => {
     if (loading) {
         return (
             <main className="grid py-12 h-full w-full grid-cols-1 bg-vector-pattern bg-small px-4 md:bg-big">
-                <div className="flex w-full max-w-md flex-col items-center justify-center space-y-8 place-self-center rounded-xl border bg-neutral p-8  shadow-lg">
+                <div className="flex w-full max-w-md flex-col items-center justify-center space-y-8 place-self-center rounded-xl border bg-neutral p-8  shadow-xl">
                     <div className="flex w-full flex-col items-center justify-center space-y-4">
-                        <div className="xsm:h-6 h-4 w-28 xsm:w-40 animate-pulse rounded bg-gray-200 xsm:text-xl"></div>
-                        <div className="xsm:h-16 h-12 w-12 xsm:w-16 animate-pulse rounded-lg bg-gray-200"></div>
+                        <div className="xsm:h-6 h-4 w-28 xsm:w-40 animate-pulse rounded bg-gray-100 xsm:text-xl"></div>
+                        <div className="xsm:h-16 h-12 w-12 xsm:w-16 animate-pulse rounded-lg bg-gray-100"></div>
                         <div
-                            className={`xsm:h-6 h-4 w-24 xsm:w-32 animate-pulse rounded bg-gray-200 font-semibold xsm:text-xl`}
+                            className={`xsm:h-6 h-4 w-24 xsm:w-32 animate-pulse rounded bg-gray-100 font-semibold xsm:text-xl`}
                         ></div>
                     </div>
 
                     <div className="flex w-full flex-col items-center justify-center">
                         <div className="flex w-full items-center justify-between border-b py-6 text-sm xsm:text-base">
-                            <h2 className="xsm:h-6 xsm:w-24 h-4 w-16 animate-pulse rounded bg-gray-200"></h2>
-                            <div className="flex xsm:h-6 h-4 w-32 xsm:w-44 animate-pulse flex-col items-end rounded bg-gray-200 text-sm font-medium text-gray-500"></div>
+                            <h2 className="xsm:h-6 xsm:w-24 h-4 w-16 animate-pulse rounded bg-gray-100"></h2>
+                            <div className="flex xsm:h-6 h-4 w-32 xsm:w-44 animate-pulse flex-col items-end rounded bg-gray-100 text-sm font-medium text-gray-500"></div>
                         </div>
                         <div className="flex w-full items-center justify-between border-b py-6 text-sm xsm:text-base">
-                            <h2 className="xsm:h-6 xsm:w-24 h-4 w-16 animate-pulse rounded bg-gray-200"></h2>
-                            <div className="flex xsm:h-6 h-4 w-32 xsm:w-44 animate-pulse flex-col items-end rounded bg-gray-200 text-sm font-medium text-gray-500"></div>
+                            <h2 className="xsm:h-6 xsm:w-24 h-4 w-16 animate-pulse rounded bg-gray-100"></h2>
+                            <div className="flex xsm:h-6 h-4 w-32 xsm:w-44 animate-pulse flex-col items-end rounded bg-gray-100 text-sm font-medium text-gray-500"></div>
                         </div>
                         <div className="flex w-full items-center justify-between border-b py-6 text-sm xsm:text-base">
-                            <h2 className="xsm:h-6 xsm:w-24 h-4 w-16 animate-pulse rounded bg-gray-200"></h2>
-                            <div className="flex xsm:h-6 h-4 w-32 xsm:w-44 animate-pulse flex-col items-end rounded bg-gray-200 text-sm font-medium text-gray-500"></div>
+                            <h2 className="xsm:h-6 xsm:w-24 h-4 w-16 animate-pulse rounded bg-gray-100"></h2>
+                            <div className="flex xsm:h-6 h-4 w-32 xsm:w-44 animate-pulse flex-col items-end rounded bg-gray-100 text-sm font-medium text-gray-500"></div>
                         </div>
                         <div className="flex w-full items-center justify-between border-b py-6 text-sm xsm:text-base">
-                            <h2 className="xsm:h-6 xsm:w-24 h-4 w-16 animate-pulse rounded bg-gray-200"></h2>
-                            <div className="flex xsm:h-6 h-4 w-32 xsm:w-44 animate-pulse flex-col items-end rounded bg-gray-200 text-sm font-medium text-gray-500"></div>
+                            <h2 className="xsm:h-6 xsm:w-24 h-4 w-16 animate-pulse rounded bg-gray-100"></h2>
+                            <div className="flex xsm:h-6 h-4 w-32 xsm:w-44 animate-pulse flex-col items-end rounded bg-gray-100 text-sm font-medium text-gray-500"></div>
                         </div>
                     </div>
                     <div>
@@ -70,7 +70,7 @@ const SingleTransaction = () => {
                             onClick={() =>
                                 router.push('/dashboard/transactions')
                             }
-                            className="xsm:h-8 h-6 w-16 xsm:w-20 animate-pulse rounded-lg bg-gray-200 text-sm text-white xsm:py-2 xsm:px-6"
+                            className="xsm:h-8 h-6 w-16 xsm:w-20 animate-pulse rounded-lg bg-gray-100 text-sm text-white xsm:py-2 xsm:px-6"
                         ></button>
                     </div>
                 </div>
@@ -79,7 +79,7 @@ const SingleTransaction = () => {
     }
     return (
         <main className="grid h-full py-12 w-full grid-cols-1 bg-vector-pattern bg-small px-4 md:bg-big">
-            <div className="flex w-full max-w-md flex-col items-center justify-center space-y-8 place-self-center rounded-xl border bg-neutral p-8  shadow-lg">
+            <div className="flex w-full max-w-md flex-col items-center justify-center space-y-8 place-self-center rounded-xl border bg-neutral p-8  shadow-xl">
                 <div className="flex w-full flex-col items-center justify-center space-y-4">
                     <div className="xsm:text-xl">{date}</div>
                     <div className="rounded-lg border bg-gradient-to-r from-white to-secondary p-3">

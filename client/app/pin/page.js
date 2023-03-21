@@ -27,15 +27,19 @@ const setPin = () => {
     //     setError('');
     // };
     const handleEffect = async () => {
-        axios.defaults.withCredentials = true;
-        const response = await axios.get(
-            `${process.env.NEXT_PUBLIC_API_URL}user/isPinSet`
-        );
-        const pinSet = response.data.pinSet;
-        if (pinSet) {
-            return router.push('/dashboard');
+        try {
+            axios.defaults.withCredentials = true;
+            const response = await axios.get(
+                `${process.env.NEXT_PUBLIC_API_URL}user/isPinSet`
+            );
+            const pinSet = response.data.pinSet;
+            if (pinSet) {
+                return router.push('/dashboard/home');
+            }
+            setLoading(false);
+        } catch (error) {
+            return router.push('/login');
         }
-        setLoading(false);
     };
     useEffect(() => {
         handleEffect();
@@ -43,7 +47,7 @@ const setPin = () => {
 
     if (loading) {
         return (
-            <main className="relative grid h-full grid-cols-1 gap-4 overflow-auto   py-8 px-4 2xsm:px-8">
+            <main className="relative grid h-full grid-cols-1 gap-4 overflow-auto py-8   px-4 2xsm:px-8">
                 <div className="flex h-full w-full items-center justify-center">
                     <Image
                         priority
@@ -59,7 +63,7 @@ const setPin = () => {
     }
 
     return (
-        <main className="relative grid h-full grid-cols-1 gap-0 overflow-hidden   py-8 px-4 2xsm:px-8">
+        <main className="relative grid h-full grid-cols-1 gap-0 overflow-hidden bg-vector-pattern bg-small py-8   px-4 2xsm:px-8 md:bg-big">
             {form === 1 && (
                 <FormOne
                     form={form}

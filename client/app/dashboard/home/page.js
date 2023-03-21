@@ -8,6 +8,7 @@ import Image from 'next/image';
 import Transactions from './utils/transactions';
 import Link from 'next/link';
 import { BsArrowRightShort } from 'react-icons/bs';
+import Loading from './loading';
 
 const Dashboard = () => {
     const [user, setUser] = useState({});
@@ -15,6 +16,7 @@ const Dashboard = () => {
     const [totalSpent, setTotalSpent] = useState([]);
     const [totalReceived, setTotalReceived] = useState([]);
     const [transactions, setTransactions] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const handleEffect = async () => {
         axios.defaults.withCredentials = true;
@@ -40,10 +42,15 @@ const Dashboard = () => {
         );
         const transactions = await transferRes.data.transactions;
         setTransactions(transactions);
+        setLoading(false);
     };
     useEffect(() => {
         handleEffect();
     }, []);
+
+    if (loading) {
+        return <Loading />;
+    }
 
     return (
         <main className={`grid h-full w-full grid-cols-3`}>

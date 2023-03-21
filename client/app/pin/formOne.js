@@ -93,7 +93,7 @@ const FormOne = ({ setForm, pin, setPin }) => {
                 </button>
             </div>
             <Link
-                href="/dashboard"
+                href="/dashboard/home"
                 className="mt-4 flex w-full items-center justify-center gap-1 text-center text-base text-gray-400"
             >
                 <IoMdArrowRoundBack className="text-base" />

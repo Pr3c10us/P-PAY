@@ -35,7 +35,7 @@ const Page = () => {
                     `${process.env.NEXT_PUBLIC_API_URL}transfer/fund/${res.reference}`
                 )
                 .then((res) => {
-                    router.push('/dashboard/');
+                    router.push('/dashboard/home');
                 })
                 .catch((error) => {
                     console.log(error);
@@ -49,7 +49,7 @@ const Page = () => {
         <div className="grid h-full w-full bg-vector-pattern bg-small px-4 md:bg-big ">
             <div className="relative flex w-full max-w-4xl items-center place-self-center rounded-lg border-2 bg-neutral shadow-lg xsm:w-auto md:h-96 md:w-full">
                 <BsFillArrowLeftCircleFill
-                    onClick={() => router.push('/dashboard/')}
+                    onClick={() => router.push('/dashboard/home')}
                     className="absolute right-4 top-4 h-7 w-7 cursor-pointer text-secondary transition-all duration-200 hover:scale-110"
                 />
                 <div className=" flex h-full w-full flex-1 flex-col items-start justify-center space-y-4 py-8 px-4 md:items-start">

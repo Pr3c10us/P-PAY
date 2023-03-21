@@ -16,7 +16,7 @@ const page = () => {
     });
 
     return (
-        <main className="relative grid h-full grid-cols-1 gap-4 overflow-auto py-8 px-4 2xsm:px-8">
+        <main className="relative grid h-full grid-cols-1 gap-4 overflow-auto bg-vector-pattern bg-small py-8 px-4 2xsm:px-8 md:bg-big">
             {form === 1 && (
                 <FormOne
                     setForm={setForm}

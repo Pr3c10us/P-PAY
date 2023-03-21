@@ -27,7 +27,7 @@ const ResetPassword = () => {
     }, []);
 
     return (
-        <main className="relative grid h-full grid-cols-1 gap-4 overflow-auto   px-4 py-8 2xsm:px-8">
+        <main className="relative grid h-full grid-cols-1 gap-4 overflow-auto bg-vector-pattern bg-small md:bg-big   px-4 py-8 2xsm:px-8">
             {form === 1 && (
                 <FormOne token={token} setForm={setForm} router={router} />
             )}

@@ -91,7 +91,7 @@ const Page = () => {
             {form === 4 && <Success />}
             {form === 5 && <Fail setForm={setForm} />}
             <Link
-                href="/dashboard"
+                href="/dashboard/home"
                 className={`w-full text-center font-semibold text-secondary underline ${
                     form === 4 ? 'hidden' : null
                 }`}

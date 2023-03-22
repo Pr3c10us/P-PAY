@@ -53,6 +53,11 @@ const Transactions = ({ transactions, user, border }) => {
                         transaction.receiverFullName.split(' ')[1]
                     }`;
                     sendDesc = 'Withdraw funds';
+                    fullNameAbbr = `${
+                        transaction.receiverFullName.split(' ')[0].split('')[0]
+                    }${
+                        transaction.receiverFullName.split(' ')[1].split('')[0]
+                    }`;
                 }
 
                 return (

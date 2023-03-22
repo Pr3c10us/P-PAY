@@ -101,14 +101,14 @@ export default function Home() {
                     </button>
                 </div>
             </section>
-            <section className="grid lg:grid-cols-2 h-full flex-1 items-center px-8 text-left md:px-20 lg:pr-0 ">
-                <div className="flex flex-col lg:pl-8 space-y-4 text-center lg:text-left">
+            <section className="grid h-full flex-1 items-center px-8 text-left md:px-20 lg:grid-cols-2 lg:pr-0 ">
+                <div className="flex flex-col space-y-4 text-center lg:pl-8 lg:text-left">
                     <div>
                         <h2 className="flex w-full flex-col text-4xl font-bold text-secondary sm:text-5xl">
                             <span>A Simple E-wallet</span>
                             <span>for everyday transaction</span>
                         </h2>
-                        <p className="text-lg max-w-md sm:text-2xl">
+                        <p className="text-lg sm:text-2xl lg:max-w-md">
                             P-pay helps to send and receive money without
                             unnecessary features and fees
                         </p>

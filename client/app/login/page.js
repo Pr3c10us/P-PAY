@@ -87,7 +87,7 @@ const Login = () => {
                             value={formik.values.email}
                             onBlur={formik.handleBlur}
                             name="email"
-                            className={`peer block h-12 w-full appearance-none rounded-lg border bg-transparent py-1 px-2 text-xl  text-gray-900 transition duration-300 focus:border-2 focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white xsm:w-80 ${
+                            className={`peer block h-12 w-full appearance-none rounded-lg border bg-transparent py-1 px-2 text-xl  text-gray-900 transition duration-300 focus:border-2 focus:outline-none focus:ring-0   xsm:w-80 ${
                                 formik.touched.email && formik.errors.email
                                     ? 'border-red-500 focus:border-red-600  '
                                     : 'focus:border-secondary '
@@ -97,7 +97,7 @@ const Login = () => {
                         />
                         <label
                             htmlFor="email"
-                            className={`absolute top-3 left-2 z-10 origin-[0] -translate-y-[20px] scale-75 transform bg-white px-1  text-base duration-200 peer-placeholder-shown:left-2 peer-placeholder-shown:-z-10 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-2 peer-focus:z-10 peer-focus:-translate-y-[24px] peer-focus:scale-75 peer-focus:font-medium dark:text-gray-400 peer-focus:dark:text-blue-500  `}
+                            className={`absolute top-3 left-2 z-10 origin-[0] -translate-y-[20px] scale-75 transform bg-white px-1  text-base duration-200 peer-placeholder-shown:left-2 peer-placeholder-shown:-z-10 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-2 peer-focus:z-10 peer-focus:-translate-y-[24px] peer-focus:scale-75 peer-focus:font-medium    `}
                         >
                             Email
                         </label>
@@ -109,7 +109,7 @@ const Login = () => {
                             value={formik.values.password}
                             onBlur={formik.handleBlur}
                             name="password"
-                            className={`peer block h-12 w-full appearance-none rounded-lg border bg-transparent py-1 px-2 pr-8 text-xl text-gray-900  transition duration-300  focus:border-2 focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white xsm:w-80 ${
+                            className={`peer block h-12 w-full appearance-none rounded-lg border bg-transparent py-1 px-2 pr-8 text-xl text-gray-900  transition duration-300  focus:border-2 focus:outline-none focus:ring-0   xsm:w-80 ${
                                 formik.touched.password &&
                                 formik.errors.password
                                     ? 'border-red-500 focus:border-red-600  '
@@ -120,7 +120,7 @@ const Login = () => {
                         />
                         <label
                             htmlFor="password"
-                            className={`absolute top-3 left-2 z-10 origin-[0] -translate-y-[20px] scale-75 transform bg-white px-1  text-base duration-200 peer-placeholder-shown:left-2 peer-placeholder-shown:-z-10 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-2 peer-focus:z-10 peer-focus:-translate-y-[24px] peer-focus:scale-75 peer-focus:font-medium dark:text-gray-400 peer-focus:dark:text-blue-500  `}
+                            className={`absolute top-3 left-2 z-10 origin-[0] -translate-y-[20px] scale-75 transform bg-white px-1  text-base duration-200 peer-placeholder-shown:left-2 peer-placeholder-shown:-z-10 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-2 peer-focus:z-10 peer-focus:-translate-y-[24px] peer-focus:scale-75 peer-focus:font-medium    `}
                         >
                             Password
                         </label>

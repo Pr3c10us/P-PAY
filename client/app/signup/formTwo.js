@@ -175,7 +175,7 @@ const FormTwo = ({ setForm, setUser, user, form }) => {
                                     value={formik.values.day}
                                     onBlur={formik.handleBlur}
                                     name="day"
-                                    className={`peer block h-10 w-full appearance-none rounded-lg border bg-transparent py-1 px-2  text-lg text-gray-900 transition duration-300 focus:border-2 focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white xsm:max-w-[150px] ${
+                                    className={`peer block h-10 w-full appearance-none rounded-lg border bg-transparent py-1 px-2  text-lg text-gray-900 transition duration-300 focus:border-2 focus:outline-none focus:ring-0   xsm:max-w-[150px] ${
                                         formik.touched.day && formik.errors.day
                                             ? 'border-red-500 focus:border-red-600  '
                                             : 'focus:border-secondary '
@@ -185,7 +185,7 @@ const FormTwo = ({ setForm, setUser, user, form }) => {
                                 />
                                 <label
                                     htmlFor="day"
-                                    className={`absolute top-2 left-2 z-10 origin-[0] -translate-y-[20px] scale-75 transform bg-white px-1  text-base duration-200 peer-placeholder-shown:left-2 peer-placeholder-shown:-z-10 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-2 peer-focus:z-10 peer-focus:-translate-y-[20px] peer-focus:scale-75 peer-focus:font-medium dark:text-gray-400 peer-focus:dark:text-blue-500  `}
+                                    className={`absolute top-2 left-2 z-10 origin-[0] -translate-y-[20px] scale-75 transform bg-white px-1  text-base duration-200 peer-placeholder-shown:left-2 peer-placeholder-shown:-z-10 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-2 peer-focus:z-10 peer-focus:-translate-y-[20px] peer-focus:scale-75 peer-focus:font-medium    `}
                                 >
                                     Day{' '}
                                     <span className="text-[12px] text-gray-400">
@@ -202,7 +202,7 @@ const FormTwo = ({ setForm, setUser, user, form }) => {
                                     value={formik.values.month}
                                     onBlur={formik.handleBlur}
                                     name="month"
-                                    className={`peer block h-10 w-full appearance-none rounded-lg border bg-transparent py-1 px-2  text-lg text-gray-900 transition duration-300 focus:border-2 focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white xsm:max-w-[150px] ${
+                                    className={`peer block h-10 w-full appearance-none rounded-lg border bg-transparent py-1 px-2  text-lg text-gray-900 transition duration-300 focus:border-2 focus:outline-none focus:ring-0   xsm:max-w-[150px] ${
                                         formik.touched.month &&
                                         formik.errors.month
                                             ? 'border-red-500 focus:border-red-600  '
@@ -213,7 +213,7 @@ const FormTwo = ({ setForm, setUser, user, form }) => {
                                 />
                                 <label
                                     htmlFor="month"
-                                    className={`absolute top-2 left-2 z-10 origin-[0] -translate-y-[20px] scale-75 transform bg-white px-1  text-base duration-200 peer-placeholder-shown:left-2 peer-placeholder-shown:-z-10 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-2 peer-focus:z-10 peer-focus:-translate-y-[20px] peer-focus:scale-75 peer-focus:font-medium dark:text-gray-400 peer-focus:dark:text-blue-500  `}
+                                    className={`absolute top-2 left-2 z-10 origin-[0] -translate-y-[20px] scale-75 transform bg-white px-1  text-base duration-200 peer-placeholder-shown:left-2 peer-placeholder-shown:-z-10 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-2 peer-focus:z-10 peer-focus:-translate-y-[20px] peer-focus:scale-75 peer-focus:font-medium    `}
                                 >
                                     Month{' '}
                                     <span className="text-[12px] text-gray-400">
@@ -229,7 +229,7 @@ const FormTwo = ({ setForm, setUser, user, form }) => {
                                     value={formik.values.year}
                                     onBlur={formik.handleBlur}
                                     name="year"
-                                    className={`peer block h-10 w-full appearance-none rounded-lg border bg-transparent py-1 px-2  text-lg text-gray-900 transition duration-300 focus:border-2 focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white xsm:max-w-[150px] ${
+                                    className={`peer block h-10 w-full appearance-none rounded-lg border bg-transparent py-1 px-2  text-lg text-gray-900 transition duration-300 focus:border-2 focus:outline-none focus:ring-0   xsm:max-w-[150px] ${
                                         formik.touched.year &&
                                         formik.errors.year
                                             ? 'border-red-500 focus:border-red-600  '
@@ -240,7 +240,7 @@ const FormTwo = ({ setForm, setUser, user, form }) => {
                                 />
                                 <label
                                     htmlFor="year"
-                                    className={`absolute top-2 left-2 z-10 origin-[0] -translate-y-[20px] scale-75 transform bg-white px-1  text-base duration-200 peer-placeholder-shown:left-2 peer-placeholder-shown:-z-10 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-2 peer-focus:z-10 peer-focus:-translate-y-[20px] peer-focus:scale-75 peer-focus:font-medium dark:text-gray-400 peer-focus:dark:text-blue-500  `}
+                                    className={`absolute top-2 left-2 z-10 origin-[0] -translate-y-[20px] scale-75 transform bg-white px-1  text-base duration-200 peer-placeholder-shown:left-2 peer-placeholder-shown:-z-10 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-2 peer-focus:z-10 peer-focus:-translate-y-[20px] peer-focus:scale-75 peer-focus:font-medium    `}
                                 >
                                     Year{' '}
                                     <span className="text-[12px] text-gray-400">

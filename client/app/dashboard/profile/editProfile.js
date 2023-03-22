@@ -79,7 +79,7 @@ const EditProfile = () => {
     return (
         <form
             onSubmit={formik.handleSubmit}
-            className="relative h-full w-full max-w-4xl space-y-4 pt-4 overflow-hidden rounded-lg border-2"
+            className="relative h-full w-full max-w-4xl space-y-4 overflow-hidden rounded-lg border-2 pt-4"
         >
             <div className="mx-4">
                 <h1 className="text-xl font-semibold">Profile Details</h1>
@@ -100,7 +100,7 @@ const EditProfile = () => {
                             onBlur={formik.handleBlur}
                             name="firstname"
                             type="text"
-                            className="block h-10 w-full appearance-none rounded-lg border-2 bg-transparent px-2 text-lg  capitalize text-gray-900 transition duration-300 focus:border-[3px] focus:border-secondary focus:outline-none focus:ring-0 dark:border-secondary dark:text-white"
+                            className="block h-10 w-full appearance-none rounded-lg border-2 bg-transparent px-2 text-lg  capitalize text-gray-900 transition duration-300 focus:border-[3px] focus:border-secondary focus:outline-none focus:ring-0  "
                         />
                     </div>
                     <div className="flex w-full flex-col">
@@ -114,7 +114,7 @@ const EditProfile = () => {
                             onBlur={formik.handleBlur}
                             name="lastname"
                             type="text"
-                            className="block h-10 w-full appearance-none rounded-lg border-2 bg-transparent px-2 text-lg  capitalize text-gray-900 transition duration-300 focus:border-[3px] focus:border-secondary focus:outline-none focus:ring-0 dark:border-secondary dark:text-white"
+                            className="block h-10 w-full appearance-none rounded-lg border-2 bg-transparent px-2 text-lg  capitalize text-gray-900 transition duration-300 focus:border-[3px] focus:border-secondary focus:outline-none focus:ring-0  "
                         />
                     </div>
                 </li>
@@ -130,7 +130,7 @@ const EditProfile = () => {
                             onBlur={formik.handleBlur}
                             name="username"
                             type="text"
-                            className="block h-10 w-full appearance-none rounded-lg border-2 bg-transparent px-2 text-lg text-gray-900 transition duration-300 focus:border-[3px] focus:border-secondary focus:outline-none focus:ring-0 dark:border-secondary dark:text-white"
+                            className="block h-10 w-full appearance-none rounded-lg border-2 bg-transparent px-2 text-lg text-gray-900 transition duration-300 focus:border-[3px] focus:border-secondary focus:outline-none focus:ring-0  "
                         />
                     </div>
                     <div className="hidden sm:block"></div>

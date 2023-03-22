@@ -87,7 +87,7 @@ const FormOne = ({ token, setForm, router }) => {
                         value={formik.values.password}
                         onBlur={formik.handleBlur}
                         name="password"
-                        className={`peer block h-12 w-full appearance-none rounded-lg border bg-transparent py-1 px-2 pr-8 text-sm text-gray-900 transition  duration-300 focus:border-2  focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white 2xsm:text-xl xsm:w-80 ${
+                        className={`peer block h-12 w-full appearance-none rounded-lg border bg-transparent py-1 px-2 pr-8 text-sm text-gray-900 transition  duration-300 focus:border-2  focus:outline-none focus:ring-0   2xsm:text-xl xsm:w-80 ${
                             formik.touched.password && formik.errors.password
                                 ? 'border-red-500 focus:border-red-600  '
                                 : 'focus:border-secondary '
@@ -116,7 +116,7 @@ const FormOne = ({ token, setForm, router }) => {
                         value={formik.values.confirmPassword}
                         onBlur={formik.handleBlur}
                         name="confirmPassword"
-                        className={`peer mt-2 block h-12 w-full appearance-none rounded-lg border bg-transparent py-1 px-2 pr-8 text-sm text-gray-900 transition  duration-300 focus:border-2  focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white 2xsm:text-xl xsm:w-80 ${
+                        className={`peer mt-2 block h-12 w-full appearance-none rounded-lg border bg-transparent py-1 px-2 pr-8 text-sm text-gray-900 transition  duration-300 focus:border-2  focus:outline-none focus:ring-0   2xsm:text-xl xsm:w-80 ${
                             formik.touched.confirmPassword &&
                             formik.errors.confirmPassword
                                 ? 'border-red-500 focus:border-red-600  '

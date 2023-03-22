@@ -215,7 +215,7 @@ const login = async (req, res) => {
     res.cookie('token', token, {
         signed: true,
         maxAge: 1000 * 60 * 60 * 24,
-        // httpOnly: false,
+        httpOnly: true,
         secure: true,
     }).json({
         msg: 'Login Successful',

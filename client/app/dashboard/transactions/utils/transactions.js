@@ -67,7 +67,7 @@ const Transactions = ({ transactions, user, border }) => {
                         className="my-2 flex w-full cursor-pointer items-center gap-x-2 rounded-lg border bg-neutral px-4 py-4 shadow-sm hover:bg-secondary hover:bg-opacity-10 xsm:gap-x-4"
                     >
                         <div
-                            className={` flex h-8 w-8 items-center justify-center rounded-full bg-primary text-[0.8rem] text-white xsm:h-9 xsm:w-9 sm:h-10 sm:w-10 sm:text-base`}
+                            className={` flex h-8 w-8 items-center justify-center rounded-full bg-primary text-[0.8rem] font-bold text-white xsm:h-9 xsm:w-9 sm:h-10 sm:w-10 sm:text-base`}
                         >
                             {fullNameAbbr.toUpperCase()}
                         </div>

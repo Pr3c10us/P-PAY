@@ -217,6 +217,7 @@ const login = async (req, res) => {
         httpOnly: true,
         secure: true,
         signed: true,
+        sameSite: 'none',
     }).json({
         msg: 'Login Successful',
     });

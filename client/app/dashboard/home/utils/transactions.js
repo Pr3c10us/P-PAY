@@ -34,7 +34,7 @@ const Transactions = ({ transactions, user, border }) => {
                 } else {
                     fullName = transaction.senderFullName;
                 }
-                let fullNameAbbr = `${fullName.split(' ')[0].split('')[0]}`;
+                let fullNameAbbr = `${username.split(' ')[0].split('')[0]}`;
 
                 let receiveDesc = 'Received money';
                 let sendDesc = 'Sent money to user';

@@ -7,6 +7,7 @@ const authorize = async (req, res, next) => {
     const { token } = req.signedCookies;
 
     if (!token) {
+        console.log(token);
         throw new UnAuthorizedError('Log in');
     }
 

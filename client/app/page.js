@@ -102,7 +102,7 @@ export default function Home() {
                 </div>
             </section>
             <section className="grid lg:grid-cols-2 h-full flex-1 items-center px-8 text-left md:px-20 lg:pr-0 ">
-                <div className="flex flex-col pl-8 space-y-4 text-center lg:text-left">
+                <div className="flex flex-col lg:pl-8 space-y-4 text-center lg:text-left">
                     <div>
                         <h2 className="flex w-full flex-col text-4xl font-bold text-secondary sm:text-5xl">
                             <span>A Simple E-wallet</span>

@@ -23,19 +23,19 @@ services:
     networks:
         - p-pay-net
 
-  client:
-    build: ./client
-    container_name: client
-    restart: always
-    ports:
-      - "3000:3000"
-    environment:
-      - NEXT_PUBLIC_API_URL=http://server:5000/api/
-      - NEXT_PUBLIC_PAYSTACK_KEY=pk_test_2bd1847db9309248327cc9df2228692b4b9b91f6
-    depends_on:
-      - server
-    networks:
-      - p-pay-net
+  # client:
+  #   build: ./client
+  #   container_name: client
+  #   restart: always
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     - NEXT_PUBLIC_API_URL=http://server:5000/api/
+  #     - NEXT_PUBLIC_PAYSTACK_KEY=pk_test_2bd1847db9309248327cc9df2228692b4b9b91f6
+  #   depends_on:
+  #     - server
+  #   networks:
+  #     - p-pay-net
 
   server:
     build: ./server
@@ -52,7 +52,7 @@ services:
       - MONGO_URL=mongodb://mongodb:27017/P-PAY
       - PORT=5000
       - CLIENT_ORIGIN=http://client:3000
-      - PUBLIC_CLIENT_ORIGIN=http://172.176.137.245:3000
+      - PUBLIC_CLIENT_ORIGIN=https://p-pay-drab.vercel.app/
       - RABBIT_URL=amqp://rabbit
       - EMAIL_CONNECTION_STRING='endpoint=https://p-pay-communication-service.communication.azure.com/;accesskey=qhqFNLb6JC6lol1RgxRmu1ZuUGmMWNI38FpQI1IR5ljUYVCPq6M0LWG9RW+tMl8UqMEP+aRSpacjX/NIke/Ucg=='
       - PAYSTACK_SECRET_KEY=sk_test_916d4ca3213a3f65ef450bff228f76ee41a3808e

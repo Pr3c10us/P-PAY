@@ -218,6 +218,7 @@ const login = async (req, res) => {
         secure: true,
         signed: true,
         sameSite: 'none',
+        domain: 'https://p-pay-pr3c10us.vercel.app',
     }).json({
         msg: 'Login Successful',
     });

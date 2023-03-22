@@ -80,3 +80,5 @@ const serve = async () => {
 };
 
 serve();
+
+module.exports = app;

@@ -110,7 +110,7 @@ const verificationMail = (code, email, authenticationRoute) => {
       <p>Please complete the verification/authentication process by entering the provided code in the app:</p>
       <p class="otp">{{ ${code} }}</p>
       <p>This CODE is valid for 10 minutes. If you did not sign up for P-PAY, please ignore this email.</p>
-      <a href='${process.env.CLIENT_ORIGIN}/${authenticationRoute}?email=${email}' class="action-button">Confirm</a>
+      <a href='${process.env.PUBLIC_CLIENT_ORIGIN}/${authenticationRoute}?email=${email}' class="action-button">Confirm</a>
     </div>
   </body>
     </html>`;

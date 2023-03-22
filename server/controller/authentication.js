@@ -213,10 +213,11 @@ const login = async (req, res) => {
     const token = jwt.sign(payload, process.env.JWT_TOKEN, { expiresIn: '1d' });
 
     res.cookie('token', token, {
-        signed: true,
         maxAge: 1000 * 60 * 60 * 24,
         httpOnly: true,
+        expires: new Date(Date.now() + oneDay),
         secure: true,
+        signed: true,
     }).json({
         msg: 'Login Successful',
     });

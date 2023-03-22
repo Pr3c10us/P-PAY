@@ -216,6 +216,7 @@ const login = async (req, res) => {
         signed: true,
         maxAge: 1000 * 60 * 60 * 24,
         httpOnly: false,
+        secure: true,
     }).json({
         msg: 'Login Successful',
     });

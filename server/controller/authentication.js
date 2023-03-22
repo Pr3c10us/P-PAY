@@ -215,7 +215,6 @@ const login = async (req, res) => {
     res.cookie('token', token, {
         maxAge: 1000 * 60 * 60 * 24,
         httpOnly: true,
-        expires: new Date(Date.now() + oneDay),
         secure: true,
         signed: true,
     }).json({

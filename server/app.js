@@ -13,6 +13,7 @@ const corsOptions = {
     origin: process.env.CLIENT_ORIGIN,
     credentials: true, //access-control-allow-credentials:true
 };
+app.set('trust proxy', 1);
 app.use(cors(corsOptions));
 app.use(morgan('dev'));
 app.use(cookieParser(process.env.COOKIE_SECRET));

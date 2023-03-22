@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import FormOne from './formOne';
-import FormTwo from './FormTwo';
+import FormTwo from './formTwo';
 
 const ForgotPassword = () => {
     const [form, setForm] = useState(1);

@@ -56,7 +56,7 @@ const forgotPasswordMail = (token, name) => {
       <p>Hi <span>${name}</span> We've received a request to reset your password for your P-PAY account.
       If you did not make this request, please ignore this email.</p>
       <p>This Link is valid for only 10 minutes. If you did not sign up for P-PAY, please Contact us </p>
-      <a href='${process.env.CLIENT_ORIGIN}/resetPassword?token=${token}' class="action-button">Reset Password</a>
+      <a href='${process.env.PUBLIC_CLIENT_ORIGIN}/resetPassword?token=${token}' class="action-button">Reset Password</a>
     </div>
   </body>
     </html>`;

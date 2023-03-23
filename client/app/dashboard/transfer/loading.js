@@ -5,7 +5,7 @@ export default function App() {
         <main className="relative grid h-full grid-cols-1 gap-4 overflow-auto bg-vector-pattern bg-small py-8 px-4 2xsm:px-8 md:bg-big">
             <form
                 autoComplete="off"
-                className="flex h-48 w-full max-w-xl flex-col justify-center space-y-2 place-self-center rounded-xl  border border-t-gray-200 bg-neutral px-2 pt-4 pb-4 shadow-md xsm:h-60 sm:space-y-4 sm:px-8 sm:pt-8"
+                className="flex h-48 w-full max-w-xl flex-col justify-center space-y-2 place-self-center rounded-xl  border-2 border-t-gray-200 bg-neutral px-2 pt-4 pb-4 shadow-md xsm:h-60 sm:space-y-4 sm:px-8 sm:pt-8"
             >
                 <h1 className="h-6 w-20 animate-pulse rounded-xl bg-gray-100 text-2xl font-medium xsm:h-9 xsm:w-40 sm:text-3xl"></h1>
                 <p className="h-4 w-full animate-pulse rounded bg-gray-100 text-[0.75rem] xsm:w-96 sm:text-base"></p>

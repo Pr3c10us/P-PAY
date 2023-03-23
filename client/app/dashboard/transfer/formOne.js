@@ -51,7 +51,7 @@ const FormOne = ({ setName, setForm, setUsername, user }) => {
     return (
         <form
             autoComplete="off"
-            className=" flex w-full max-w-xl flex-col space-y-2 place-self-center rounded-xl border  bg-neutral px-2 pt-4 pb-4 shadow-md sm:justify-center sm:space-y-4 sm:px-8 sm:pt-8"
+            className=" flex w-full max-w-xl flex-col space-y-2 place-self-center rounded-xl border-2  bg-neutral px-2 pt-4 pb-4 shadow-md sm:justify-center sm:space-y-4 sm:px-8 sm:pt-8"
             onSubmit={formik.handleSubmit}
         >
             <h1 className="text-2xl font-medium sm:text-3xl">Send Money</h1>

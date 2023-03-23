@@ -87,7 +87,7 @@ const FormTwo = ({ name, setAmount, amount, setForm, user, setPin }) => {
         >
             <div
                 autoComplete="off"
-                className=" flex w-full max-w-lg flex-col space-y-6 rounded-xl border  bg-neutral px-4 py-8 shadow-md sm:justify-center sm:space-y-8 sm:px-8"
+                className=" flex w-full max-w-lg flex-col space-y-6 rounded-xl border-2  bg-neutral px-4 py-8 shadow-md sm:justify-center sm:space-y-8 sm:px-8"
                 // onSubmit={formik.handleSubmit}
             >
                 <h1 className="border-b text-sm font-medium sm:text-xl">

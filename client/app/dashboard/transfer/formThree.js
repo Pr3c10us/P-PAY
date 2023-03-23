@@ -43,7 +43,7 @@ const FormThree = ({
         setDate(date.toDateString());
     }, []);
     return (
-        <div className=" relative flex w-full max-w-md flex-col space-y-8 place-self-center rounded-xl border  bg-neutral px-4 py-6 font-medium shadow-md sm:justify-center sm:space-y-8 sm:py-10 sm:px-8">
+        <div className=" relative flex w-full max-w-md flex-col space-y-8 place-self-center rounded-xl border-2  bg-neutral px-4 py-6 font-medium shadow-md sm:justify-center sm:space-y-8 sm:py-10 sm:px-8">
             <BsFillArrowLeftCircleFill
                 onClick={() => setForm(2)}
                 className="absolute right-4 top-4 h-7 w-7 cursor-pointer text-secondary transition-all duration-200 hover:scale-110"

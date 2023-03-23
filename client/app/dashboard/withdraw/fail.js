@@ -3,7 +3,7 @@ import { FaTimes } from 'react-icons/fa';
 
 const Fail = ({ setForm }) => {
     return (
-        <div className="flex w-full max-w-[20rem] flex-col items-center space-y-14 place-self-center rounded-xl border border-t-4  bg-neutral px-2 py-10 font-medium shadow-md xsm:justify-center xsm:space-y-14 xsm:py-10 xsm:px-8 sm:max-w-sm">
+        <div className="flex w-full max-w-[20rem] flex-col items-center space-y-14 place-self-center rounded-xl border   bg-neutral px-2 py-10 font-medium shadow-md xsm:justify-center xsm:space-y-14 xsm:py-10 xsm:px-8 sm:max-w-sm">
             <div className="flex h-24 w-24 items-center justify-center rounded-full bg-red-500 xsm:h-24 xsm:w-24 ">
                 <FaTimes className="z-50 text-2xl text-white" />
             </div>

@@ -25,7 +25,7 @@ const Transfer = () => {
         });
     }, []);
     return (
-        <main className="relative grid h-full grid-cols-1 gap-4 overflow-auto bg-vector-pattern bg-small py-8 px-2 md:bg-big">
+        <main className="relative grid h-full grid-cols-1 gap-4 overflow-auto bg-vector-pattern bg-small py-8 px-2 2xsm:px-6 md:bg-big">
             {form === 1 && (
                 <FormOne
                     setName={setName}

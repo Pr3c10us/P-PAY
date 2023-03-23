@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CgHomeAlt } from 'react-icons/cg';
-import {  AiFillDollarCircle } from 'react-icons/ai';
+import { AiFillDollarCircle } from 'react-icons/ai';
 import { FaUserCircle } from 'react-icons/fa';
 import { IoLogOut, IoReceipt } from 'react-icons/io5';
 import { usePathname, useRouter } from 'next/navigation';
@@ -116,11 +116,11 @@ export default function RootLayout({ children }) {
                                 onClick={() => {
                                     router.push('/dashboard/home');
                                 }}
-                                className={`flex cursor-pointer items-center justify-center gap-x-2 py-4 px-2 text-base hover:bg-secondary hover:bg-opacity-5  md:justify-start md:px-8 ${
+                                className={`relative flex cursor-pointer items-center justify-center gap-x-2 overflow-hidden py-4 px-2 text-base hover:bg-secondary hover:bg-opacity-5  md:justify-start md:px-8 ${
                                     (pathname == '/dashboard/home' ||
                                         pathname == '/dashboard/addMoney' ||
                                         pathname == '/dashboard/withdraw') &&
-                                    'bg-secondary bg-opacity-20 hover:bg-secondary hover:bg-opacity-20'
+                                    'bg-secondary bg-opacity-20 '
                                 }`}
                             >
                                 <CgHomeAlt className="text-3xl xsm:text-4xl" />
@@ -130,7 +130,7 @@ export default function RootLayout({ children }) {
                                 onClick={() => {
                                     router.push('/dashboard/transfer');
                                 }}
-                                className={`flex cursor-pointer items-center justify-center gap-x-2 py-4 px-2 text-base hover:bg-secondary hover:bg-opacity-5  md:justify-start md:px-8 ${
+                                className={`relative flex cursor-pointer items-center justify-center gap-x-2 overflow-hidden py-4 px-2 text-base hover:bg-secondary hover:bg-opacity-5  md:justify-start md:px-8 ${
                                     pathname.includes('/dashboard/transfer') &&
                                     'bg-secondary bg-opacity-20 hover:bg-secondary hover:bg-opacity-20'
                                 }`}
@@ -142,7 +142,7 @@ export default function RootLayout({ children }) {
                                 onClick={() => {
                                     router.push('/dashboard/transactions');
                                 }}
-                                className={`flex cursor-pointer items-center justify-center gap-x-2 py-4 px-2 text-base hover:bg-secondary hover:bg-opacity-5  md:justify-start md:px-8 ${
+                                className={`relative flex cursor-pointer items-center justify-center gap-x-2 overflow-hidden py-4 px-2 text-base hover:bg-secondary hover:bg-opacity-5  md:justify-start md:px-8 ${
                                     pathname.includes(
                                         '/dashboard/transactions'
                                     ) &&
@@ -157,7 +157,7 @@ export default function RootLayout({ children }) {
                                 onClick={() => {
                                     router.push('/dashboard/profile');
                                 }}
-                                className={`flex cursor-pointer items-center justify-center gap-x-2 py-4 px-2 text-base hover:bg-secondary hover:bg-opacity-5  md:justify-start md:px-8 ${
+                                className={`relative flex cursor-pointer items-center justify-center gap-x-2 overflow-hidden py-4 px-2 text-base hover:bg-secondary hover:bg-opacity-5  md:justify-start md:px-8 ${
                                     pathname.includes('/dashboard/profile') &&
                                     'bg-secondary bg-opacity-20 hover:bg-secondary hover:bg-opacity-20'
                                 }`}
@@ -182,3 +182,4 @@ export default function RootLayout({ children }) {
         </main>
     );
 }
+// before:absolute before:right-0 before:h-full before:w-1 before:bg-gradient-to-t before:from-white before:via-whit before:to-black before:blur-sm hover:bg-secondary hover:bg-opacity-20

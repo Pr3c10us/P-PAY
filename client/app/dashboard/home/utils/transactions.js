@@ -1,5 +1,6 @@
 import { useRouter } from 'next/navigation';
 import React from 'react';
+import { BsCashStack, BsFillPeopleFill } from 'react-icons/bs';
 
 const Transactions = ({ transactions, user, border }) => {
     const router = useRouter();
@@ -64,9 +65,13 @@ const Transactions = ({ transactions, user, border }) => {
                         className={`flex w-full cursor-pointer items-center gap-x-4 `}
                     >
                         <div
-                            className={` flex h-8 font-semibold w-8 items-center justify-center rounded-full bg-primary text-[0.8rem] text-white xsm:h-9 xsm:w-9 sm:h-10 sm:w-10 sm:text-base`}
+                            className={` flex h-8 w-8 items-center justify-center rounded-full bg-primary text-[0.8rem] font-semibold text-white xsm:h-9 xsm:w-9 sm:h-10 sm:w-10 sm:text-base`}
                         >
-                            {fullNameAbbr.toUpperCase()}
+                            {transaction.transactionType === 'transfer' ? (
+                                <BsFillPeopleFill />
+                            ) : (
+                                <BsCashStack />
+                            )}
                         </div>
                         <div className="grid w-full flex-1 grid-cols-2 items-center smd:grid-cols-3 xl:grid-cols-2">
                             <h2

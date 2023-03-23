@@ -44,7 +44,7 @@ const SingleTransaction = () => {
             <div className="flex w-full max-w-md flex-col items-center justify-center space-y-8 place-self-center rounded-xl border bg-neutral p-8  shadow-xl">
                 <div className="flex w-full flex-col items-center justify-center space-y-4">
                     <div className="xsm:text-xl">{date}</div>
-                    <div className="rounded-lg border bg-gradient-to-r from-white to-secondary p-3">
+                    <div className="rounded-lg border bg-secondary text-white p-3">
                         {/* BsFillPeopleFill */}
                         {transaction.transactionType === 'transfer' && (
                             <BsFillPeopleFill className="h-6 w-6 xsm:h-10 xsm:w-10" />

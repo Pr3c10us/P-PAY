@@ -56,7 +56,7 @@ const Dashboard = () => {
     return (
         <main className={`grid h-full w-full grid-cols-3`}>
             <section
-                className={`col-span-3 flex flex-col items-center space-y-4 md:space-y-8 py-4 ${
+                className={`col-span-3 flex flex-col items-center space-y-4 py-4 md:space-y-8 ${
                     transactions.length <= 0 ? null : 'xl:col-span-2'
                 }`}
             >
@@ -90,11 +90,11 @@ const Dashboard = () => {
                 <article className="flex h-full w-full flex-col space-y-2 px-2 xsm:px-12 xl:hidden">
                     <div className="flex items-center justify-between">
                         <h1
-                            className={`text-lg underline ${
+                            className={`text-lg  ${
                                 transactions.length <= 0 ? 'hidden' : null
                             }`}
                         >
-                            Recent Activities
+                            Recent
                         </h1>
                         {transactions.length >= 5 && (
                             <Link

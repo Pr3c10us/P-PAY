@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { BsFillExclamationTriangleFill } from 'react-icons/bs';
 import axios from 'axios';
+import Image from 'next/image';
 
 const FormOne = ({ setName, setForm, setUsername, user }) => {
     const formik = useFormik({
@@ -51,20 +52,30 @@ const FormOne = ({ setName, setForm, setUsername, user }) => {
     return (
         <form
             autoComplete="off"
-            className=" flex w-full max-w-xl flex-col space-y-2 place-self-center rounded-xl border-2  bg-neutral px-2 pt-4 pb-4 shadow-md sm:justify-center sm:space-y-4 sm:px-8 sm:pt-8"
+            className=" sm: flex w-full max-w-md flex-col place-self-center rounded-xl  border-2 bg-neutral px-4  py-8 shadow-md sm:justify-center sm:px-8 sm:py-8"
             onSubmit={formik.handleSubmit}
         >
-            <h1 className="text-2xl font-medium sm:text-3xl">Send Money</h1>
-            <p className="text-[0.75rem] sm:text-base">
+            <Image
+                src="/ppay.svg"
+                width={50}
+                height={50}
+                alt="p-pay"
+                className="mb-4 w-28"
+                priority
+            />
+            <h1 className="mb-4 text-2xl font-semibold sm:text-3xl">
+                Send Money
+            </h1>
+            <p className="mb-4 text-[0.75rem] font-medium sm:text-sm">
                 Insert username of account you want to send money
             </p>
-            <div className="">
+            <div className="mb-2">
                 <input
-                    className={`mb-1 max-h-10 min-h-[2.5rem] w-full border-b bg-inherit px-2 pt-2 text-xl lowercase tracking-widest transition duration-300 focus:outline-none sm:text-2xl ${
+                    className={`mb-1 max-h-12 min-h-[2.5rem] w-full rounded-lg border bg-inherit px-2 py-2 text-xl font-medium lowercase tracking-widest transition duration-300 focus:outline-none sm:text-2xl ${
                         formik.touched.userUsername &&
                         formik.errors.userUsername
-                            ? 'border-red-500 focus:border-b-2 '
-                            : 'border-gray-300 focus:border-b-2 focus:border-secondary'
+                            ? 'border-red-500 focus:border-2 '
+                            : 'border-gray-300 focus:border-2 focus:border-secondary'
                     }`}
                     type="text"
                     value={formik.values.userUsername}
@@ -74,7 +85,7 @@ const FormOne = ({ setName, setForm, setUsername, user }) => {
                     autoComplete="none"
                     placeholder="@username"
                 />
-                <p className="min-h-[1.5rem] w-full text-right text-[0.7rem] font-medium text-red-500 sm:min-h-[2.2rem] sm:text-sm">
+                <p className="min-h-[1.5rem] w-full text-right text-[0.7rem] font-medium text-red-500 sm:text-sm">
                     {formik.touched.userUsername &&
                     formik.errors.userUsername &&
                     formik.errors.userUsername !== ' '
@@ -82,12 +93,12 @@ const FormOne = ({ setName, setForm, setUsername, user }) => {
                         : ''}
                 </p>
             </div>
-            <div className="flex w-full justify-center">
+            <div className="flex h-full w-full justify-center">
                 <button
                     type="submit"
-                    className="w-32 rounded-lg bg-secondary py-1.5 text-white sm:w-44 sm:py-2 sm:text-xl"
+                    className="h-12 w-full rounded-lg bg-secondary font-medium text-white sm:text-xl"
                 >
-                    Next
+                    Proceed
                 </button>
             </div>
         </form>

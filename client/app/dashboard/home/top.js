@@ -35,7 +35,7 @@ const Top = ({ user, balance }) => {
                 <div className="lg:px-800 font-medium flex w-full items-center justify-center gap-x-4 px-4 xsm:gap-x-8">
                     <button
                         onClick={() => router.push('/dashboard/addMoney')}
-                        className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary py-1 text-neutral   [&>div]:hover:rotate-180"
+                        className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary py-1.5 text-neutral   [&>div]:hover:rotate-180"
                     >
                         <div className="transition-all duration-200">
                             <AiOutlinePlus />
@@ -44,7 +44,7 @@ const Top = ({ user, balance }) => {
                     </button>
                     <button
                         onClick={() => router.push('/dashboard/withdraw')}
-                        className="flex w-full items-center justify-center gap-2 rounded-lg bg-neutral py-1 text-black [&>div]:hover:translate-x-1"
+                        className="flex w-full items-center justify-center gap-2 rounded-lg bg-neutral py-1.5 text-black [&>div]:hover:translate-x-1"
                     >
                         Withdraw{' '}
                         <div className="transition-all duration-300">

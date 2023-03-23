@@ -214,11 +214,11 @@ const login = async (req, res) => {
 
     res.cookie('token', token, {
         maxAge: 1000 * 60 * 60 * 24,
-        httpOnly: true,
-        secure: true,
+        httpOnly: false,
+        // secure: true,
         signed: true,
-        sameSite: 'none',
-        domain: 'https://p-pay-pr3c10us.vercel.app',
+        // sameSite: 'none',
+        // domain: 'https://p-pay-pr3c10us.vercel.app',
     }).json({
         msg: 'Login Successful',
     });

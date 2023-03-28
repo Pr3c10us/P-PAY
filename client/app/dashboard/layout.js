@@ -35,8 +35,8 @@ export default function RootLayout({ children }) {
                 setLoading(false);
             })
             .catch((error) => {
-                console.log(error);
-                // router.push('/login');
+                // console.log(error);
+                router.push('/login');
             });
     };
     useEffect(() => {

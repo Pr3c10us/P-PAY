@@ -18,9 +18,11 @@ const FormTwo = ({
 }) => {
     const [pin, setPin] = useState('');
     const [error, setError] = useState('');
-
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const handleContinue = async () => {
+        setIsSubmitting(true);
         if (!pin) {
+            setIsSubmitting(false);
             return setError('Provide 4 digits pin');
         }
 
@@ -118,7 +120,10 @@ const FormTwo = ({
             <div className="flex w-full flex-col items-center justify-center space-y-4">
                 <button
                     onClick={handleContinue}
-                    className="flex h-12 w-full items-center justify-center rounded-lg bg-secondary text-base text-white focus:outline-none"
+                    disabled={isSubmitting}
+                    className={`flex h-12 w-full items-center justify-center rounded-lg bg-secondary text-base text-white focus:outline-none ${
+                        isSubmitting ? 'cursor-none bg-opacity-40' : ''
+                    }`}
                 >
                     Withdraw
                 </button>

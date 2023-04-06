@@ -1,7 +1,6 @@
 import React from 'react';
 import { GiPayMoney, GiReceiveMoney } from 'react-icons/gi';
 import { useRouter } from 'next/navigation';
-import { BsCashStack, BsFillPeopleFill } from 'react-icons/bs';
 
 const Transactions = ({ transactions, user, border }) => {
     const router = useRouter();
@@ -68,14 +67,9 @@ const Transactions = ({ transactions, user, border }) => {
                         className="my-2 flex w-full cursor-pointer items-center gap-x-2 rounded-lg border bg-neutral px-4 py-4 shadow-sm hover:bg-secondary hover:bg-opacity-10 xsm:gap-x-4"
                     >
                         <div
-                            className={` flex h-8 w-8 items-center justify-center rounded-full bg-black text-sm font-semibold text-white xsm:h-9 xsm:w-9 sm:h-10 sm:w-10 sm:text-base`}
+                            className={` flex h-8 w-8 items-center justify-center rounded-full bg-primary text-[0.8rem] font-semibold text-white xsm:h-9 xsm:w-9 sm:h-10 sm:w-10 sm:text-base`}
                         >
-                            {/* {fullNameAbbr.toUpperCase()} */}
-                            {transaction.transactionType === 'transfer' ? (
-                                <BsFillPeopleFill />
-                            ) : (
-                                <BsCashStack />
-                            )}
+                            {fullNameAbbr.toUpperCase()}
                         </div>
                         <div className="grid w-full flex-1 grid-cols-2 items-center">
                             <h2 className="flex flex-col text-sm font-semibold text-primary xsm:text-lg sm:text-xl lg:text-2xl">
@@ -98,14 +92,14 @@ const Transactions = ({ transactions, user, border }) => {
                                 </button>
                             </div> */}
                             <p
-                                className={`flex flex-col text-right text-[0.7rem] font-semibold 2xsm:text-sm sm:text-lg ${
+                                className={`flex flex-col text-right text-[0.7rem] font-semibold xsm:text-sm sm:text-lg ${
                                     amount.split('')[0] === '-'
                                         ? 'text-red-600'
                                         : 'text-green-600'
                                 }`}
                             >
                                 <span
-                                    className={`text-[0.5rem] font-medium leading-3 text-gray-400 2xsm:text-[0.6rem] md:text-[0.8rem]`}
+                                    className={`text-[0.5rem] font-medium leading-3 text-gray-400 xsm:text-[0.6rem] md:text-[0.8rem]`}
                                 >
                                     {transaction.createdAt.split(',')[1]}
                                 </span>
@@ -117,7 +111,7 @@ const Transactions = ({ transactions, user, border }) => {
                                             : 'text-blue-700'
                                     }
                                         text-[0.6rem] font-medium leading-3
-                                        text-gray-400 2xsm:text-[0.7rem]
+                                        text-gray-400 xsm:text-[0.7rem]
                                 md:text-sm`}
                                 >
                                     {transaction.status}

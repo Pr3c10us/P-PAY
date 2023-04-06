@@ -18,7 +18,7 @@ const Options = () => {
                     }}
                     className={` flex w-full cursor-pointer flex-col items-center justify-center gap-y-1 gap-x-2 py-2 px-4 text-base`}
                 >
-                    <AiFillDollarCircle className="xsm:h-12 xsm:w-12 w-8 h-8  rounded-full border-2 border-secondary p-1 text-secondary" />
+                    <AiFillDollarCircle className="h-8 w-8 rounded-2xl border-2 border-secondary p-1 text-secondary" />
                     <p className="text-sm xsm:text-lg">Transfer</p>
                 </li>
             </div>
@@ -29,7 +29,7 @@ const Options = () => {
                     }}
                     className={`flex w-full cursor-pointer flex-col items-center justify-center gap-y-1 gap-x-2 py-2 px-4 text-base `}
                 >
-                    <IoReceipt className="xsm:h-12 xsm:w-12 w-8 h-8  rounded-full border-2 border-secondary p-1 text-secondary" />
+                    <IoReceipt className="h-8 w-8 rounded-2xl border-2 border-secondary p-1 text-secondary" />
                     <p className="text-xs 2xsm:text-sm xsm:text-lg">
                         Transactions
                     </p>
@@ -43,7 +43,7 @@ const Options = () => {
                     }}
                     className={`flex w-min cursor-pointer flex-col items-center justify-center gap-y-1 gap-x-2 py-2 px-4 text-base sm:w-full`}
                 >
-                    <FaUserCircle className="xsm:h-12 xsm:w-12 w-8 h-8  rounded-full border-2 border-secondary p-1 text-secondary" />
+                    <FaUserCircle className="h-8 w-8 rounded-2xl border-2 border-secondary p-1 text-secondary" />
                     <p className="text-sm xsm:text-lg">Profile</p>
                 </li>
             </div>

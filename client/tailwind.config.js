@@ -16,7 +16,7 @@ module.exports = {
                 // contain: 'contain',
                 // '50%': '50%',
                 big: '30rem',
-                xl: '40rem',
+                xl:'40rem',
                 small: '20rem',
             },
             fontFamily: {
@@ -40,7 +40,6 @@ module.exports = {
             },
             animation: {
                 wiggle: 'wiggle 2s ease-in-out infinite',
-                gradient: 'gradient 3s ease-in-out infinite',
             },
             backgroundImage: {
                 'vector-pattern': "url('../public/vector-shape-1.svg')",

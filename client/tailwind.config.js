@@ -16,7 +16,7 @@ module.exports = {
                 // contain: 'contain',
                 // '50%': '50%',
                 big: '30rem',
-                xl:'40rem',
+                xl: '40rem',
                 small: '20rem',
             },
             fontFamily: {
@@ -47,5 +47,7 @@ module.exports = {
             },
         },
     },
-    plugins: [],
+    plugins: [
+        require("prettier-plugin-tailwindcss"),
+    ],
 };

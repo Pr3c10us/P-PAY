@@ -3,7 +3,7 @@ import { AiOutlineRise, AiOutlineFall } from 'react-icons/ai';
 
 const MidTotal = ({ totalReceived, totalSpent }) => {
     return (
-        <article className="hidden w-full justify-center px-4 xsm:px-12 sm:flex">
+        <article className="w-full justify-center px-4 xsm:px-12 flex">
             <div className="flex w-full max-w-3xl items-center justify-around gap-4 rounded-xl bg-gradient-to-l from-black to-secondary px-4 py-4 xsm:min-w-[350px] xsm:flex-row">
                 <div className="flex items-center gap-2 text-neutral xsm:gap-x-4">
                     <div className="space-y-2 lg:space-y-4">

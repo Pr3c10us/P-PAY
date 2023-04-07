@@ -60,7 +60,9 @@ const transferQueue = async () => {
             const data = JSON.parse(msg.content);
             await completeTransfer(data, channel, msg);
         },
-        { noAck: false }
+        {
+            noAck: false,
+        }
     );
 };
 transferQueue();

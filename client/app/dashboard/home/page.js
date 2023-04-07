@@ -65,7 +65,7 @@ const Dashboard = () => {
                     totalReceived={totalReceived}
                     totalSpent={totalSpent}
                 />
-                <Options />
+                {/* <Options /> */}
                 <article className="hidden h-full w-full justify-center px-2 xsm:px-12 xl:flex">
                     {transactions.length <= 0 ? (
                         <div className=" flex h-full w-full justify-center bg-no-transaction bg-contain bg-center bg-no-repeat  py-8">

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CgHomeAlt } from 'react-icons/cg';
-import {  AiFillDollarCircle } from 'react-icons/ai';
+import { AiFillDollarCircle } from 'react-icons/ai';
 import { FaUserCircle } from 'react-icons/fa';
 import { IoLogOut, IoReceipt } from 'react-icons/io5';
 import { usePathname, useRouter } from 'next/navigation';
@@ -49,55 +49,64 @@ export default function RootLayout({ children }) {
     };
 
     return (
-        <main className='flex h-full'>
+        <main className='flex h-full flex-col-reverse xsm:flex-row'>
             <nav
-                className={`fixed z-50 left-1/2 rounded-2xl overflow-hidden -translate-x-1/2 xsm:translate-x-0 xsm:bottom-auto xsm:left-auto xsm:relative bottom-4  flex xsm:h-full bg-white xsm:flex-col border-2 xsm:border-none xsm:rounded-none xsm:border-r-2 shadow-xl xsm:w-20 md:w-64 ${loading ? '' : ''
-                    }`}
+                className={` flex xsm:border-r-2 shadow-xl xsm:h-full xsm:w-20 xsm:flex-col md:w-64 ${
+                    loading ? '' : ''
+                }`}
             >
                 {loading ? (
                     <>
                         <div
-                            className={`hidden xsm:flex w-full justify-center py-8 px-2 md:justify-start md:px-8 `}
+                            className={`hidden w-full justify-center py-8 px-2 xsm:flex md:justify-start md:px-8 `}
                         >
                             <div className='h-12 w-12 animate-pulse rounded-lg bg-gray-300'></div>
                         </div>
-                        <ul className={`xsm:mt-4 flex w-full xsm:flex-1 xsm:flex-col`}>
+                        <ul
+                            className={`grid w-full grid-cols-5 xsm:mt-4 xsm:flex xsm:flex-1 xsm:flex-col`}
+                        >
                             <li
-                                className={`flex items-center justify-center gap-x-2 py-4 px-4 xsm:px-2 text-base md:justify-start md:px-8`}
+                                className={`flex items-center justify-center flex-col xsm:flex-row gap-2 py-2.5 px-2 text-base xsm:py-4 md:justify-start md:px-8`}
                             >
-                                <div className='h-6 w-6 animate-pulse rounded-lg bg-gray-300 text-3xl xsm:h-10 xsm:w-10' />
-                                <p className='hidden h-7 w-20 animate-pulse rounded-xl bg-gray-200 md:block'></p>
+                                <div className='h-8 w-8 animate-pulse rounded-lg bg-gray-300 text-3xl' />
+                                <p className='xsm:h-7 h-3 w-full xsm:w-24 animate-pulse rounded-xl bg-gray-200 xsm:hidden md:block'></p>
                             </li>
                             <li
-                                className={`flex items-center justify-center gap-x-2 py-4 px-4 xsm:px-2 text-base md:justify-start md:px-8`}
+                                className={`flex items-center justify-center flex-col xsm:flex-row gap-2 py-2.5 px-2 text-base xsm:py-4 md:justify-start md:px-8`}
                             >
-                                <div className='h-6 w-6 animate-pulse rounded-lg bg-gray-300 text-3xl xsm:h-10 xsm:w-10' />
-                                <p className='hidden h-7 w-28 animate-pulse rounded-xl bg-gray-200 md:block'></p>
+                                <div className='h-8 w-8 animate-pulse rounded-lg bg-gray-300 text-3xl' />
+                                <p className='xsm:h-7 h-3 w-full xsm:w-20 animate-pulse rounded-xl bg-gray-200 xsm:hidden md:block'></p>
                             </li>
                             <li
-                                className={`flex items-center justify-center gap-x-2 py-4 px-4 xsm:px-2 text-base md:justify-start md:px-8`}
+                                className={`flex items-center justify-center flex-col xsm:flex-row gap-2 py-2.5 px-2 text-base xsm:py-4 md:justify-start md:px-8`}
                             >
-                                <div className='h-6 w-6 animate-pulse rounded-lg bg-gray-300 text-3xl xsm:h-10 xsm:w-10' />
-                                <p className='hidden h-7 w-20 animate-pulse rounded-xl bg-gray-200 md:block'></p>
+                                <div className='h-8 w-8 animate-pulse rounded-lg bg-gray-300 text-3xl' />
+                                <p className='xsm:h-7 h-3 w-full xsm:w-28 animate-pulse rounded-xl bg-gray-200 xsm:hidden md:block'></p>
                             </li>
                             <li
-                                className={`flex items-center justify-center gap-x-2 py-4 px-4 xsm:px-2 text-base md:justify-start md:px-8`}
+                                className={`flex items-center justify-center flex-col xsm:flex-row gap-2 py-2.5 px-2 text-base xsm:py-4 md:justify-start md:px-8`}
                             >
-                                <div className='h-6 w-6 animate-pulse rounded-lg bg-gray-300 text-3xl xsm:h-10 xsm:w-10' />
-                                <p className='hidden h-7 w-20 animate-pulse rounded-xl bg-gray-200 md:block'></p>
+                                <div className='h-8 w-8 animate-pulse rounded-lg bg-gray-300 text-3xl' />
+                                <p className='xsm:h-7 h-3 w-full xsm:w-20 animate-pulse rounded-xl bg-gray-200 xsm:hidden md:block'></p>
+                            </li>
+                            <li
+                                className={`flex items-center justify-center flex-col xsm:flex-row gap-2 py-2.5 px-2 text-base xsm:hidden xsm:py-4 md:justify-start md:px-8`}
+                            >
+                                <div className='h-8 w-8 animate-pulse rounded-lg bg-gray-300 text-3xl' />
+                                <p className='xsm:h-7 h-3 w-full xsm:w-20 animate-pulse rounded-xl bg-gray-200 xsm:hidden md:block'></p>
                             </li>
                         </ul>
                         <li
-                            className={`flex items-center justify-center gap-x-2 py-4 px-4 xsm:px-2 text-base md:justify-start md:px-8`}
+                            className={`hidden items-center justify-center gap-x-2 py-2.5 px-2 text-base xsm:flex xsm:py-4 md:justify-start md:px-8`}
                         >
-                            <div className='h-6 w-6 animate-pulse rounded-lg bg-gray-300 text-3xl xsm:h-10 xsm:w-10' />
+                            <div className='h-8 w-8 animate-pulse rounded-lg bg-gray-300 text-3xl' />
                             <p className='hidden h-7 w-24 animate-pulse rounded-xl bg-gray-200 md:block'></p>
                         </li>
                     </>
                 ) : (
                     <>
                         <div
-                            className={`hidden xsm:flex w-full justify-center py-8 px-2 md:justify-start md:px-8 `}
+                            className={`hidden w-full justify-center py-8 px-2 xsm:flex md:justify-start md:px-8 `}
                         >
                             <Link href='/' className=''>
                                 <Image
@@ -110,68 +119,93 @@ export default function RootLayout({ children }) {
                                 ></Image>
                             </Link>
                         </div>
-                        <ul className={`xsm:mt-4 flex w-full xsm:flex-1 xsm:flex-col`}>
+                        <ul
+                            className={`grid w-full grid-cols-5 xsm:mt-4 xsm:flex xsm:flex-1 xsm:flex-col`}
+                        >
                             <li
                                 onClick={() => {
                                     router.push('/dashboard/home');
                                 }}
-                                className={`flex cursor-pointer items-center justify-center gap-x-2 py-4 px-4 xsm:px-2 text-base hover:bg-secondary hover:bg-opacity-5  md:justify-start md:px-8 ${(pathname == '/dashboard/home' ||
-                                    pathname == '/dashboard/addMoney' ||
-                                    pathname == '/dashboard/withdraw') &&
+                                className={`flex cursor-pointer flex-col items-center justify-center gap-y-2 gap-x-2 py-2.5 px-2 text-base hover:bg-secondary hover:bg-opacity-5 xsm:flex-row xsm:py-4  md:justify-start md:px-8 ${
+                                    (pathname == '/dashboard/home' ||
+                                        pathname == '/dashboard/addMoney' ||
+                                        pathname == '/dashboard/withdraw') &&
                                     'bg-secondary bg-opacity-20 hover:bg-secondary hover:bg-opacity-20'
                                 }`}
                             >
-                                <CgHomeAlt className="text-4xl" />
-                                <p className="hidden md:block">Dashboard</p>
+                                <CgHomeAlt className='text-4xl' />
+                                <p className='text-xs font-medium xsm:hidden xsm:text-base md:block'>
+                                    Dashboard
+                                </p>
                             </li>
                             <li
                                 onClick={() => {
                                     router.push('/dashboard/transfer');
                                 }}
-                                className={`flex cursor-pointer items-center justify-center gap-x-2 py-4 px-4 xsm:px-2 text-base hover:bg-secondary hover:bg-opacity-5  md:justify-start md:px-8 ${pathname.includes('/dashboard/transfer') &&
+                                className={`flex cursor-pointer flex-col items-center justify-center gap-y-2 gap-x-2 py-2.5 px-2 text-base hover:bg-secondary hover:bg-opacity-5 xsm:flex-row xsm:py-4  md:justify-start md:px-8 ${
+                                    pathname.includes('/dashboard/transfer') &&
                                     'bg-secondary bg-opacity-20 hover:bg-secondary hover:bg-opacity-20'
                                 }`}
                             >
-                                <AiFillDollarCircle className="text-4xl" />
-                                <p className="hidden md:block">Transfer</p>
+                                <AiFillDollarCircle className='text-4xl' />
+                                <p className='text-xs font-medium xsm:hidden xsm:text-base md:block'>
+                                    Transfer
+                                </p>
                             </li>
                             <li
                                 onClick={() => {
                                     router.push('/dashboard/transactions');
                                 }}
-                                className={`flex cursor-pointer items-center justify-center gap-x-2 py-4 px-4 xsm:px-2 text-base hover:bg-secondary hover:bg-opacity-5  md:justify-start md:px-8 ${pathname.includes(
-                                    '/dashboard/transactions'
-                                ) &&
+                                className={`flex cursor-pointer flex-col items-center justify-center gap-y-2 gap-x-2 py-2.5 px-2 text-base hover:bg-secondary hover:bg-opacity-5 xsm:flex-row xsm:py-4  md:justify-start md:px-8 ${
+                                    pathname.includes(
+                                        '/dashboard/transactions'
+                                    ) &&
                                     'bg-secondary bg-opacity-20 hover:bg-secondary hover:bg-opacity-20'
                                 }`}
                             >
-                                <IoReceipt className="text-4xl" />
-                                <p className="hidden md:block">Transactions</p>
+                                <IoReceipt className='text-4xl' />
+                                <p className='text-xs font-medium xsm:hidden xsm:text-base md:block'>
+                                    Transactions
+                                </p>
                                 {/* IoReceipt */}
                             </li>
                             <li
                                 onClick={() => {
                                     router.push('/dashboard/profile');
                                 }}
-                                className={`flex cursor-pointer items-center justify-center gap-x-2 py-4 px-4 xsm:px-2 text-base hover:bg-secondary hover:bg-opacity-5  md:justify-start md:px-8 ${pathname.includes('/dashboard/profile') &&
+                                className={`flex cursor-pointer flex-col items-center justify-center gap-y-2 gap-x-2 py-2.5 px-2 text-base hover:bg-secondary hover:bg-opacity-5 xsm:flex-row xsm:py-4  md:justify-start md:px-8 ${
+                                    pathname.includes('/dashboard/profile') &&
                                     'bg-secondary bg-opacity-20 hover:bg-secondary hover:bg-opacity-20'
                                 }`}
                             >
-                                <FaUserCircle className="text-4xl" />
-                                <p className="hidden md:block">Profile</p>
+                                <FaUserCircle className='text-4xl' />
+                                <p className='text-xs font-medium xsm:hidden xsm:text-base md:block'>
+                                    Profile
+                                </p>
+                            </li>
+                            <li
+                                onClick={handleLogout}
+                                className={`flex cursor-pointer flex-col items-center justify-center gap-y-2 gap-x-2 py-2.5 px-2 text-base hover:bg-secondary hover:bg-opacity-5 xsm:hidden xsm:flex-row xsm:py-4  md:justify-start md:px-8`}
+                            >
+                                <IoLogOut className='text-4xl' />
+                                <p className='text-xs font-medium xsm:hidden xsm:text-base md:block'>
+                                    Logout
+                                </p>
                             </li>
                         </ul>
                         <div
                             onClick={handleLogout}
-                            className={`text-md xsm:my-8 py-4 px-4 xsm:py-0 xsm:px-0 xsm:mx-2 flex w-full cursor-pointer items-center justify-center gap-x-2 md:mx-8 hover:bg-secondary hover:bg-opacity-5 md:justify-start`}
+                            className={`hidden w-full cursor-pointer items-center justify-center gap-x-2 py-4 px-2 hover:bg-secondary hover:bg-opacity-5 xsm:flex  md:justify-start md:px-8 `}
                         >
-                            <IoLogOut className="text-4xl" />
-                            <p className="hidden md:block">Logout</p>
+                            <IoLogOut className='text-4xl' />
+                            <p className='text-xs font-medium xsm:hidden xsm:text-base md:block'>
+                                Logout
+                            </p>
                         </div>
                     </>
                 )}
             </nav>
-            <main className="xsm:h-full mb-20 w-full overflow-auto scroll-smooth">
+            <main className='h-full w-full overflow-auto scroll-smooth'>
                 {loading ? null : children}
             </main>
         </main>

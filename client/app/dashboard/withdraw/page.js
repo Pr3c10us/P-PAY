@@ -39,7 +39,7 @@ const Page = () => {
         handleEffect();
     }, []);
     return (
-        <main className="relative grid h-full w-full grid-cols-1 overflow-auto bg-vector-pattern bg-small px-4 py-8 md:bg-big">
+        <main className="relative grid h-full w-full grid-cols-1 gap-y-8 overflow-auto bg-vector-pattern bg-small px-4 py-8 md:bg-big">
             {showModal ? (
                 <SelectBank
                     setShowModal={setShowModal}

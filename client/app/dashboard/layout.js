@@ -44,14 +44,18 @@ export default function RootLayout({ children }) {
     }, []);
 
     const handleLogout = async () => {
-        await axios.get(`${process.env.NEXT_PUBLIC_API_URL}auth/logout`);
-        router.push('/login');
+        const decision = window.confirm('Are you sure you want to "log out"?');
+        if (decision) {
+            await axios.get(`${process.env.NEXT_PUBLIC_API_URL}auth/logout`);
+            router.push('/login');
+        }
+        return;
     };
 
     return (
         <main className='flex h-full flex-col-reverse xsm:flex-row'>
             <nav
-                className={` flex xsm:border-r-2 shadow-xl xsm:h-full xsm:w-20 xsm:flex-col md:w-64 ${
+                className={` flex shadow-xl xsm:h-full xsm:w-20 xsm:flex-col xsm:border-r-2 md:w-64 ${
                     loading ? '' : ''
                 }`}
             >
@@ -66,34 +70,34 @@ export default function RootLayout({ children }) {
                             className={`grid w-full grid-cols-5 xsm:mt-4 xsm:flex xsm:flex-1 xsm:flex-col`}
                         >
                             <li
-                                className={`flex items-center justify-center flex-col xsm:flex-row gap-2 py-2.5 px-2 text-base xsm:py-4 md:justify-start md:px-8`}
+                                className={`flex flex-col items-center justify-center gap-2 py-2.5 px-2 text-base xsm:flex-row xsm:py-4 md:justify-start md:px-8`}
                             >
                                 <div className='h-8 w-8 animate-pulse rounded-lg bg-gray-300 text-3xl' />
-                                <p className='xsm:h-7 h-3 w-full xsm:w-24 animate-pulse rounded-xl bg-gray-200 xsm:hidden md:block'></p>
+                                <p className='h-3 w-full animate-pulse rounded-xl bg-gray-200 xsm:hidden xsm:h-7 xsm:w-24 md:block'></p>
                             </li>
                             <li
-                                className={`flex items-center justify-center flex-col xsm:flex-row gap-2 py-2.5 px-2 text-base xsm:py-4 md:justify-start md:px-8`}
+                                className={`flex flex-col items-center justify-center gap-2 py-2.5 px-2 text-base xsm:flex-row xsm:py-4 md:justify-start md:px-8`}
                             >
                                 <div className='h-8 w-8 animate-pulse rounded-lg bg-gray-300 text-3xl' />
-                                <p className='xsm:h-7 h-3 w-full xsm:w-20 animate-pulse rounded-xl bg-gray-200 xsm:hidden md:block'></p>
+                                <p className='h-3 w-full animate-pulse rounded-xl bg-gray-200 xsm:hidden xsm:h-7 xsm:w-20 md:block'></p>
                             </li>
                             <li
-                                className={`flex items-center justify-center flex-col xsm:flex-row gap-2 py-2.5 px-2 text-base xsm:py-4 md:justify-start md:px-8`}
+                                className={`flex flex-col items-center justify-center gap-2 py-2.5 px-2 text-base xsm:flex-row xsm:py-4 md:justify-start md:px-8`}
                             >
                                 <div className='h-8 w-8 animate-pulse rounded-lg bg-gray-300 text-3xl' />
-                                <p className='xsm:h-7 h-3 w-full xsm:w-28 animate-pulse rounded-xl bg-gray-200 xsm:hidden md:block'></p>
+                                <p className='h-3 w-full animate-pulse rounded-xl bg-gray-200 xsm:hidden xsm:h-7 xsm:w-28 md:block'></p>
                             </li>
                             <li
-                                className={`flex items-center justify-center flex-col xsm:flex-row gap-2 py-2.5 px-2 text-base xsm:py-4 md:justify-start md:px-8`}
+                                className={`flex flex-col items-center justify-center gap-2 py-2.5 px-2 text-base xsm:flex-row xsm:py-4 md:justify-start md:px-8`}
                             >
                                 <div className='h-8 w-8 animate-pulse rounded-lg bg-gray-300 text-3xl' />
-                                <p className='xsm:h-7 h-3 w-full xsm:w-20 animate-pulse rounded-xl bg-gray-200 xsm:hidden md:block'></p>
+                                <p className='h-3 w-full animate-pulse rounded-xl bg-gray-200 xsm:hidden xsm:h-7 xsm:w-20 md:block'></p>
                             </li>
                             <li
-                                className={`flex items-center justify-center flex-col xsm:flex-row gap-2 py-2.5 px-2 text-base xsm:hidden xsm:py-4 md:justify-start md:px-8`}
+                                className={`flex flex-col items-center justify-center gap-2 py-2.5 px-2 text-base xsm:hidden xsm:flex-row xsm:py-4 md:justify-start md:px-8`}
                             >
                                 <div className='h-8 w-8 animate-pulse rounded-lg bg-gray-300 text-3xl' />
-                                <p className='xsm:h-7 h-3 w-full xsm:w-20 animate-pulse rounded-xl bg-gray-200 xsm:hidden md:block'></p>
+                                <p className='h-3 w-full animate-pulse rounded-xl bg-gray-200 xsm:hidden xsm:h-7 xsm:w-20 md:block'></p>
                             </li>
                         </ul>
                         <li

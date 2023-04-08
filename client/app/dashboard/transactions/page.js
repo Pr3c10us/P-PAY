@@ -32,8 +32,8 @@ const Transactions = () => {
         return <Loading />;
     }
     return (
-        <main className="flex h-full flex-col items-center scroll-smooth px-2 py-8 xl:flex-row xl:items-start xl:justify-center xl:gap-x-8">
-            <div id="top" className="h-0 w-0"></div>
+        <main className='flex h-full flex-col items-center scroll-smooth px-2 py-8 xl:flex-row xl:items-start xl:justify-center xl:gap-x-8'>
+            <div id='top' className='h-0 w-0'></div>
             <TransactionConfig
                 setPeriod={setPeriod}
                 setTransactionType={setTransactionType}
@@ -46,8 +46,8 @@ const Transactions = () => {
                 type={transactionType}
             />
             <a
-                href="#top"
-                className={`fixed bottom-4 right-4 rounded-full p-1 text-3xl text-secondary hover:text-secondary ${
+                href='#top'
+                className={`absolute bottom-20 right-4 scale-75 rounded-full border bg-secondary p-1 text-3xl text-white transition-all duration-200 hover:bg-black xsm:bottom-4 xsm:scale-100 ${
                     transactions.length <= 0 ? 'hidden' : null
                 }`}
             >

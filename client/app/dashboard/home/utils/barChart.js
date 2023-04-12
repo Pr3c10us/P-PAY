@@ -26,7 +26,6 @@ ChartJS.register(
 const BalanceBarChart = () => {
     const [date, setDate] = useState([]);
     const [balanceValues, setBalanceValues] = useState([]);
-    const [fillData, setFillData] = useState([]);
 
     const handleEffect = async (req, res) => {
         axios.defaults.withCredentials = true;

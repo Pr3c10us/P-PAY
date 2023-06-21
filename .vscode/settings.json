@@ -1,15 +1,16 @@
 {
-    "cSpell.words": [
-        "azurecomm",
-        "chartjs",
-        "firstname",
-        "lastname",
-        "nuban",
-        "ppay",
-        "uuidv"
-    ],
-    "appService.defaultWebAppToDeploy": "/subscriptions/07841854-6082-4a89-913a-78d07481044e/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/p-pay",
-    "appService.deploySubpath": "client",
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true
+  "cSpell.words": [
+    "azurecomm",
+    "chartjs",
+    "firstname",
+    "lastname",
+    "nuban",
+    "PAYSTACK",
+    "ppay",
+    "uuidv"
+  ],
+  "appService.defaultWebAppToDeploy": "/subscriptions/07841854-6082-4a89-913a-78d07481044e/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/p-pay",
+  "appService.deploySubpath": "client",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true
 }

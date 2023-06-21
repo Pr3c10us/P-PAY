@@ -2,15 +2,15 @@ const {
     NotFoundError,
     BadRequestError,
     UnAuthorizedError,
-} = require('../errors');
-const { User } = require('../models/userDetails');
-const Transaction = require('../models/transaction');
-const forgotPasswordMail = require('../utils/forgotPasswordMail');
-const jwt = require('jsonwebtoken');
-const emailClient = require('../azure/emailClient');
-const bcrypt = require('bcryptjs');
-const sendEmail = require('../utils/sendEmail');
-const verificationMail = require('../utils/verificationMail');
+} = require("../errors");
+const { User } = require("../models/userDetails");
+const Transaction = require("../models/transaction");
+const forgotPasswordMail = require("../utils/forgotPasswordMail");
+const jwt = require("jsonwebtoken");
+const emailClient = require("../azure/emailClient");
+const bcrypt = require("bcryptjs");
+const sendEmail = require("../utils/sendEmail");
+const verificationMail = require("../utils/verificationMail");
 
 const emailVerified = async (req, res) => {
     const { email } = req.query;
@@ -18,7 +18,7 @@ const emailVerified = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-        throw new NotFoundError('User with this email address does not exist');
+        throw new NotFoundError("User with this email address does not exist");
     }
 
     if (!user.emailVerified) {
@@ -34,7 +34,7 @@ const twoFactorVerified = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-        throw new NotFoundError('User with this email address does not exist');
+        throw new NotFoundError("User with this email address does not exist");
     }
 
     if (!user.twoFactorVerified) {
@@ -49,7 +49,7 @@ const forgotPassword = async (req, res) => {
 
     // check if email is provided
     if (!email) {
-        throw new BadRequestError('Provide Email address');
+        throw new BadRequestError("Provide Email address");
     }
 
     // get user info
@@ -64,14 +64,14 @@ const forgotPassword = async (req, res) => {
     const payload = { id: user.id };
     // create token
     const token = jwt.sign(payload, process.env.JWT_TOKEN, {
-        expiresIn: '10m',
+        expiresIn: "10m",
     });
 
     // Send the verification code to the user's email address with html
     const emailMessage = {
-        sender: 'P-PAY@4aee61a6-4270-459f-8b6e-febd4e48344d.azurecomm.net',
+        sender: "Pr3c10us@4cca2dd7-9162-4872-978a-023dba99a0d0.azurecomm.net",
         content: {
-            subject: 'P-PAY Reset Password',
+            subject: "P-PAY Reset Password",
             html: forgotPasswordMail(token, user.firstname),
         },
         recipients: {
@@ -92,21 +92,21 @@ const forgotPassword = async (req, res) => {
 
     const emailStatus = await emailClient.getSendStatus(messageId);
 
-    if (emailStatus.status !== 'Queued') {
+    if (emailStatus.status !== "Queued") {
         throw new BadRequestError(
-            'verification code failed to send. Check email and Try again'
+            "verification code failed to send. Check email and Try again"
         );
     }
 
     res.json({
-        msg: 'An email containing a link to reset your password has been sent to your mail',
+        msg: "An email containing a link to reset your password has been sent to your mail",
     });
 };
 
 const resetPassword = async (req, res) => {
     let { token, password } = req.body;
     if (!token || !password) {
-        throw new BadRequestError('Please provide all values');
+        throw new BadRequestError("Please provide all values");
     }
 
     // hash password
@@ -130,13 +130,13 @@ const resetPassword = async (req, res) => {
         user.password = password;
         await user.save();
 
-        res.json({ msg: 'Password reset Successful' });
+        res.json({ msg: "Password reset Successful" });
     } catch (error) {
-        if (error.name === 'TokenExpiredError') {
-            throw new UnAuthorizedError('This link has expired try again');
+        if (error.name === "TokenExpiredError") {
+            throw new UnAuthorizedError("This link has expired try again");
         }
-        if (error.name === 'JsonWebTokenError') {
-            throw new UnAuthorizedError('Unauthorized to perform action');
+        if (error.name === "JsonWebTokenError") {
+            throw new UnAuthorizedError("Unauthorized to perform action");
         }
         throw new Error();
     }
@@ -148,13 +148,13 @@ const pin = async (req, res) => {
     const { id } = req.user;
 
     if (!pin) {
-        throw new BadRequestError('Provide pin');
+        throw new BadRequestError("Provide pin");
     }
 
     const user = await User.findById(id);
-    if (isNew === 'yes') {
+    if (isNew === "yes") {
         if (user.pin) {
-            throw new BadRequestError('You Already have a pin');
+            throw new BadRequestError("You Already have a pin");
         }
     }
 
@@ -163,14 +163,14 @@ const pin = async (req, res) => {
     user.pin = pin;
     await user.save();
 
-    res.json({ msg: 'Pin saved' });
+    res.json({ msg: "Pin saved" });
 };
 
 const userDetails = async (req, res) => {
     const { id } = req.user;
 
     // get user info
-    const user = await User.findById(id, '-otp -password -__v -dob');
+    const user = await User.findById(id, "-otp -password -__v -dob");
 
     // return user details
     res.json({ user });
@@ -182,12 +182,12 @@ const getUser = async (req, res) => {
     // get user info
     const user = await User.findOne(
         { username },
-        'firstname lastname username -_id'
+        "firstname lastname username -_id"
     );
 
     // check if user exist
     if (!user) {
-        throw new NotFoundError('Account with this username does not exist');
+        throw new NotFoundError("Account with this username does not exist");
     }
 
     // return user details
@@ -204,10 +204,10 @@ const checkPin = async (req, res) => {
     const isMatch = await bcrypt.compareSync(pin, user.pin);
 
     if (!isMatch) {
-        throw new BadRequestError('You have entered a wrong pin');
+        throw new BadRequestError("You have entered a wrong pin");
     }
 
-    res.json({ msg: 'Pin is correct' });
+    res.json({ msg: "Pin is correct" });
 };
 
 const editProfile = async (req, res) => {
@@ -231,7 +231,7 @@ const editProfile = async (req, res) => {
 
         if (exist) {
             throw new BadRequestError(
-                'The username is already taken, try another'
+                "The username is already taken, try another"
             );
         }
         user.username = username;
@@ -263,7 +263,7 @@ const editProfile = async (req, res) => {
         }
     );
 
-    res.json({ msg: 'Done' });
+    res.json({ msg: "Done" });
 };
 const changePassword = async (req, res) => {
     // get user id
@@ -271,7 +271,7 @@ const changePassword = async (req, res) => {
 
     const { oldPassword, newPassword } = req.body;
     if (!oldPassword || !newPassword) {
-        throw new BadRequestError('oldPassword and newPassword are required');
+        throw new BadRequestError("oldPassword and newPassword are required");
     }
 
     // get user info
@@ -280,7 +280,7 @@ const changePassword = async (req, res) => {
     // decrypt with bcrypt and check if old password is correct
     const isMatch = await bcrypt.compare(oldPassword, user.password);
     if (!isMatch) {
-        throw new BadRequestError('Old password is incorrect');
+        throw new BadRequestError("Old password is incorrect");
     }
 
     // hash new password
@@ -292,7 +292,7 @@ const changePassword = async (req, res) => {
     await user.save();
 
     res.status(200).json({
-        msg: 'Password successfully changed',
+        msg: "Password successfully changed",
     });
 };
 
@@ -302,7 +302,7 @@ const changePin = async (req, res) => {
 
     const { oldPin, newPin } = req.body;
     if (!oldPin || !newPin) {
-        throw new BadRequestError('oldPin and newPin are required');
+        throw new BadRequestError("oldPin and newPin are required");
     }
 
     // get user info
@@ -311,7 +311,7 @@ const changePin = async (req, res) => {
     // decrypt with bcrypt and check if old password is correct
     const isMatch = await bcrypt.compare(oldPin, user.pin);
     if (!isMatch) {
-        throw new BadRequestError('Old pin is incorrect');
+        throw new BadRequestError("Old pin is incorrect");
     }
 
     // hash new password
@@ -323,7 +323,7 @@ const changePin = async (req, res) => {
     await user.save();
 
     res.status(200).json({
-        msg: 'Pin successfully changed',
+        msg: "Pin successfully changed",
     });
 };
 const isPinSet = async (req, res) => {
@@ -352,5 +352,5 @@ module.exports = {
     editProfile,
     changePassword,
     changePin,
-    isPinSet
+    isPinSet,
 };

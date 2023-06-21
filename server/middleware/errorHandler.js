@@ -18,7 +18,7 @@ const errHandler = async (error, req, res, next) => {
     }
     if (error.code === 11000) {
         return res.status(400).json({
-            msg: ` ${Object.keys(error.keyValue)} Already Exists`,
+            msg: `${Object.keys(error.keyValue)} Already Exists`,
         });
     }
     if (error.code === 'MessageNotFound' && error.name === 'RestError') {

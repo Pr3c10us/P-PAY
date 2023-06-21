@@ -1,10 +1,10 @@
-const { BadRequestError, ForbiddenError, NotFoundError } = require('../errors');
-const { User } = require('../models/userDetails');
-const bcrypt = require('bcryptjs');
-const emailClient = require('../azure/emailClient');
-const verificationMail = require('../utils/verificationMail');
-const jwt = require('jsonwebtoken');
-const sendEmail = require('../utils/sendEmail');
+const { BadRequestError, ForbiddenError, NotFoundError } = require("../errors");
+const { User } = require("../models/userDetails");
+const bcrypt = require("bcryptjs");
+const emailClient = require("../azure/emailClient");
+const verificationMail = require("../utils/verificationMail");
+const jwt = require("jsonwebtoken");
+const sendEmail = require("../utils/sendEmail");
 
 const checkDuplicate = async (req, res) => {
     const { email, username } = req.query;
@@ -16,9 +16,9 @@ const checkDuplicate = async (req, res) => {
         });
 
         if (exist) {
-            throw new BadRequestError('Email already exists, Try another');
+            throw new BadRequestError("Email already exists, Try another");
         }
-        return res.status(200).json({ msg: 'clear' });
+        return res.status(200).json({ msg: "clear" });
     }
 
     if (username) {
@@ -29,19 +29,19 @@ const checkDuplicate = async (req, res) => {
 
         if (exist) {
             throw new BadRequestError(
-                'The username is already taken, try another'
+                "The username is already taken, try another"
             );
         }
-        return res.status(200).json({ msg: 'clear' });
+        return res.status(200).json({ msg: "clear" });
     }
 
-    res.send('clear');
+    res.send("clear");
 };
 
 const signup = async (req, res) => {
     // check if balance field is filled
     if (req.body.balance || req.body.emailVerified) {
-        throw new ForbiddenError('Forbidden field - Balance');
+        throw new ForbiddenError("Forbidden field - Balance");
     }
 
     // hash password and pin
@@ -61,10 +61,10 @@ const signup = async (req, res) => {
 
     // Send the verification code to the user's email address with html
     const emailMessage = {
-        sender: 'P-PAY@4aee61a6-4270-459f-8b6e-febd4e48344d.azurecomm.net',
+        sender: "Pr3c10us@4cca2dd7-9162-4872-978a-023dba99a0d0.azurecomm.net",
         content: {
-            subject: 'P-PAY Verification Code',
-            html: verificationMail(code, req.body.email, 'emailVerification'),
+            subject: "P-PAY Verification Code",
+            html: verificationMail(code, req.body.email, "emailVerification"),
         },
         recipients: {
             to: [
@@ -82,7 +82,7 @@ const signup = async (req, res) => {
     await User.create(req.body);
 
     res.status(200).json({
-        msg: 'Created',
+        msg: "Created",
     });
 };
 
@@ -91,10 +91,10 @@ const sendCode = async (req, res) => {
     const { email, resend, authRoute } = req.query;
     // check if email is provided
     if (!email) {
-        throw new BadRequestError('Please provide a valid email address');
+        throw new BadRequestError("Please provide a valid email address");
     }
     if (!authRoute) {
-        throw new BadRequestError('Please provide a valid authRoute');
+        throw new BadRequestError("Please provide a valid authRoute");
     }
 
     // check if user exist
@@ -102,8 +102,8 @@ const sendCode = async (req, res) => {
     if (!user) {
         throw new NotFoundError(`User with this email address does not exist.`);
     }
-    if (user.otp[0] && (resend == 'no' || !resend)) {
-        return res.json({ msg: 'Sent already' });
+    if (user.otp[0] && (resend == "no" || !resend)) {
+        return res.json({ msg: "Sent already" });
     }
 
     // Generate a random 6-digit verification code and add too body
@@ -120,9 +120,9 @@ const sendCode = async (req, res) => {
 
     // Send the verification code to the user's email address with html
     const emailMessage = {
-        sender: 'P-PAY@4aee61a6-4270-459f-8b6e-febd4e48344d.azurecomm.net',
+        sender: "Pr3c10us@4cca2dd7-9162-4872-978a-023dba99a0d0.azurecomm.net",
         content: {
-            subject: 'P-PAY Verification Code',
+            subject: "P-PAY Verification Code",
             html: verificationMail(code, email, authRoute),
         },
         recipients: {
@@ -137,7 +137,7 @@ const sendCode = async (req, res) => {
     // send email
     await sendEmail(emailMessage);
 
-    res.json({ msg: 'sent' });
+    res.json({ msg: "sent" });
 };
 
 const verifyCode = async (req, res) => {
@@ -146,7 +146,7 @@ const verifyCode = async (req, res) => {
     // check if they provided all values
     if (!email || !code) {
         throw new BadRequestError(
-            'Please provide a valid email address and otp code'
+            "Please provide a valid email address and otp code"
         );
     }
 
@@ -159,11 +159,11 @@ const verifyCode = async (req, res) => {
 
     // Check if the code is correct
     if (code !== user.otp[0]) {
-        throw new BadRequestError('The code provided is incorrect');
+        throw new BadRequestError("The code provided is incorrect");
     }
     // Check if the code has expired
     if (Date.now() > user.otp[1]) {
-        throw new BadRequestError('Code has expired, Request a new one');
+        throw new BadRequestError("Code has expired, Request a new one");
     }
 
     // if email is unverified change to verified
@@ -178,7 +178,7 @@ const verifyCode = async (req, res) => {
     await user.save();
 
     res.json({
-        msg: 'The code you entered is correct',
+        msg: "The code you entered is correct",
     });
 };
 
@@ -186,7 +186,7 @@ const login = async (req, res) => {
     const { email, password } = req.body;
     // Check if email and password are provided
     if (!email || !password) {
-        throw new BadRequestError('Please provide your email and password');
+        throw new BadRequestError("Please provide your email and password");
     }
 
     // get user info of provided email
@@ -194,13 +194,13 @@ const login = async (req, res) => {
 
     // check if user exist
     if (!user) {
-        throw new NotFoundError('User with email address does not exist');
+        throw new NotFoundError("User with email address does not exist");
     }
 
     // check if password match
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-        throw new BadRequestError('The password you entered is incorrect');
+        throw new BadRequestError("The password you entered is incorrect");
     }
 
     // Make twoFactorVerified false
@@ -210,9 +210,9 @@ const login = async (req, res) => {
     // create payload for jwt
     const payload = { id: user.id };
 
-    const token = jwt.sign(payload, process.env.JWT_TOKEN, { expiresIn: '1d' });
+    const token = jwt.sign(payload, process.env.JWT_TOKEN, { expiresIn: "1d" });
 
-    res.cookie('token', token, {
+    res.cookie("token", token, {
         maxAge: 1000 * 60 * 60 * 24,
         httpOnly: false,
         // secure: true,
@@ -220,14 +220,14 @@ const login = async (req, res) => {
         // sameSite: 'none',
         // domain: 'https://p-pay-pr3c10us.vercel.app',
     }).json({
-        msg: 'Login Successful',
+        msg: "Login Successful",
     });
 };
 
 const logout = async (req, res) => {
-    res.cookie('token', '', {
+    res.cookie("token", "", {
         expires: new Date(Date.now() + 1000),
-    }).json({ msg: 'Successfully Logged Out!!!' });
+    }).json({ msg: "Successfully Logged Out!!!" });
 };
 
 module.exports = {
